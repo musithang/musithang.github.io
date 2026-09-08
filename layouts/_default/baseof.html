@@ -19,7 +19,10 @@
 </head>
 <body>
   <div class="site-wrapper">
-    {{ block "main" . }}{{ end }}
+    {{ partial "sidebar.html" . }}
+    <div class="site-main">
+      {{ block "main" . }}{{ end }}
+    </div>
   </div>
 </body>
 </html>

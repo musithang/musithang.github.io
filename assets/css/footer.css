@@ -1,0 +1,106 @@
+.footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  padding: 40px 40px 26px;
+  transition: background var(--theme-transition);
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(239, 233, 221, 0.18);
+}
+
+.footer__logo {
+  font-family: var(--font-archivo);
+  font-weight: 900;
+  font-size: 34px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.footer__desc {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--footer-muted);
+  text-transform: uppercase;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.footer__deco {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer__col-title {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.footer__link {
+  display: block;
+  font-size: 13px;
+  padding: 5px 0;
+  color: var(--footer-text);
+  transition: color 0.15s;
+}
+
+.footer__link:hover {
+  color: var(--accent);
+}
+
+.footer__subscribe-desc {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--footer-muted);
+  margin: 0 0 14px;
+}
+
+.footer__rss-btn {
+  display: block;
+  width: 100%;
+  background: var(--accent);
+  color: var(--ink);
+  border: none;
+  padding: 11px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+  transition: opacity 0.15s;
+}
+
+.footer__rss-btn:hover {
+  opacity: 0.9;
+}
+
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--footer-muted);
+  text-transform: uppercase;
+}
+
+.footer__id {
+  letter-spacing: 0.2em;
+}

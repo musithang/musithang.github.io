@@ -54,7 +54,7 @@
   bottom: 0;
   right: 0;
   left: auto;
-  width: min(46%, 440px);
+  width: min(46%, 100%);
   mask-image: linear-gradient(to right, transparent 0%, black 42%, black 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 42%, black 100%);
   background-size: cover;

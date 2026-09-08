@@ -1,0 +1,57 @@
+<script>
+(function() {
+  var saved = localStorage.getItem('theme');
+  if (saved) {
+    document.documentElement.setAttribute('data-theme', saved);
+    updateThemeLabel(saved);
+  }
+
+  document.getElementById('theme-toggle').addEventListener('click', function() {
+    var current = document.documentElement.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateThemeLabel(next);
+  });
+
+  function updateThemeLabel(theme) {
+    var label = document.querySelector('.theme-label');
+    if (label) label.textContent = theme === 'dark' ? 'Dark' : 'Light';
+  }
+
+  var overlay = document.getElementById('search-overlay');
+  var input = document.getElementById('search-input');
+
+  document.getElementById('search-toggle').addEventListener('click', function() {
+    overlay.classList.toggle('open');
+    if (overlay.classList.contains('open')) input.focus();
+  });
+
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      overlay.classList.toggle('open');
+      if (overlay.classList.contains('open')) input.focus();
+    }
+    if (e.key === 'Escape') overlay.classList.remove('open');
+  });
+
+  var segs = document.querySelectorAll('.reading-progress__seg');
+  if (segs.length) {
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      var pct = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+      var filled = Math.floor(pct * segs.length);
+      for (var i = 0; i < segs.length; i++) {
+        if (i < filled) segs[i].classList.add('reading-progress__seg--filled');
+        else segs[i].classList.remove('reading-progress__seg--filled');
+      }
+    });
+  }
+})();
+</script>

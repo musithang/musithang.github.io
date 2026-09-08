@@ -1,11 +1,13 @@
 .reading-progress {
   display: flex;
   gap: 2px;
-  padding: 0 40px;
+  padding: 0;
   height: 8px;
   align-items: stretch;
-  border-bottom: 1px solid var(--line);
   background: var(--paper);
+  flex-basis: 100%;
+  order: 10;
+  margin: 0 -40px;
 }
 
 .reading-progress__seg {

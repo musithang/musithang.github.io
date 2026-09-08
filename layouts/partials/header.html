@@ -23,4 +23,11 @@
       <span class="theme-label">Light</span>
     </button>
   </nav>
+  {{ if .IsPage }}
+  <div class="reading-progress" id="reading-progress">
+    {{ range seq 14 }}
+    <div class="reading-progress__seg" data-seg="{{ . }}"></div>
+    {{ end }}
+  </div>
+  {{ end }}
 </header>

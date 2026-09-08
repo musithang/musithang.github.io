@@ -5,9 +5,10 @@
   background: var(--paper);
   border-bottom: 1px solid var(--ink);
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  padding: 22px 40px 14px;
+  padding: 22px 40px 0;
   transition: background var(--theme-transition);
 }
 

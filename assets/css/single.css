@@ -27,10 +27,11 @@
 
 .single-post__number-dots {
   position: absolute;
-  top: -14px;
-  left: -14px;
-  width: 88px;
-  height: 88px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1.35em;
+  height: 1.35em;
   background-image: radial-gradient(var(--num-stroke) 1px, transparent 1px);
   background-size: 6px 6px;
   opacity: 0.5;

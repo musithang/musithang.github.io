@@ -1,13 +1,13 @@
 {{ $hash := md5 .Title }}
 {{ $chars := strings.Split $hash "" }}
-{{ $widths := dict "0" 1 "1" 2 "2" 3 "3" 1 "4" 2 "5" 3 "6" 1 "7" 2 "8" 3 "9" 1 "a" 2 "b" 3 "c" 1 "d" 2 "e" 3 "f" 1 }}
-<svg class="doc-barcode" width="90" height="14" viewBox="0 0 90 14" aria-hidden="true" focusable="false">
+{{ $widths := dict "0" 2 "1" 4 "2" 6 "3" 2 "4" 4 "5" 6 "6" 2 "7" 4 "8" 6 "9" 2 "a" 4 "b" 6 "c" 2 "d" 4 "e" 6 "f" 2 }}
+<svg class="doc-barcode" width="120" height="20" viewBox="0 0 120 20" aria-hidden="true" focusable="false">
   {{ $x := 0 }}
   {{ range $i, $c := $chars }}
-    {{ if lt $i 18 }}
+    {{ if lt $i 16 }}
       {{ $w := index $widths $c }}
-      <rect x="{{ $x }}" y="0" width="{{ $w }}" height="14" fill="currentColor"></rect>
-      {{ $x = add $x (add $w 2) }}
+      <rect x="{{ $x }}" y="0" width="{{ $w }}" height="20" fill="currentColor"></rect>
+      {{ $x = add $x (add $w 3) }}
     {{ end }}
   {{ end }}
 </svg>

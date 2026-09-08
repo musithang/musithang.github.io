@@ -10,9 +10,10 @@
 .footer::after {
   content: "+";
   position: absolute;
-  top: 16px;
+  top: 14px;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-weight: 600;
+  font-size: 24px;
   line-height: 1;
   color: rgba(239, 233, 221, 0.3);
 }

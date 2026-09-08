@@ -6,6 +6,7 @@ weight: 1
 tags: ["meta", "hello-world"]
 description: "You somehow found your way here, which says something about either your browsing habits or my SEO."
 rewrites: 1
+image: "posts/pics/f9d2be0ec54819ecbe43135c390a2c2d.jpg"
 ---
 
 You somehow found your way here, which says something about either your browsing habits or my SEO. Probably the former.

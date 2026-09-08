@@ -1,0 +1,50 @@
+baseURL = "https://musithang.github.io/"
+locale = "en-us"
+title = "MusiThang"
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    noClasses = false
+    style = "dracula"
+
+[permalinks]
+  posts = "/posts/:slug/"
+
+[[menu.main]]
+  name = "Index"
+  url = "/"
+  weight = 1
+
+[[menu.main]]
+  name = "Posts"
+  url = "/posts/"
+  weight = 2
+
+[[menu.main]]
+  name = "About"
+  url = "/about/"
+  weight = 3
+
+[params]
+  description = "Technology · Life · Whatever Else"
+  subtitle = "Personal Technical Archive"
+  issueNumber = "01"
+  volumeNumber = "01"
+  footerDocNumber = "MT-2026-BLOG"
+  tickerItems = [
+    "Now · rewriting the generator, again",
+    "Status · online",
+    "Coffee · critically low",
+    "Uptime · 41 days",
+  ]

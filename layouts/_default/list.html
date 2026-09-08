@@ -1,0 +1,11 @@
+{{ define "main" }}
+<section class="post-list">
+  <div class="post-list__header">
+    <span class="label-muted">Index of entries</span>
+    <span class="label-muted">{{ len .Pages }} filed · newest first</span>
+  </div>
+  {{ range .Pages }}
+    {{ partial "post-list-item.html" . }}
+  {{ end }}
+</section>
+{{ end }}

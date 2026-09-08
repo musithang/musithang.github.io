@@ -1,0 +1,31 @@
+.tag-index {
+  padding: 22px 40px 30px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.tag-index__title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  padding-right: 20px;
+  flex-shrink: 0;
+}
+
+.tag-index__link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  padding: 4px 14px;
+  border-left: 1px solid var(--line);
+  color: var(--ink);
+  transition: color 0.15s;
+}
+
+.tag-index__link:hover {
+  color: var(--accent);
+}

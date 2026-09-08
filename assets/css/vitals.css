@@ -1,0 +1,39 @@
+.vitals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  margin-top: 34px;
+}
+
+.vital {
+  padding: 18px 24px;
+  border-right: 1px solid var(--line);
+}
+
+.vital:last-child {
+  border-right: none;
+}
+
+.vital__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+
+.vital__pct {
+  font-family: var(--font-grotesk);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.vital__bar {
+  height: 7px;
+  background: var(--track-bg);
+}
+
+.vital__fill {
+  height: 100%;
+  background: var(--accent);
+}

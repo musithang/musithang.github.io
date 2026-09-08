@@ -1,0 +1,14 @@
+{{ $allTags := slice }}
+{{ range where .Site.RegularPages "Section" "posts" }}
+  {{ range .Params.tags }}
+    {{ $allTags = $allTags | append . }}
+  {{ end }}
+{{ end }}
+{{ $uniqueTags := $allTags | uniq | sort }}
+
+<section class="tag-index">
+  <span class="tag-index__title">Tag index</span>
+  {{ range $uniqueTags }}
+  <a href="{{ "tags/" | relURL }}{{ . | urlize }}/" class="tag-index__link">{{ . }}</a>
+  {{ end }}
+</section>

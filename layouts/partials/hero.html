@@ -1,0 +1,32 @@
+<section class="hero">
+  <div class="hero__circle"></div>
+  <div class="hero__circle-dots"></div>
+  <div class="hero__content">
+    <div class="hero__top">
+      <span class="num-stroke hero__number">{{ .Site.Params.issueNumber }}</span>
+      <div>
+        <div class="label-muted hero__issue-label">Issue No. {{ .Site.Params.issueNumber }} — {{ .Site.Params.subtitle }}</div>
+        <h1 class="hero__title">Notes from a machine that mostly works</h1>
+        <p class="hero__desc">Radios, kernels, self-hosted things, and the occasional confession. Filed here so I stop explaining it twice.</p>
+      </div>
+    </div>
+  </div>
+  <div class="hero__specs">
+    <div class="hero__spec">
+      <div class="label-accent">Issue</div>
+      <div class="hero__spec-value">No. {{ .Site.Params.issueNumber }} / 2026</div>
+    </div>
+    <div class="hero__spec">
+      <div class="label-accent">Entries filed</div>
+      <div class="hero__spec-value">{{ len (where .Site.RegularPages "Section" "posts") | printf "%02d" }}</div>
+    </div>
+    <div class="hero__spec">
+      <div class="label-accent">Built with</div>
+      <div class="hero__spec-value">Hugo · GH Pages</div>
+    </div>
+    <div class="hero__spec">
+      <div class="label-accent">Status</div>
+      <div class="hero__spec-value">Actively neglected</div>
+    </div>
+  </div>
+</section>

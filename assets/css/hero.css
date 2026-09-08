@@ -31,6 +31,25 @@
   max-width: 880px;
 }
 
+.hero__content::before,
+.hero__content::after {
+  content: "+";
+  position: absolute;
+  left: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1;
+  color: var(--line);
+}
+
+.hero__content::before {
+  top: 8px;
+}
+
+.hero__content::after {
+  bottom: 8px;
+}
+
 .hero__top {
   display: flex;
   align-items: flex-start;

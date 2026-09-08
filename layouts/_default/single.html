@@ -3,11 +3,18 @@
   <div class="single-post__header">
     <a href="/" class="back-link">← Back to index</a>
     <div class="single-post__title-block">
-      <span class="num-stroke single-post__number">{{ .Params.weight | printf "%02d" }}</span>
+      {{ if .Params.weight }}
+      <span class="num-stroke single-post__number"><span class="single-post__number-dots" aria-hidden="true"></span>{{- .Params.weight | printf "%02d" -}}</span>
       <div>
-        <div class="single-post__entry-meta">Entry MT-{{ .Params.weight | printf "%03d" }}{{ with .Params.tags }} · Filed under {{ index . 0 }}{{ end }}</div>
+        <div class="single-post__entry-meta-row">
+          <div class="single-post__entry-meta">Entry MT-{{ .Params.weight | printf "%03d" }}{{ with .Params.tags }} · Filed under {{ index . 0 }}{{ end }}</div>
+          {{ partial "doc-barcode.html" . }}
+        </div>
         <h1 class="single-post__title">{{ .Title }}</h1>
       </div>
+      {{ else }}
+      <h1 class="single-post__title">{{ .Title }}</h1>
+      {{ end }}
     </div>
     <div class="post-specs">
       <div class="post-spec">

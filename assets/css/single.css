@@ -19,8 +19,29 @@
 }
 
 .single-post__number {
+  position: relative;
+  z-index: 0;
   font-size: 78px;
   flex-shrink: 0;
+}
+
+.single-post__number-dots {
+  position: absolute;
+  top: -14px;
+  left: -14px;
+  width: 88px;
+  height: 88px;
+  background-image: radial-gradient(var(--num-stroke) 1px, transparent 1px);
+  background-size: 6px 6px;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.single-post__entry-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
 }
 
 .single-post__entry-meta {
@@ -29,7 +50,11 @@
   letter-spacing: 0.22em;
   color: var(--muted);
   text-transform: uppercase;
-  margin-bottom: 12px;
+}
+
+.doc-barcode {
+  color: var(--line);
+  flex-shrink: 0;
 }
 
 .single-post__title {

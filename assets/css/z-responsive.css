@@ -83,6 +83,11 @@
     font-size: 62px;
   }
 
+  .single-post__number-dots {
+    width: 72px;
+    height: 72px;
+  }
+
   .single-post__body {
     grid-template-columns: minmax(0, 1fr);
     gap: 30px;
@@ -263,6 +268,19 @@
 
   .single-post__number {
     font-size: 48px;
+  }
+
+  .single-post__number-dots {
+    width: 58px;
+    height: 58px;
+  }
+
+  .single-post__entry-meta-row {
+    flex-wrap: wrap;
+  }
+
+  .doc-barcode {
+    display: none;
   }
 
   .single-post__title {

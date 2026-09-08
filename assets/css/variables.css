@@ -1,0 +1,41 @@
+:root {
+  /* Colors - Light Theme */
+  --paper: #efe9dd;
+  --ink: #14120f;
+  --accent: #ff5a30;
+  --muted: #6f6a5e;
+  --line: rgba(20, 18, 15, 0.18);
+  --num-stroke: rgba(20, 18, 15, 0.32);
+  --panel: #f7f3ea;
+  --row-hover: rgba(20, 18, 15, 0.035);
+  --track-bg: rgba(20, 18, 15, 0.12);
+  --footer-bg: #14120f;
+  --footer-text: #efe9dd;
+  --footer-muted: #a09a8d;
+  --code-bg: #14120f;
+  --code-text: #d6d0c4;
+
+  /* Typography */
+  --font-archivo: 'Archivo', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-grotesk: 'Space Grotesk', sans-serif;
+
+  /* Layout */
+  --sidebar-width: 46px;
+  --ticker-height: 30px;
+
+  /* Transitions */
+  --theme-transition: 0.15s;
+}
+
+[data-theme="dark"] {
+  --paper: #14120f;
+  --ink: #efe9dd;
+  --muted: #a09a8d;
+  --line: rgba(239, 233, 221, 0.2);
+  --num-stroke: rgba(239, 233, 221, 0.4);
+  --panel: #1b1815;
+  --row-hover: rgba(239, 233, 221, 0.05);
+  --track-bg: rgba(239, 233, 221, 0.16);
+}

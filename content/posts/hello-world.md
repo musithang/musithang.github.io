@@ -5,6 +5,7 @@ draft: false
 weight: 1
 tags: ["meta", "hello-world"]
 description: "You somehow found your way here, which says something about either your browsing habits or my SEO."
+rewrites: 1
 ---
 
 You somehow found your way here, which says something about either your browsing habits or my SEO. Probably the former.

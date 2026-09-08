@@ -67,7 +67,7 @@
 
   /* Reading progress */
   .reading-progress {
-    padding: 0 24px;
+    margin: 14px -24px -12px;
   }
 
   /* Single post */
@@ -207,13 +207,18 @@
   }
 
   .post-item {
-    grid-template-columns: 1fr 34px;
-    gap: 12px;
+    grid-template-columns: 40px 1fr 30px;
+    gap: 10px;
     padding: 16px 16px;
   }
 
   .post-item__num {
-    display: none;
+    font-size: 22px;
+  }
+
+  .post-item__arrow {
+    width: 28px;
+    height: 28px;
   }
 
   .post-item__title {
@@ -244,7 +249,7 @@
 
   /* Single post */
   .reading-progress {
-    padding: 0 16px;
+    margin: 0 -16px -10px;
   }
 
   .single-post__header {

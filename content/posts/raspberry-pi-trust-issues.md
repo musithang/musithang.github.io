@@ -5,6 +5,7 @@ draft: false
 weight: 4
 tags: ["rust", "hardware", "sdr"]
 description: "It runs fine for weeks, then dies the exact moment I need it."
+rewrites: 2
 ---
 
 It runs fine for weeks, then dies the exact moment I need it. We have a diagnosis now, and it is not flattering to either of us.

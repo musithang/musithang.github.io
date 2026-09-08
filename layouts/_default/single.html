@@ -16,11 +16,11 @@
       </div>
       <div class="post-spec">
         <div class="label-accent">Reading time</div>
-        <div class="post-spec__value">{{ .ReadingTime }} minutes</div>
+        <div class="post-spec__value">{{ .ReadingTime }} {{ if eq .ReadingTime 1 }}minute{{ else }}minutes{{ end }}</div>
       </div>
       <div class="post-spec">
         <div class="label-accent">Rewrites</div>
-        <div class="post-spec__value">04 (so far)</div>
+        <div class="post-spec__value">{{ printf "%02d" (.Params.rewrites | default 1) }} (so far)</div>
       </div>
       <div class="post-spec">
         <div class="label-accent">Status</div>

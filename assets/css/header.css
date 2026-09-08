@@ -8,16 +8,27 @@
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  padding: 22px 40px 0;
+  padding: 22px 40px 14px;
   transition: background var(--theme-transition);
 }
 
 .reading-progress {
-  position: absolute;
-  bottom: 0;
-  left: -40px;
-  right: 0;
+  flex-basis: 100%;
+  display: flex;
+  gap: 2px;
   height: 8px;
+  align-items: stretch;
+  margin: 16px -40px -14px;
+}
+
+.reading-progress__seg {
+  flex: 1;
+  background: var(--line);
+  transition: background 0.1s;
+}
+
+.reading-progress__seg--filled {
+  background: var(--accent);
 }
 
 .header__brand a {

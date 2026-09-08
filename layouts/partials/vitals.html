@@ -1,23 +1,49 @@
+{{ $posts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+{{ $totalPosts := len $posts }}
+
+{{ $motivation := 15 }}
+{{ if gt $totalPosts 0 }}
+  {{ $cutoff := now.AddDate 0 0 -30 }}
+  {{ $recentCount := len (where $posts "Date" "ge" $cutoff) }}
+  {{ $motivation = math.Round (math.Min 100 (div (mul $recentCount 100.0) 4)) }}
+{{ end }}
+
+{{ $coffee := math.Max 5 (sub 100 $motivation) }}
+
+{{ $yakTags := slice "meta" "procrastination" "hugo" }}
+{{ $yakCount := 0 }}
+{{ range $posts }}
+  {{ $isYak := false }}
+  {{ range .Params.tags }}
+    {{ if in $yakTags . }}{{ $isYak = true }}{{ end }}
+  {{ end }}
+  {{ if $isYak }}{{ $yakCount = add $yakCount 1 }}{{ end }}
+{{ end }}
+{{ $yak := 10 }}
+{{ if gt $totalPosts 0 }}
+  {{ $yak = math.Round (div (mul $yakCount 100.0) $totalPosts) }}
+{{ end }}
+
 <section class="vitals">
   <div class="vital">
     <div class="vital__header">
       <span class="label-accent">Coffee reserves</span>
-      <span class="vital__pct">74%</span>
+      <span class="vital__pct">{{ printf "%.0f" $coffee }}%</span>
     </div>
-    <div class="vital__bar"><div class="vital__fill" style="width: 74%"></div></div>
+    <div class="vital__bar"><div class="vital__fill" style="width: {{ printf "%.0f" $coffee }}%"></div></div>
   </div>
   <div class="vital">
     <div class="vital__header">
       <span class="label-accent">Motivation index</span>
-      <span class="vital__pct">41%</span>
+      <span class="vital__pct">{{ printf "%.0f" $motivation }}%</span>
     </div>
-    <div class="vital__bar"><div class="vital__fill" style="width: 41%"></div></div>
+    <div class="vital__bar"><div class="vital__fill" style="width: {{ printf "%.0f" $motivation }}%"></div></div>
   </div>
   <div class="vital">
     <div class="vital__header">
       <span class="label-accent">Yak shaving</span>
-      <span class="vital__pct">92%</span>
+      <span class="vital__pct">{{ printf "%.0f" $yak }}%</span>
     </div>
-    <div class="vital__bar"><div class="vital__fill" style="width: 92%"></div></div>
+    <div class="vital__bar"><div class="vital__fill" style="width: {{ printf "%.0f" $yak }}%"></div></div>
   </div>
 </section>

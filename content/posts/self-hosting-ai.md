@@ -5,6 +5,7 @@ draft: false
 weight: 2
 tags: ["ai", "self-hosted"]
 description: "Running your own workspace is cheaper than a subscription and more expensive than your free time."
+rewrites: 3
 ---
 
 Running your own workspace is cheaper than a subscription and more expensive than your free time. Worth it. Mostly.

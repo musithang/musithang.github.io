@@ -5,6 +5,7 @@ draft: false
 weight: 3
 tags: ["hugo", "meta", "procrastination"]
 description: "Every static site generator is the same generator wearing a different hat."
+rewrites: 4
 ---
 
 Every blog engine I build starts the same way: full of hope, minimal dependencies, and a smug little README claiming it'll be the last one. It never is. This is number four.

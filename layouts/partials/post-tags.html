@@ -1,0 +1,10 @@
+{{ with .Params.tags }}
+<div>
+  <div class="aside-section__title">Filed under</div>
+  <div class="aside-tags">
+    {{ range . }}
+    <span class="tag">{{ . }}</span>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

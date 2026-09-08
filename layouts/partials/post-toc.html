@@ -1,0 +1,7 @@
+{{ $headers := .TableOfContents }}
+{{ if $headers }}
+<div>
+  <div class="aside-section__title">On this page</div>
+  {{ $headers | safeHTML }}
+</div>
+{{ end }}

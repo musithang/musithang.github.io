@@ -1,0 +1,21 @@
+{{ $weight := .Params.weight | default 0 }}
+{{ if gt $weight 0 }}
+<nav class="post-nav">
+  {{ $prev := first 1 (where .Site.RegularPages "Params.weight" (sub $weight 1)) }}
+  {{ with $prev }}
+  <a href="{{ (index . 0).Permalink }}" class="post-nav__prev">
+    <div class="post-nav__label">← Previous · {{ (index . 0).Params.weight | printf "%03d" }}</div>
+    <div class="post-nav__title">{{ (index . 0).Title }}</div>
+  </a>
+  {{ else }}
+  <div></div>
+  {{ end }}
+  {{ $next := first 1 (where .Site.RegularPages "Params.weight" (add $weight 1)) }}
+  {{ with $next }}
+  <a href="{{ (index . 0).Permalink }}" class="post-nav__next">
+    <div class="post-nav__label">Next · {{ (index . 0).Params.weight | printf "%03d" }} →</div>
+    <div class="post-nav__title">{{ (index . 0).Title }}</div>
+  </a>
+  {{ end }}
+</nav>
+{{ end }}

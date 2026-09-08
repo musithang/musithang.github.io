@@ -35,10 +35,16 @@
   background-image: repeating-linear-gradient(180deg, var(--line) 0 2px, transparent 2px 6px);
 }
 
+/* .post-item__body is capped well below its 1fr grid track (see below)
+   so the title/excerpt text has a hard, viewport-independent right edge
+   at 116px (num + gap) + 480px = 596px. The decorations below are then
+   anchored past that fixed point, so they can never sit under the text
+   AND never reach into the meta column (date/tags), regardless of how
+   wide or narrow the row itself ends up being. */
 .post-item__vhs-barcode {
   position: absolute;
   top: 50%;
-  left: 68%;
+  left: 640px;
   transform: translateY(-50%);
   color: var(--muted);
 }
@@ -52,11 +58,10 @@
 .post-item__vhs--photo {
   top: 0;
   bottom: 0;
-  right: 0;
-  left: auto;
-  width: min(46%, 100%);
-  mask-image: linear-gradient(to right, transparent 0%, black 42%, black 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 42%, black 100%);
+  left: 640px;
+  width: 240px;
+  mask-image: linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%);
   background-size: cover;
   background-position: center;
   filter: grayscale(0.85) contrast(1.05) sepia(0.12);
@@ -66,6 +71,10 @@
 .post-item__num {
   font-size: 38px;
   -webkit-text-stroke: 1.2px var(--num-stroke);
+}
+
+.post-item__body {
+  max-width: 480px;
 }
 
 .post-item__title {
@@ -82,7 +91,6 @@
   line-height: 1.7;
   color: var(--muted);
   margin: 0;
-  max-width: 560px;
 }
 
 .post-item__meta {

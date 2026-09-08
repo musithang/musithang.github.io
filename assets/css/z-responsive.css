@@ -2,6 +2,17 @@
    RESPONSIVE — tablet ≤1024px, mobile ≤640px
    ═══════════════════════════════════════════════════ */
 
+/* Post-item photo/barcode decorations need ~1300px of row width to sit
+   clear of both the text column and the meta column at once (see the
+   comment above .post-item__vhs-barcode in post-list.css) - below that
+   there isn't a safe gap for them, so hide rather than risk overlap. */
+@media (max-width: 1300px) {
+  .post-item__vhs-barcode,
+  .post-item__vhs--photo {
+    display: none;
+  }
+}
+
 /* ── TABLET ≤ 1024px ────────────────────────────── */
 @media (max-width: 1024px) {
 
@@ -52,10 +63,6 @@
     opacity: 0.55;
     mask-image: linear-gradient(to right, transparent 0%, transparent 62%, black 90%, black 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 62%, black 90%, black 100%);
-  }
-
-  .post-item__vhs-barcode {
-    display: none;
   }
 
   .post-item__meta {
@@ -226,10 +233,6 @@
     opacity: 0.45;
     mask-image: linear-gradient(to right, transparent 0%, transparent 72%, black 94%, black 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 72%, black 94%, black 100%);
-  }
-
-  .post-item__vhs--photo {
-    width: 42%;
   }
 
   .post-item__num {

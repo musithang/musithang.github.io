@@ -23,15 +23,15 @@
 
 .post-item__vhs {
   position: absolute;
-  inset: 0;
   z-index: -1;
   opacity: 0.75;
   pointer-events: none;
-  mask-image: linear-gradient(to right, transparent 0%, transparent 6%, rgba(0, 0, 0, 0.55) 48%, black 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 6%, rgba(0, 0, 0, 0.55) 48%, black 100%);
 }
 
 .post-item__vhs--generated {
+  inset: 0;
+  mask-image: linear-gradient(to right, transparent 0%, transparent 6%, rgba(0, 0, 0, 0.55) 48%, black 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 6%, rgba(0, 0, 0, 0.55) 48%, black 100%);
   background-image:
     radial-gradient(circle at 84% 50%, transparent 0 12px, hsl(var(--vhs-hue) 45% 38% / 0.55) 12px 13px, transparent 14px),
     radial-gradient(circle at 62% 50%, transparent 0 12px, hsl(var(--vhs-hue) 45% 38% / 0.55) 12px 13px, transparent 14px),
@@ -40,6 +40,13 @@
 }
 
 .post-item__vhs--photo {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: auto;
+  width: min(46%, 440px);
+  mask-image: linear-gradient(to right, transparent 0%, black 42%, black 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 42%, black 100%);
   background-size: cover;
   background-position: center;
   filter: grayscale(0.85) contrast(1.05) sepia(0.12);

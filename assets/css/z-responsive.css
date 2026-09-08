@@ -48,7 +48,7 @@
     padding: 20px 24px;
   }
 
-  .post-item__vhs {
+  .post-item__vhs--generated {
     opacity: 0.55;
     mask-image: linear-gradient(to right, transparent 0%, transparent 62%, black 90%, black 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 62%, black 90%, black 100%);
@@ -218,10 +218,14 @@
     padding: 16px 16px;
   }
 
-  .post-item__vhs {
+  .post-item__vhs--generated {
     opacity: 0.45;
     mask-image: linear-gradient(to right, transparent 0%, transparent 72%, black 94%, black 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 72%, black 94%, black 100%);
+  }
+
+  .post-item__vhs--photo {
+    width: 42%;
   }
 
   .post-item__num {

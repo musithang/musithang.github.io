@@ -21,6 +21,7 @@
   <div class="site-wrapper">
     {{ partial "sidebar.html" . }}
     <div class="site-main">
+      {{ partial "header.html" . }}
       {{ block "main" . }}{{ end }}
     </div>
   </div>

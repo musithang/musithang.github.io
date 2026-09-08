@@ -54,6 +54,10 @@
     -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 62%, black 90%, black 100%);
   }
 
+  .post-item__vhs-barcode {
+    display: none;
+  }
+
   .post-item__meta {
     display: none;
   }

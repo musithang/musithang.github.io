@@ -1,6 +1,7 @@
+{{ $thumb := partial "post-thumbnail.html" . }}
 <a href="{{ .Permalink }}" class="post-item">
-  {{ if .Params.image }}
-  <div class="post-item__vhs post-item__vhs--photo" style="background-image: url('{{ .Params.image | relURL }}');" aria-hidden="true"></div>
+  {{ if $thumb }}
+  <div class="post-item__vhs post-item__vhs--photo" style="background-image: url('{{ $thumb }}');" aria-hidden="true"></div>
   {{ else }}
   <div class="post-item__vhs post-item__vhs--generated" style="--vhs-hue: {{ partial "vhs-hue.html" . }};" aria-hidden="true"></div>
   {{ end }}

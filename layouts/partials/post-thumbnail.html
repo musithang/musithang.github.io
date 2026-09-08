@@ -1,0 +1,18 @@
+{{- $thumb := "" -}}
+{{- if .Params.image -}}
+  {{- $thumb = .Params.image | relURL -}}
+{{- else -}}
+  {{- $tags := findRE "<img[^>]*>" .Content 1 -}}
+  {{- if $tags -}}
+    {{- $srcAttrs := findRE "src=\"[^\"]*\"" (index $tags 0) 1 -}}
+    {{- if $srcAttrs -}}
+      {{- $src := index $srcAttrs 0 | strings.TrimPrefix "src=\"" | strings.TrimSuffix "\"" -}}
+      {{- if or (strings.HasPrefix $src "http") (strings.HasPrefix $src "/") -}}
+        {{- $thumb = $src -}}
+      {{- else -}}
+        {{- $thumb = path.Join .RelPermalink $src -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $thumb -}}

@@ -3,8 +3,14 @@ locale = "en-us"
 title = "MusiThang"
 
 [outputs]
-  home = ["HTML", "RSS"]
+  home = ["HTML", "RSS", "robots"]
   section = ["HTML", "RSS"]
+
+[outputFormats]
+  [outputFormats.robots]
+    mediaType = "text/plain"
+    baseName = "robots"
+    isPlainText = true
 
 [taxonomies]
   tag = "tags"

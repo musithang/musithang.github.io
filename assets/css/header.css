@@ -12,6 +12,14 @@
   transition: background var(--theme-transition);
 }
 
+.reading-progress {
+  position: absolute;
+  bottom: 0;
+  left: -40px;
+  right: 0;
+  height: 8px;
+}
+
 .header__brand a {
   display: block;
 }

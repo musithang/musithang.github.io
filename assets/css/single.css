@@ -5,9 +5,6 @@
   height: 8px;
   align-items: stretch;
   background: var(--paper);
-  flex-basis: 100%;
-  order: 10;
-  margin: 0 -40px;
 }
 
 .reading-progress__seg {

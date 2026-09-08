@@ -6,4 +6,5 @@ weight:
 tags: []
 description: ""
 rewrites: 1
+image: ""
 ---

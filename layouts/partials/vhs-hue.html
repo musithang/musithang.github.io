@@ -1,0 +1,7 @@
+{{- $hexVal := dict "0" 0 "1" 1 "2" 2 "3" 3 "4" 4 "5" 5 "6" 6 "7" 7 "8" 8 "9" 9 "a" 10 "b" 11 "c" 12 "d" 13 "e" 14 "f" 15 -}}
+{{- $chars := strings.Split (md5 .Title) "" -}}
+{{- $d0 := index $hexVal (index $chars 0) -}}
+{{- $d1 := index $hexVal (index $chars 1) -}}
+{{- $d2 := index $hexVal (index $chars 2) -}}
+{{- $raw := add (add (mul $d0 256) (mul $d1 16)) $d2 -}}
+{{- mod $raw 360 -}}

@@ -1,4 +1,9 @@
 <a href="{{ .Permalink }}" class="post-item">
+  {{ if .Params.image }}
+  <div class="post-item__vhs post-item__vhs--photo" style="background-image: url('{{ .Params.image | relURL }}');" aria-hidden="true"></div>
+  {{ else }}
+  <div class="post-item__vhs post-item__vhs--generated" style="--vhs-hue: {{ partial "vhs-hue.html" . }};" aria-hidden="true"></div>
+  {{ end }}
   <div class="post-item__num num-stroke">{{ .Params.weight | printf "%02d" }}</div>
   <div class="post-item__body">
     <h3 class="post-item__title">{{ .Title }}</h3>

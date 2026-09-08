@@ -6,6 +6,8 @@
 }
 
 .post-item {
+  position: relative;
+  z-index: 0;
   display: grid;
   grid-template-columns: 92px 1fr 190px 44px;
   gap: 24px;
@@ -17,6 +19,31 @@
 
 .post-item:hover {
   background: var(--row-hover);
+}
+
+.post-item__vhs {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.75;
+  pointer-events: none;
+  mask-image: linear-gradient(to right, transparent 0%, transparent 6%, rgba(0, 0, 0, 0.55) 48%, black 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 6%, rgba(0, 0, 0, 0.55) 48%, black 100%);
+}
+
+.post-item__vhs--generated {
+  background-image:
+    radial-gradient(circle at 84% 50%, transparent 0 12px, hsl(var(--vhs-hue) 45% 38% / 0.55) 12px 13px, transparent 14px),
+    radial-gradient(circle at 62% 50%, transparent 0 12px, hsl(var(--vhs-hue) 45% 38% / 0.55) 12px 13px, transparent 14px),
+    repeating-linear-gradient(180deg, hsl(var(--vhs-hue) 30% 28% / 0.16) 0 2px, transparent 2px 6px),
+    linear-gradient(90deg, transparent 0%, hsl(var(--vhs-hue) 55% 45% / 0.14) 100%);
+}
+
+.post-item__vhs--photo {
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(0.85) contrast(1.05) sepia(0.12);
+  mix-blend-mode: luminosity;
 }
 
 .post-item__num {

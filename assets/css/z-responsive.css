@@ -181,6 +181,23 @@
     padding: 8px 16px;
   }
 
+  .terminal__nav {
+    width: 100%;
+  }
+
+  .terminal__nav-links,
+  .terminal__nav-tools {
+    width: 100%;
+  }
+
+  .terminal__nav-link,
+  .terminal__query,
+  .terminal__theme {
+    flex: 1 1 auto;
+    justify-content: center;
+    padding: 10px 12px;
+  }
+
   .terminal__main {
     padding: 20px 16px;
   }
@@ -247,8 +264,13 @@
   /* Station header: stack the callsign row and shrink the strips */
   .station__main {
     flex-wrap: wrap;
-    gap: 12px;
-    padding: 12px 16px;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .station__id {
+    gap: 10px;
+    width: 100%;
   }
 
   .station__wordmark {
@@ -256,17 +278,21 @@
   }
 
   .station__tagline {
-    font-size: 8px;
+    font-size: 7px;
+    letter-spacing: 0.14em;
   }
 
   .station__nav {
     width: 100%;
     align-items: stretch;
+    gap: 4px;
   }
 
   .station__nav-link,
   .station__theme {
-    padding: 8px 10px;
+    padding: 7px 9px;
+    font-size: 9px;
+    letter-spacing: 0.12em;
   }
 
   .station__nav-link {

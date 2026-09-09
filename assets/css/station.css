@@ -139,6 +139,13 @@
   font: inherit;
   letter-spacing: inherit;
   text-transform: inherit;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.station__nav-link:hover,
+.station__nav-link:focus-visible {
+  background: var(--row-hover);
+  color: var(--accent);
 }
 
 .station__nav-link:first-child {
@@ -149,6 +156,12 @@
   background: var(--ink);
   color: var(--paper);
   border-color: var(--ink);
+}
+
+.station__nav-link--active:hover,
+.station__nav-link--active:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
 }
 
 .station__theme {
@@ -163,6 +176,22 @@
   font: inherit;
   letter-spacing: inherit;
   text-transform: inherit;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.station__theme:hover,
+.station__theme:focus-visible {
+  background: var(--row-hover);
+  color: var(--accent);
+}
+
+.station__nav-link:focus-visible,
+.station__theme:focus-visible,
+.station__feed:focus-visible,
+.station__latest:focus-visible,
+.station__id:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
 }
 
 /* ── Instrument strip ─────────────────────────────── */

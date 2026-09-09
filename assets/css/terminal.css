@@ -274,11 +274,13 @@
   padding: 12px 22px;
   color: var(--footer-text);
   border-right: 1px solid rgba(239, 233, 221, 0.2);
-  transition: color 0.15s;
+  transition: color 0.15s, background 0.15s;
 }
 
-.terminal__nav-link:hover {
+.terminal__nav-link:hover,
+.terminal__nav-link:focus-visible {
   color: var(--accent);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .terminal__nav-link--active {
@@ -305,6 +307,22 @@
   font: inherit;
   letter-spacing: inherit;
   text-transform: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.terminal__query:hover,
+.terminal__theme:hover,
+.terminal__query:focus-visible,
+.terminal__theme:focus-visible {
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--accent);
+}
+
+.terminal__nav-link:focus-visible,
+.terminal__query:focus-visible,
+.terminal__theme:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
 }
 
 .terminal__nav .theme-switch {

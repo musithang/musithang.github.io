@@ -17,7 +17,11 @@
           {{ partial "terminal-corridor.html" . }}
         </span>
         <span>
-          <span class="station__wordmark" data-wordmark="MusiThang">MusiThang</span>
+          <span class="station__wordmark">
+            <span class="station__wordmark-layer station__wordmark-layer--cyan" aria-hidden="true">MusiThang</span>
+            <span class="station__wordmark-layer station__wordmark-layer--orange" aria-hidden="true">MusiThang</span>
+            <span class="station__wordmark-base">MusiThang</span>
+          </span>
           <span class="station__tagline">Technical archive ledger · {{ .Site.Params.shelfCode }} · {{ .Site.Params.geoCoords }}</span>
         </span>
       </a>

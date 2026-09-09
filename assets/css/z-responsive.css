@@ -334,7 +334,7 @@
   .post-spec {
     min-width: 0;
     padding: 12px;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--paper);
   }
 
   .post-spec:nth-child(2n) {

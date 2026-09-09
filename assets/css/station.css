@@ -160,27 +160,30 @@
   text-transform: uppercase;
 }
 
-.station__wordmark::before,
-.station__wordmark::after {
-  content: attr(data-wordmark);
+.station__wordmark-layer {
   position: absolute;
   inset: 0;
   z-index: -1;
   pointer-events: none;
 }
 
-.station__wordmark::before {
+.station__wordmark-layer--cyan {
   color: #6d9695;
   transform: translate(-2px, 1px);
   clip-path: inset(0 42% 48% 0);
   opacity: 0.85;
 }
 
-.station__wordmark::after {
+.station__wordmark-layer--orange {
   color: var(--accent);
   transform: translate(2px, -1px);
   clip-path: inset(48% 0 0 42%);
   opacity: 0.85;
+}
+
+.station__wordmark-base {
+  position: relative;
+  z-index: 1;
 }
 
 .station__tagline {

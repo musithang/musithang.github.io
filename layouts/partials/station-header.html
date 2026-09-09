@@ -12,10 +12,8 @@
     <div class="station__spine">Shelf A</div>
     <div class="station__main">
       <a href="/" class="station__id">
-        <span class="station__radar" aria-hidden="true">
-          <span class="station__radar-ring"></span>
-          <span class="station__radar-sweep"></span>
-          <span class="station__radar-dot"></span>
+        <span class="station__gridmark" aria-hidden="true">
+          {{ partial "terminal-corridor.html" . }}
         </span>
         <span>
           <span class="station__wordmark">MusiThang</span>

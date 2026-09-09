@@ -1,6 +1,5 @@
 :root {
-  --station-header-offset: 78px;
-  --station-header-offset-mobile: 108px;
+  --sticky-header-offset: 0px;
 }
 
 .station {
@@ -318,7 +317,7 @@
 
 .reading-progress {
   position: fixed;
-  top: var(--station-header-offset);
+  top: var(--sticky-header-offset);
   left: 0;
   right: 0;
   z-index: 19;

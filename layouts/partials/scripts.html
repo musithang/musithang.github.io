@@ -14,6 +14,19 @@
     updateThemeLabel(next);
   });
 
+  function syncStickyHeaderOffset() {
+    var header = document.querySelector('.station__row, .terminal');
+    if (!header) return;
+    var offset = Math.ceil(header.getBoundingClientRect().height);
+    document.documentElement.style.setProperty('--sticky-header-offset', offset + 'px');
+  }
+
+  window.addEventListener('load', syncStickyHeaderOffset);
+  window.addEventListener('resize', syncStickyHeaderOffset);
+  if (document.fonts) {
+    document.fonts.ready.then(syncStickyHeaderOffset);
+  }
+
   function updateThemeLabel(theme) {
     var label = document.querySelector('.theme-label');
     if (label) label.textContent = theme === 'dark' ? 'Dark' : 'Light';

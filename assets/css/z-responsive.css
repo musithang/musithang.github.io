@@ -4,14 +4,6 @@
 
 /* ── TABLET ≤ 1024px ────────────────────────────── */
 @media (max-width: 1024px) {
-  :root {
-    --station-header-offset: 72px;
-  }
-
-  .reading-progress {
-    top: var(--station-header-offset);
-  }
-
   /* Station header: drop the shelf spine, tighten the callsign row */
   .station__spine {
     display: none;
@@ -127,10 +119,6 @@
     font-size: 38px;
   }
 
-  .archive-filter {
-    top: var(--station-header-offset);
-  }
-
   /* Tag index */
   .tag-index {
     padding: 18px 24px 24px;
@@ -185,14 +173,6 @@
 
 /* ── MOBILE ≤ 640px ─────────────────────────────── */
 @media (max-width: 640px) {
-  :root {
-    --station-header-offset: var(--station-header-offset-mobile);
-  }
-
-  .reading-progress {
-    top: var(--station-header-offset);
-  }
-
   /* Terminal panel: full rework for narrow screens */
   .terminal__statusbar {
     flex-direction: column;
@@ -380,7 +360,6 @@
   }
 
   .archive-filter {
-    top: var(--station-header-offset);
     padding: 0 16px;
   }
 

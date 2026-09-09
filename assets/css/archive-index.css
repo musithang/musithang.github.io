@@ -79,7 +79,7 @@
 
 .archive-filter {
   position: sticky;
-  top: var(--station-header-offset);
+  top: var(--sticky-header-offset);
   z-index: 15;
   display: flex;
   align-items: center;

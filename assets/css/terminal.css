@@ -1,4 +1,7 @@
 .terminal {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   background: var(--paper);
   color: var(--ink);
   /* The panel's metrics are tuned against the mockup, which renders with the

@@ -4,6 +4,7 @@
     <span class="label-muted">Index of entries</span>
     <span class="label-muted">{{ len $posts }} filed · newest first</span>
   </div>
+  {{ partial "post-list-columns.html" . }}
   {{ range $posts }}
     {{ partial "post-list-item.html" . }}
   {{ end }}

@@ -1,0 +1,57 @@
+{{ define "main" }}
+{{ $posts := .Pages }}
+{{ $total := len $posts }}
+{{ $withPlate := 0 }}
+{{ range $posts }}
+  {{ if ne (partial "post-thumbnail.html" .) "" }}
+    {{ $withPlate = add $withPlate 1 }}
+  {{ end }}
+{{ end }}
+{{ $tags := .Site.Taxonomies.tags.Alphabetical }}
+
+<section class="archive-index">
+  <span class="archive-index__mark archive-index__mark--tl" aria-hidden="true">+</span>
+  <span class="archive-index__mark archive-index__mark--bl" aria-hidden="true">+</span>
+  <div class="archive-index__row">
+    <div>
+      <div class="label-muted">Section 02 — Retrieval index</div>
+      <h1 class="archive-index__title">All entries<br>on file</h1>
+    </div>
+    <div class="archive-index__stats">
+      <div class="archive-index__stat">
+        <div class="label-accent">Holdings</div>
+        <div class="archive-index__stat-value">{{ printf "%02d" $total }}</div>
+      </div>
+      <div class="archive-index__stat">
+        <div class="label-accent">With plate</div>
+        <div class="archive-index__stat-value">{{ printf "%02d" $withPlate }}</div>
+      </div>
+      <div class="archive-index__stat">
+        <div class="label-accent">Shelf</div>
+        <div class="archive-index__stat-value">MT-A</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="archive-filter">
+  <span class="archive-filter__label">Filter</span>
+  <a href="{{ .Permalink }}" class="archive-filter__item archive-filter__item--active">All</a>
+  {{ range $tags }}
+  <a href="{{ .Page.Permalink }}" class="archive-filter__item">{{ .Page.Title }}</a>
+  {{ end }}
+</div>
+
+{{ partial "post-list-columns.html" . }}
+
+<section class="post-list">
+  {{ range $posts }}
+    {{ partial "post-list-item.html" . }}
+  {{ end }}
+</section>
+
+<div class="archive-index__footer">
+  <span>End of shelf · {{ printf "%02d" $total }} of {{ printf "%02d" $total }} records shown</span>
+  <span>Signatures encoded Code 39 · derived from record title</span>
+</div>
+{{ end }}

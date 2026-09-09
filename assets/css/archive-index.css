@@ -1,0 +1,114 @@
+.archive-index {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--ink);
+  padding: 40px 40px 30px;
+}
+
+.archive-index__mark {
+  position: absolute;
+  left: 10px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--line);
+}
+
+.archive-index__mark--tl {
+  top: 8px;
+}
+
+.archive-index__mark--bl {
+  bottom: 8px;
+}
+
+.archive-index__row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.archive-index__title {
+  font-family: var(--font-archivo);
+  font-weight: 900;
+  font-size: 52px;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.archive-index__stats {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--ink);
+}
+
+.archive-index__stat {
+  padding: 12px 18px;
+  border-right: 1px solid var(--line);
+}
+
+.archive-index__stat:last-child {
+  border-right: none;
+}
+
+.archive-index__stat-value {
+  font-family: var(--font-grotesk);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.archive-index__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 22px 40px 40px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.archive-filter {
+  position: sticky;
+  top: 78px;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  background: var(--panel);
+  border-bottom: 1px solid var(--ink);
+  padding: 0 40px;
+}
+
+.archive-filter__label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  padding-right: 16px;
+}
+
+.archive-filter__item {
+  border-left: 1px solid var(--line);
+  padding: 12px 14px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.archive-filter__item--active {
+  background: var(--ink);
+  color: var(--paper);
+}

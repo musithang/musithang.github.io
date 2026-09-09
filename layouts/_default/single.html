@@ -8,7 +8,7 @@
       <div>
         <div class="single-post__entry-meta-row">
           <div class="single-post__entry-meta">Entry MT-{{ .Params.weight | printf "%03d" }}{{ with .Params.tags }} · Filed under {{ index . 0 }}{{ end }}</div>
-          {{ partial "doc-barcode.html" . }}
+          <div class="doc-barcode">{{ partial "code39-barcode.html" (dict "text" (partial "post-signature.html" .)) }}</div>
         </div>
         <h1 class="single-post__title">{{ .Title }}</h1>
       </div>

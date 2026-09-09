@@ -58,6 +58,12 @@
   flex-shrink: 0;
 }
 
+.doc-barcode .code39-barcode {
+  display: block;
+  width: 120px;
+  height: 20px;
+}
+
 .single-post__title {
   font-family: var(--font-archivo);
   font-weight: 800;

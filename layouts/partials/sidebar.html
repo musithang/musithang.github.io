@@ -1,5 +1,9 @@
 <aside class="sidebar">
   <div class="sidebar__diamond"></div>
+  {{ if and .IsSection (eq .Section "posts") }}
+  <div class="sidebar__text">Shelf A · Entries {{ printf "%02d" (len .Pages) }} · Retrieval index</div>
+  {{ else }}
   <div class="sidebar__text">Archive of small technical regrets · Vol.{{ .Site.Params.volumeNumber }}</div>
+  {{ end }}
   <div class="sidebar__est">Est. 2026</div>
 </aside>

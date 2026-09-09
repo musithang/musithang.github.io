@@ -1,29 +1,34 @@
 {{ $thumb := partial "post-thumbnail.html" . }}
+{{ $hasPlate := ne $thumb "" }}
+{{ $code := partial "post-signature.html" . }}
 <a href="{{ .Permalink }}" class="post-item">
-  {{ if $thumb }}
-  <div class="post-item__vhs post-item__vhs--photo" style="background-image: url('{{ $thumb }}');" aria-hidden="true"></div>
-  {{ else }}
-  <div class="post-item__vhs post-item__vhs--generated" aria-hidden="true">
-    <div class="post-item__vhs-barcode">{{ partial "doc-barcode.html" . }}</div>
+  <div class="post-item__catno">
+    <div class="post-item__num num-stroke">{{ .Params.weight | printf "%02d" }}</div>
+    <div class="post-item__shelf">Shelf MT-A-{{ .Params.weight | printf "%03d" }}</div>
+    <div class="post-item__status{{ if $hasPlate }} post-item__status--accent{{ end }}">{{ if $hasPlate }}Imaged{{ else }}Text only{{ end }}</div>
   </div>
-  {{ end }}
-  <div class="post-item__num num-stroke">{{ .Params.weight | printf "%02d" }}</div>
+
+  {{ partial "post-plate.html" (dict "thumb" $thumb "hasPlate" $hasPlate "code" $code) }}
+
   <div class="post-item__body">
     <h3 class="post-item__title">{{ .Title }}</h3>
     <p class="post-item__excerpt">{{ .Summary | plainify | truncate 160 }}</p>
-  </div>
-  <div class="post-item__meta">
-    <time class="post-item__date">{{ .Date.Format "Jan 2, 2006" }} · {{ .ReadingTime }} min</time>
     <div class="post-item__tags">
       {{ range .Params.tags }}
       <span class="tag">{{ . }}</span>
       {{ end }}
     </div>
   </div>
-  <div class="post-item__arrow">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <line x1="4" y1="12" x2="20" y2="12"></line>
-      <polyline points="13 5 20 12 13 19"></polyline>
-    </svg>
+
+  <div class="post-item__filed">
+    <time class="post-item__date">{{ .Date.Format "Jan 2, 2006" }}<br>{{ .ReadingTime }} min read</time>
+    <div class="post-item__barcode">{{ partial "code39-barcode.html" (dict "text" $code) }}</div>
+    <span class="post-item__code">{{ $code }}</span>
+    <div class="post-item__arrow">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="4" y1="12" x2="20" y2="12"></line>
+        <polyline points="13 5 20 12 13 19"></polyline>
+      </svg>
+    </div>
   </div>
 </a>

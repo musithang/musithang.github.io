@@ -1,0 +1,6 @@
+{{- $chars := strings.Split (md5 .Title) "" -}}
+{{- $hex := "" -}}
+{{- range (first 4 $chars) -}}
+  {{- $hex = printf "%s%s" $hex (. | upper) -}}
+{{- end -}}
+{{- printf "MT-%03d-%s" .Params.weight $hex -}}

@@ -14,6 +14,7 @@
   --footer-muted: #a09a8d;
   --code-bg: #14120f;
   --code-text: #d6d0c4;
+  --plate-bg: #e2dbcc;
 
   /* Typography */
   --font-archivo: 'Archivo', sans-serif;
@@ -38,4 +39,5 @@
   --panel: #1b1815;
   --row-hover: rgba(239, 233, 221, 0.05);
   --track-bg: rgba(239, 233, 221, 0.16);
+  --plate-bg: #0e0c0a;
 }

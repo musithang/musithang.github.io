@@ -1,0 +1,36 @@
+{{- /* Real Code 39 symbology - bars actually decode back to .text. */ -}}
+{{- $text := .text | upper -}}
+{{- $patterns := dict
+  "0" "nnnwwnwnn" "1" "wnnwnnnnw" "2" "nnwwnnnnw" "3" "wnwwnnnnn" "4" "nnnwwnnnw"
+  "5" "wnnwwnnnn" "6" "nnwwwnnnn" "7" "nnnwnnwnw" "8" "wnnwnnwnn" "9" "nnwwnnwnn"
+  "A" "wnnnnwnnw" "B" "nnwnnwnnw" "C" "wnwnnwnnn" "D" "nnnnwwnnw" "E" "wnnnwwnnn"
+  "F" "nnwnwwnnn" "G" "nnnnnwwnw" "H" "wnnnnwwnn" "I" "nnwnnwwnn" "J" "nnnnwwwnn"
+  "K" "wnnnnnnww" "L" "nnwnnnnww" "M" "wnwnnnnwn" "N" "nnnnwnnww" "O" "wnnnwnnwn"
+  "P" "nnwnwnnwn" "Q" "nnnnnnwww" "R" "wnnnnnwwn" "S" "nnwnnnwwn" "T" "nnnnwnwwn"
+  "U" "wwnnnnnnw" "V" "nwwnnnnnw" "W" "wwwnnnnnn" "X" "nwnnwnnnw" "Y" "wwnnwnnnn"
+  "Z" "nwwnwnnnn" "-" "nwnnnnwnw" "." "wwnnnnwnn" " " "nwwnnnwnn" "*" "nwnnwnwnn"
+-}}
+{{- $chars := strings.Split (printf "*%s*" $text) "" -}}
+{{- $lastIdx := sub (len $chars) 1 -}}
+{{- $totalW := 0 -}}
+{{- range $ci, $ch := $chars -}}
+  {{- $pat := index $patterns $ch -}}
+  {{- if not $pat -}}{{- $pat = index $patterns "-" -}}{{- end -}}
+  {{- range $i, $b := (strings.Split $pat "") -}}
+    {{- if eq $b "w" -}}{{- $totalW = add $totalW 3 -}}{{- else -}}{{- $totalW = add $totalW 1 -}}{{- end -}}
+  {{- end -}}
+  {{- if ne $ci $lastIdx -}}{{- $totalW = add $totalW 1 -}}{{- end -}}
+{{- end -}}
+<svg class="code39-barcode" viewBox="0 0 {{ $totalW }} 20" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+  {{- $x := 0 -}}
+  {{- range $ci, $ch := $chars -}}
+    {{- $pat := index $patterns $ch -}}
+    {{- if not $pat -}}{{- $pat = index $patterns "-" -}}{{- end -}}
+    {{- range $i, $b := (strings.Split $pat "") -}}
+      {{- $w := 1 -}}{{- if eq $b "w" -}}{{- $w = 3 -}}{{- end -}}
+      {{- if eq (mod $i 2) 0 -}}<rect x="{{ $x }}" y="0" width="{{ $w }}" height="20" fill="currentColor"></rect>{{- end -}}
+      {{- $x = add $x $w -}}
+    {{- end -}}
+    {{- if ne $ci $lastIdx -}}{{- $x = add $x 1 -}}{{- end -}}
+  {{- end -}}
+</svg>

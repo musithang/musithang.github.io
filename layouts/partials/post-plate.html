@@ -1,0 +1,27 @@
+{{- $hasPlate := .hasPlate -}}
+{{- $thumb := .thumb -}}
+{{- $code := .code -}}
+<div class="post-plate">
+  <div class="post-plate__frame">
+    {{ if $hasPlate }}
+    <div class="post-plate__photo" style="background-image: url('{{ $thumb }}');" aria-hidden="true"></div>
+    <div class="post-plate__tint" aria-hidden="true"></div>
+    <div class="post-plate__dots" aria-hidden="true"></div>
+    <div class="post-plate__scan" aria-hidden="true"></div>
+    {{ else }}
+    <div class="post-plate__noise" aria-hidden="true"></div>
+    <div class="post-plate__band post-plate__band--a" aria-hidden="true"></div>
+    <div class="post-plate__band post-plate__band--b" aria-hidden="true"></div>
+    <div class="post-plate__signal-line" aria-hidden="true"></div>
+    <div class="post-plate__no-barcode">{{ partial "code39-barcode.html" (dict "text" $code) }}</div>
+    {{ end }}
+    <span class="post-plate__corner post-plate__corner--tl" aria-hidden="true"></span>
+    <span class="post-plate__corner post-plate__corner--tr" aria-hidden="true"></span>
+    <span class="post-plate__corner post-plate__corner--bl" aria-hidden="true"></span>
+    <span class="post-plate__corner post-plate__corner--br" aria-hidden="true"></span>
+  </div>
+  <div class="post-plate__caption">
+    <span class="post-plate__caption-label{{ if $hasPlate }} post-plate__caption-label--accent{{ end }}">{{ if $hasPlate }}Plate · extracted{{ else }}No plate · signal only{{ end }}</span>
+    <span class="post-plate__caption-code">{{ $code }}</span>
+  </div>
+</div>

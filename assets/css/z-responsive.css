@@ -2,17 +2,6 @@
    RESPONSIVE — tablet ≤1024px, mobile ≤640px
    ═══════════════════════════════════════════════════ */
 
-/* Post-item photo/barcode decorations need ~1300px of row width to sit
-   clear of both the text column and the meta column at once (see the
-   comment above .post-item__vhs-barcode in post-list.css) - below that
-   there isn't a safe gap for them, so hide rather than risk overlap. */
-@media (max-width: 1300px) {
-  .post-item__vhs-barcode,
-  .post-item__vhs--photo {
-    display: none;
-  }
-}
-
 /* ── TABLET ≤ 1024px ────────────────────────────── */
 @media (max-width: 1024px) {
 
@@ -53,19 +42,22 @@
     padding: 22px 24px 10px;
   }
 
+  .post-list__columns {
+    display: none;
+  }
+
   .post-item {
-    grid-template-columns: 60px 1fr 44px;
-    gap: 16px;
+    grid-template-columns: 64px 1fr 100px;
+    gap: 20px;
     padding: 20px 24px;
   }
 
-  .post-item__vhs--generated {
-    opacity: 0.55;
-    mask-image: linear-gradient(to right, transparent 0%, transparent 62%, black 90%, black 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 62%, black 90%, black 100%);
+  .post-plate {
+    display: none;
   }
 
-  .post-item__meta {
+  .post-item__barcode,
+  .post-item__code {
     display: none;
   }
 
@@ -73,8 +65,21 @@
     font-size: 30px;
   }
 
+  .post-item__shelf,
+  .post-item__status {
+    display: none;
+  }
+
   .post-item__title {
     font-size: 20px;
+  }
+
+  .archive-index__title {
+    font-size: 38px;
+  }
+
+  .archive-filter {
+    top: 67px;
   }
 
   /* Tag index */
@@ -224,19 +229,17 @@
   }
 
   .post-item {
-    grid-template-columns: 40px 1fr 30px;
+    grid-template-columns: 1fr 84px;
     gap: 10px;
     padding: 16px 16px;
   }
 
-  .post-item__vhs--generated {
-    opacity: 0.45;
-    mask-image: linear-gradient(to right, transparent 0%, transparent 72%, black 94%, black 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 72%, black 94%, black 100%);
+  .post-item__catno {
+    display: none;
   }
 
-  .post-item__num {
-    font-size: 22px;
+  .post-item__date {
+    text-align: right;
   }
 
   .post-item__arrow {
@@ -250,6 +253,34 @@
 
   .post-item__excerpt {
     font-size: 13px;
+  }
+
+  .archive-index {
+    padding: 28px 16px 22px;
+  }
+
+  .archive-index__title {
+    font-size: 30px;
+  }
+
+  .archive-index__stat {
+    padding: 10px 12px;
+  }
+
+  .archive-filter {
+    top: 60px;
+    padding: 0 16px;
+  }
+
+  .archive-filter__item {
+    padding: 10px 10px;
+  }
+
+  .archive-index__footer {
+    padding: 16px 16px 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
   }
 
   /* Tag index */

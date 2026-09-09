@@ -46,14 +46,6 @@
     padding: 12px 24px;
   }
 
-  .terminal__stat--wide {
-    display: none;
-  }
-
-  .terminal__stat--narrow {
-    display: flex;
-  }
-
   .terminal__cadence {
     padding: 12px 24px;
   }

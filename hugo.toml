@@ -49,16 +49,8 @@ title = "MusiThang"
 
 [params]
   description = "Technology · Life · Whatever Else"
-  subtitle = "Personal Technical Archive"
-  issueNumber = "01"
   volumeNumber = "01"
   footerDocNumber = "MT-2026-BLOG"
   osVersion = "MT-OS 4.0"
   geoCoords = "47.5N 19.0E"
   shelfCode = "MT-A"
-  tickerItems = [
-    "Now · rewriting the generator, again",
-    "Status · online",
-    "Coffee · critically low",
-    "Uptime · 41 days",
-  ]

@@ -46,6 +46,14 @@
     padding: 12px 24px;
   }
 
+  .terminal__stat--wide {
+    display: none;
+  }
+
+  .terminal__stat--narrow {
+    display: flex;
+  }
+
   .terminal__cadence {
     padding: 12px 24px;
   }
@@ -270,13 +278,6 @@
 
   .header__subtitle {
     font-size: 8.5px;
-  }
-
-  /* Ticker */
-  .ticker {
-    font-size: 10px;
-    padding: 0 12px;
-    height: 30px;
   }
 
   /* Post list */

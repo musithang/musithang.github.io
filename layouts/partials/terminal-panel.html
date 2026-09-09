@@ -26,6 +26,15 @@
 {{ $commit := hugo.Data.build.commit }}
 {{ $buildTime := hugo.Data.build.time }}
 
+{{ $genesis := $latest.Date }}
+{{ range $posts }}{{ if lt .Date.Unix $genesis.Unix }}{{ $genesis = .Date }}{{ end }}{{ end }}
+{{ $uptimeSecs := sub now.Unix $genesis.Unix }}
+{{ $uptimeDays := div $uptimeSecs 86400 }}
+{{ $uptimeHours := mod (div $uptimeSecs 3600) 24 }}
+
+{{ $totalReadMin := 0 }}
+{{ range $posts }}{{ $totalReadMin = add $totalReadMin .ReadingTime }}{{ end }}
+
 <section class="terminal">
   <div class="terminal__statusbar">
     <span>Musithang archive terminal · Shelf {{ .Site.Params.shelfCode }} · {{ .Site.Params.geoCoords }}</span>
@@ -55,13 +64,21 @@
     </div>
 
     <div class="terminal__stats">
-      <div class="terminal__stat">
+      <div class="terminal__stat terminal__stat--wide">
         <span class="terminal__stat-label">Records on file</span>
         <span class="terminal__stat-value">{{ printf "%02d" $totalPosts }} · {{ $totalTags }} tags</span>
       </div>
-      <div class="terminal__stat">
+      <div class="terminal__stat terminal__stat--wide">
         <span class="terminal__stat-label">Last write</span>
         <span class="terminal__stat-value terminal__stat-value--accent">{{ $lastWrite }}</span>
+      </div>
+      <div class="terminal__stat terminal__stat--narrow">
+        <span class="terminal__stat-label">Uptime</span>
+        <span class="terminal__stat-value">{{ $uptimeDays }}d {{ printf "%02d" $uptimeHours }}h</span>
+      </div>
+      <div class="terminal__stat terminal__stat--narrow">
+        <span class="terminal__stat-label">Reading time</span>
+        <span class="terminal__stat-value">{{ $totalReadMin }} min</span>
       </div>
       <div class="terminal__stat">
         <span class="terminal__stat-label">Archive weight</span>

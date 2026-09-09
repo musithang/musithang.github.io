@@ -190,6 +190,14 @@
   border-bottom: 1px solid var(--line);
 }
 
+/* Below ~1024px the console log and the instrument column stack instead of
+   sitting side by side, so "records on file" / "last write" would repeat
+   what the log's first two lines already say. Swap them for stats the log
+   doesn't cover once the panel is that narrow (see z-responsive.css). */
+.terminal__stat--narrow {
+  display: none;
+}
+
 .terminal__stat-label {
   font-family: var(--font-mono);
   font-size: 9px;

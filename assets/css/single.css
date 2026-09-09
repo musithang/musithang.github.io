@@ -1,6 +1,22 @@
 .single-post__header {
+  position: relative;
+  overflow: hidden;
   border-bottom: 1px solid var(--ink);
   padding: 40px 40px 0;
+  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 9px 9px;
+}
+
+.single-post__header::after {
+  content: "TECHNICAL RECORD";
+  position: absolute;
+  right: 40px;
+  top: 18px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  transform: rotate(-3deg);
 }
 
 .back-link {
@@ -23,6 +39,7 @@
   z-index: 0;
   font-size: 78px;
   flex-shrink: 0;
+  text-shadow: 4px 0 0 rgba(255, 90, 48, 0.22);
 }
 
 .single-post__number-dots {
@@ -79,6 +96,8 @@
   grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid var(--line);
   margin-top: 34px;
+  background: var(--ink);
+  color: var(--paper);
 }
 
 .post-spec {
@@ -95,6 +114,7 @@
   font-weight: 700;
   font-size: 15px;
   margin-top: 6px;
+  color: var(--paper);
 }
 
 .single-post__body {
@@ -253,6 +273,11 @@
 }
 
 @media (max-width: 640px) {
+  .single-post__header::after {
+    right: 16px;
+    top: 12px;
+    font-size: 8px;
+  }
   .image-inspection {
     padding: 16px;
   }

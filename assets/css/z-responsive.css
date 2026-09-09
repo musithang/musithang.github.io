@@ -428,8 +428,19 @@
     grid-template-columns: 1fr auto;
     gap: 16px;
     align-items: start;
+    padding-left: 16px;
     padding-bottom: 20px;
     border-bottom: 1px solid rgba(239, 233, 221, 0.18);
+  }
+
+  .footer::before {
+    left: 4px;
+    top: 8px;
+  }
+
+  .footer::after {
+    right: 4px;
+    top: 8px;
   }
 
   .footer__logo {

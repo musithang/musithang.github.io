@@ -5,6 +5,10 @@
 /* ── TABLET ≤ 1024px ────────────────────────────── */
 @media (max-width: 1024px) {
 
+  .reading-progress {
+    top: 72px;
+  }
+
   /* Station header: drop the shelf spine, tighten the callsign row */
   .station__spine {
     display: none;
@@ -178,6 +182,10 @@
 
 /* ── MOBILE ≤ 640px ─────────────────────────────── */
 @media (max-width: 640px) {
+
+  .reading-progress {
+    top: 108px;
+  }
 
   /* Terminal panel: full rework for narrow screens */
   .terminal__statusbar {

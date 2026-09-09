@@ -40,8 +40,9 @@
       </nav>
     </div>
   </div>
+</header>
 
-  <div class="station__instruments">
+<div class="station__instruments">
     <div class="station__onair">
       <span class="station__onair-dot" aria-hidden="true"></span><span>On air</span>
     </div>
@@ -69,22 +70,21 @@
       </svg>
       <span>Feed</span>
     </a>
-  </div>
+</div>
 
-  <a href="{{ $latest.Permalink }}" class="station__latest">
+<a href="{{ $latest.Permalink }}" class="station__latest">
     <span class="station__latest-main">
       <span class="station__latest-badge">Latest</span>
       <span class="station__latest-title">{{ $latest.Title }}</span>
       <span class="station__latest-meta">filed {{ $lastWrite }} · {{ $latest.ReadingTime }} min</span>
     </span>
     <span class="station__latest-cta">Read →</span>
-  </a>
+ </a>
 
-  {{ if .IsPage }}
-  <div class="reading-progress" id="reading-progress">
-    {{ range seq 14 }}
-    <div class="reading-progress__seg" data-seg="{{ . }}"></div>
-    {{ end }}
-  </div>
+{{ if .IsPage }}
+<div class="reading-progress" id="reading-progress">
+  {{ range seq 14 }}
+  <div class="reading-progress__seg" data-seg="{{ . }}"></div>
   {{ end }}
-</header>
+</div>
+{{ end }}

@@ -1,11 +1,11 @@
 .station {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: var(--paper);
+  display: block;
 }
 
 .station__row {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   display: flex;
   align-items: stretch;
   border-bottom: 1px solid var(--ink);
@@ -312,9 +312,15 @@
 /* ── Reading progress ─────────────────────────────── */
 
 .reading-progress {
+  position: fixed;
+  top: 78px;
+  left: 0;
+  right: 0;
+  z-index: 19;
   display: flex;
   gap: 2px;
   height: 6px;
+  background: var(--paper);
   border-top: 1px solid var(--line);
 }
 

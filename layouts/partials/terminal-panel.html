@@ -23,8 +23,9 @@
   {{ $cadence = $cadence | append $count }}
 {{ end }}
 
-{{ $commit := hugo.Data.build.commit }}
-{{ $buildTime := hugo.Data.build.time }}
+{{ $buildData := .Site.Data.build | default (dict "commit" "local" "time" "--:--:--") }}
+{{ $commit := $buildData.commit }}
+{{ $buildTime := $buildData.time }}
 
 {{ $genesis := $latest.Date }}
 {{ range $posts }}{{ if lt .Date.Unix $genesis.Unix }}{{ $genesis = .Date }}{{ end }}{{ end }}

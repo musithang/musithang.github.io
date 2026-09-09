@@ -78,6 +78,32 @@
   text-transform: uppercase;
 }
 
+.search-results {
+  display: grid;
+  gap: 6px;
+  margin-top: 12px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.search-results[hidden] {
+  display: none;
+}
+
+.command-item--result {
+  text-decoration: none;
+}
+
+.search-results__empty {
+  border: 1px solid var(--line);
+  padding: 12px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .command-list {
   display: grid;
   gap: 6px;

@@ -35,14 +35,17 @@
   function updateLocalTime() {
     var clock = document.getElementById('local-time');
     if (!clock) return;
-    var time = new Intl.DateTimeFormat('en-GB', {
+    var parts = new Intl.DateTimeFormat('en-GB', {
       timeZone: 'Europe/Budapest',
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
-      hour12: false
-    }).format(new Date());
-    clock.textContent = time + ' CET';
+      hour12: false,
+      timeZoneName: 'short'
+    }).formatToParts(new Date());
+    var time = parts.filter(function(part) { return part.type !== 'timeZoneName'; }).map(function(part) { return part.value; }).join('').trim();
+    var zone = parts.find(function(part) { return part.type === 'timeZoneName'; });
+    clock.textContent = time + ' ' + (zone ? zone.value : '');
   }
 
   updateLocalTime();
@@ -55,6 +58,7 @@
     function(record) { return record.getAttribute('href'); }
   );
   var randomAccess = document.getElementById('random-access');
+  var searchResults = document.getElementById('search-results');
 
   document.getElementById('search-toggle').addEventListener('click', function() {
     overlay.classList.toggle('open');
@@ -70,6 +74,34 @@
     window.location.href = records[Math.floor(Math.random() * records.length)];
   });
 
+  input.addEventListener('input', function() {
+    var query = input.value.trim().toLowerCase();
+    searchResults.innerHTML = '';
+    if (!query) {
+      searchResults.hidden = true;
+      return;
+    }
+    var matches = Array.prototype.filter.call(
+      document.querySelectorAll('#archive-records a'),
+      function(record) { return record.textContent.toLowerCase().indexOf(query) !== -1; }
+    );
+    matches.slice(0, 8).forEach(function(record) {
+      var result = document.createElement('a');
+      result.className = 'command-item command-item--result';
+      result.href = record.getAttribute('href');
+      result.innerHTML = '<span class="command-item__key">↗</span><span><strong></strong><small>Archive record</small></span><span class="command-item__arrow">→</span>';
+      result.querySelector('strong').textContent = record.textContent;
+      searchResults.appendChild(result);
+    });
+    if (!matches.length) {
+      var empty = document.createElement('div');
+      empty.className = 'search-results__empty';
+      empty.textContent = 'No records found';
+      searchResults.appendChild(empty);
+    }
+    searchResults.hidden = false;
+  });
+
   document.querySelectorAll('.highlight').forEach(function(block) {
     var code = block.querySelector('pre');
     if (!code) return;
@@ -80,7 +112,7 @@
     copy.title = 'Copy code';
     copy.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg>';
     copy.addEventListener('click', function() {
-      navigator.clipboard.writeText(code.innerText).then(function() {
+      copyText(code.innerText).then(function() {
         copy.classList.add('code-copy--done');
         copy.setAttribute('aria-label', 'Copied');
         copy.title = 'Copied';
@@ -89,6 +121,9 @@
           copy.setAttribute('aria-label', 'Copy code');
           copy.title = 'Copy code';
         }, 1400);
+      }).catch(function() {
+        copy.setAttribute('aria-label', 'Copy failed');
+        copy.title = 'Copy failed';
       });
     });
     block.appendChild(copy);
@@ -103,25 +138,56 @@
   document.body.appendChild(inspection);
   var inspectionImage = inspection.querySelector('img');
   var inspectionCaption = inspection.querySelector('.image-inspection__caption');
+  var inspectionClose = inspection.querySelector('.image-inspection__close');
+  var inspectionPreviousFocus;
 
   document.querySelectorAll('.single-post__content img').forEach(function(image) {
     image.classList.add('inspectable-image');
+    image.setAttribute('tabindex', '0');
+    image.setAttribute('role', 'button');
+    image.setAttribute('aria-label', (image.alt || 'Archive image') + ' — open inspection');
     image.addEventListener('click', function() {
+      inspectionPreviousFocus = image;
       inspectionImage.src = image.currentSrc || image.src;
       inspectionImage.alt = image.alt || 'Archive image';
       inspectionCaption.textContent = image.alt || 'Archive image';
       inspection.classList.add('open');
+      inspectionClose.focus();
+    });
+    image.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        image.click();
+      }
     });
   });
 
   function closeInspection() {
     inspection.classList.remove('open');
     inspectionImage.removeAttribute('src');
+    if (inspectionPreviousFocus) inspectionPreviousFocus.focus();
   }
 
   inspection.addEventListener('click', function(event) {
-    if (event.target === inspection || event.target === inspection.querySelector('.image-inspection__close')) closeInspection();
+    if (event.target === inspection || event.target === inspectionClose) closeInspection();
   });
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+    return new Promise(function(resolve, reject) {
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      var copied = document.execCommand('copy');
+      textarea.remove();
+      if (copied) resolve();
+      else reject(new Error('Clipboard unavailable'));
+    });
+  }
 
   document.addEventListener('keydown', function(e) {
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
@@ -131,6 +197,10 @@
     }
     if (e.key === 'Escape') overlay.classList.remove('open');
     if (e.key === 'Escape') closeInspection();
+    if (inspection.classList.contains('open') && e.key === 'Tab') {
+      e.preventDefault();
+      inspectionClose.focus();
+    }
   });
 
   var segs = document.querySelectorAll('.reading-progress__seg');

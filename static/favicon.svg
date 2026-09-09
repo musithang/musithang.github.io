@@ -1,3 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect x="6" y="6" width="20" height="20" rx="1" transform="rotate(45 16 16)" fill="#ff5a30"/>
+  <defs>
+    <pattern id="dots" width="2.4" height="2.4" patternUnits="userSpaceOnUse">
+      <circle cx="1.2" cy="1.2" r="0.55" fill="#14120f"/>
+    </pattern>
+    <clipPath id="mark">
+      <rect x="2" y="2" width="28" height="28"/>
+    </clipPath>
+  </defs>
+  <rect width="32" height="32" fill="#e2dbcc"/>
+  <g clip-path="url(#mark)" stroke="#14120f" fill="none" opacity="0.7">
+    <path d="M3 3 16 16 29 3M3 29 16 16 29 29M3 3 16 16 3 29M29 3 16 16 29 29"/>
+    <rect x="5" y="5" width="22" height="22"/>
+    <rect x="9" y="9" width="14" height="14"/>
+  </g>
+  <rect width="32" height="32" fill="url(#dots)" opacity="0.8"/>
+  <rect x="2" y="2" width="28" height="28" fill="none" stroke="#14120f" stroke-width="1.5"/>
+  <rect x="14" y="14" width="4" height="4" fill="#ff5a30"/>
 </svg>

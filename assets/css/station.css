@@ -200,15 +200,15 @@
 }
 
 .station__nav-link--active {
-  background: var(--ink);
-  color: var(--paper);
-  border-color: var(--ink);
+  background: var(--accent);
+  color: var(--footer-bg);
+  border-color: var(--accent);
 }
 
 .station__nav-link--active:hover,
 .station__nav-link--active:focus-visible {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--accent);
+  color: var(--footer-bg);
 }
 
 .station__theme {
@@ -249,6 +249,7 @@
   align-items: stretch;
   background: var(--footer-bg);
   color: var(--footer-text);
+  border-bottom: 1px solid var(--line);
 }
 
 .station__onair {

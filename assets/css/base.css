@@ -50,12 +50,28 @@ body::after {
   text-transform: uppercase;
 }
 
-.site-wrapper {
-  display: flex;
+.site-main {
   min-height: 100vh;
 }
 
-.site-main {
-  flex: 1;
-  min-width: 0;
+.theme-switch {
+  width: 22px;
+  height: 11px;
+  background: var(--line);
+  position: relative;
+  display: inline-block;
+}
+
+.theme-switch__thumb {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 9px;
+  height: 9px;
+  background: var(--accent);
+  transition: left 0.15s;
+}
+
+[data-theme="dark"] .theme-switch__thumb {
+  left: 12px;
 }

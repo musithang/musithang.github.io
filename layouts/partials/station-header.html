@@ -1,0 +1,90 @@
+{{ $posts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+{{ $totalPosts := len $posts }}
+{{ $totalTags := len .Site.Taxonomies.tags }}
+{{ $latest := index $posts 0 }}
+{{ $lastWrite := partial "relative-time.html" $latest.Date }}
+{{ $commit := hugo.Data.build.commit }}
+{{ $buildTime := hugo.Data.build.time }}
+
+<header class="station">
+  <div class="station__row">
+    <div class="station__spine">Shelf A</div>
+    <div class="station__main">
+      <a href="/" class="station__id">
+        <span class="station__radar" aria-hidden="true">
+          <span class="station__radar-ring"></span>
+          <span class="station__radar-sweep"></span>
+          <span class="station__radar-dot"></span>
+        </span>
+        <span>
+          <span class="station__wordmark">MusiThang</span>
+          <span class="station__tagline">Personal signal archive · {{ .Site.Params.shelfCode }} · {{ .Site.Params.geoCoords }}</span>
+        </span>
+      </a>
+      <nav class="station__nav">
+        {{ range .Site.Menus.main }}
+        <a href="{{ .URL }}" class="station__nav-link{{ if eq .URL $.RelPermalink }} station__nav-link--active{{ end }}">{{ .Name }}</a>
+        {{ end }}
+        <button class="station__nav-link" id="search-toggle" aria-label="Search">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+        <button class="station__theme" id="theme-toggle" aria-label="Toggle dark mode">
+          <span class="theme-switch">
+            <span class="theme-switch__thumb"></span>
+          </span>
+          <span class="theme-label">Light</span>
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <div class="station__instruments">
+    <div class="station__onair">
+      <span class="station__onair-dot" aria-hidden="true"></span><span>On air</span>
+    </div>
+    <div class="station__stat">
+      <span class="station__stat-label">Last transmission</span>
+      <span class="station__stat-value station__stat-value--accent">{{ $lastWrite }}</span>
+    </div>
+    <div class="station__stat station__stat--records">
+      <span class="station__stat-label">Records on file</span>
+      <span class="station__stat-value">{{ printf "%02d" $totalPosts }} · {{ $totalTags }} tags</span>
+    </div>
+    <div class="station__stat station__stat--build">
+      <span class="station__stat-label">Build</span>
+      <span class="station__stat-value">#{{ $commit }} · {{ printf "%.5s" $buildTime }}</span>
+    </div>
+    <div class="station__stat station__stat--time">
+      <span class="station__stat-label">Local time</span>
+      <span class="station__stat-value">{{ $buildTime }} CET</span>
+    </div>
+    <a href="/index.xml" class="station__feed">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.4">
+        <path d="M4 11a9 9 0 0 1 9 9"></path>
+        <path d="M4 4a16 16 0 0 1 16 16"></path>
+        <circle cx="5" cy="19" r="1.6" fill="var(--accent)" stroke="none"></circle>
+      </svg>
+      <span>Feed</span>
+    </a>
+  </div>
+
+  <a href="{{ $latest.Permalink }}" class="station__latest">
+    <span class="station__latest-main">
+      <span class="station__latest-badge">Latest</span>
+      <span class="station__latest-title">{{ $latest.Title }}</span>
+      <span class="station__latest-meta">filed {{ $lastWrite }} · {{ $latest.ReadingTime }} min</span>
+    </span>
+    <span class="station__latest-cta">Read →</span>
+  </a>
+
+  {{ if .IsPage }}
+  <div class="reading-progress" id="reading-progress">
+    {{ range seq 14 }}
+    <div class="reading-progress__seg" data-seg="{{ . }}"></div>
+    {{ end }}
+  </div>
+  {{ end }}
+</header>

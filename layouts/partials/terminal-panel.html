@@ -96,7 +96,7 @@
   <nav class="terminal__nav">
     <div class="terminal__nav-links">
       {{ range .Site.Menus.main }}
-      <a href="{{ .URL }}" class="terminal__nav-link{{ if eq .Name "Index" }} terminal__nav-link--active{{ end }}">{{ .Name }}</a>
+      <a href="{{ .URL }}" class="terminal__nav-link{{ if eq .URL $.RelPermalink }} terminal__nav-link--active{{ end }}">{{ .Name }}</a>
       {{ end }}
     </div>
     <div class="terminal__nav-tools">

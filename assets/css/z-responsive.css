@@ -267,6 +267,21 @@
 
   .station__nav {
     width: 100%;
+    align-items: stretch;
+  }
+
+  .station__nav-link,
+  .station__theme {
+    padding: 8px 10px;
+  }
+
+  .station__nav-link {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .station__theme {
+    flex-shrink: 0;
   }
 
   .station__instruments {
@@ -293,6 +308,7 @@
   .station__latest-main {
     flex-wrap: wrap;
     row-gap: 4px;
+    width: 100%;
   }
 
   .station__latest-title {

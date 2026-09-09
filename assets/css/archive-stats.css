@@ -1,15 +1,50 @@
 .archive-stats {
+  position: relative;
+  overflow: hidden;
   padding: 52px 40px 72px;
   border-bottom: 1px solid var(--line);
+  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 9px 9px;
+  background-position: 4px 4px;
+}
+
+.archive-stats::before {
+  content: "06";
+  position: absolute;
+  top: -34px;
+  right: -10px;
+  color: transparent;
+  font-family: var(--font-archivo);
+  font-size: 220px;
+  font-weight: 900;
+  line-height: 1;
+  -webkit-text-stroke: 1px var(--line);
+  pointer-events: none;
+}
+
+.archive-stats::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 23%;
+  width: 1px;
+  height: 100%;
+  background: var(--accent);
+  opacity: 0.5;
+  transform: skewX(-18deg);
+  pointer-events: none;
 }
 
 .archive-stats__header {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: end;
   justify-content: space-between;
   gap: 24px;
-  padding-bottom: 22px;
-  border-bottom: 1px solid var(--line);
+  padding: 14px 0 22px;
+  border-top: 8px solid var(--accent);
+  border-bottom: 2px solid var(--ink);
 }
 
 .archive-stats__eyebrow,
@@ -26,15 +61,21 @@
 .archive-stats h1 {
   margin: 8px 0 0;
   font-family: var(--font-archivo);
-  font-size: clamp(44px, 7vw, 92px);
+  font-size: clamp(52px, 8vw, 112px);
   line-height: 0.86;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.06em;
+  color: var(--ink);
+  text-shadow: 5px 0 0 rgba(255, 90, 48, 0.28);
   text-transform: uppercase;
 }
 
 .archive-stats__back {
+  position: relative;
+  z-index: 1;
   border: 1px solid var(--ink);
-  padding: 10px 14px;
+  padding: 12px 16px;
+  background: var(--ink);
+  color: var(--paper);
   color: var(--ink);
   font-family: var(--font-mono);
   font-size: 10px;
@@ -43,9 +84,11 @@
 }
 
 .archive-stats__grid {
+  position: relative;
+  z-index: 1;
   display: grid;
-  grid-template-columns: 1.4fr repeat(3, 1fr);
-  gap: 12px;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 0;
   margin-top: 12px;
 }
 
@@ -54,14 +97,33 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 18px;
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
   border: 1px solid var(--ink);
-  background: var(--panel);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.archive-stat::after {
+  content: "";
+  position: absolute;
+  right: -18px;
+  bottom: -24px;
+  width: 100px;
+  height: 100px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 12px transparent, 0 0 0 13px var(--line);
+  opacity: 0.75;
+  pointer-events: none;
 }
 
 .archive-stat--hero {
   background: var(--accent);
   color: var(--ink);
+  border-color: var(--ink);
+  transform: translateY(-8px);
 }
 
 .archive-stat strong {
@@ -79,7 +141,7 @@
 
 .archive-stat__note {
   max-width: 18em;
-  color: var(--muted);
+  color: var(--footer-muted);
   font-size: 12px;
   line-height: 1.4;
 }
@@ -90,22 +152,26 @@
 }
 
 .archive-stats__details {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-left: 1px solid var(--line);
-  margin-top: 28px;
+  border-left: 1px solid var(--ink);
+  margin-top: 20px;
+  background: var(--ink);
+  color: var(--paper);
 }
 
 .archive-stats__detail {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 12px 16px;
-  border-right: 1px solid var(--line);
+  padding: 14px 16px;
+  border-right: 1px solid var(--paper);
 }
 
 .archive-stats__detail span {
-  color: var(--muted);
+  color: var(--accent);
 }
 
 .archive-stats__detail strong {
@@ -114,16 +180,19 @@
 }
 
 .archive-stats__bars {
-  height: 110px;
+  position: relative;
+  z-index: 1;
+  height: 126px;
   display: flex;
   align-items: end;
   gap: 5px;
-  margin-top: 28px;
+  margin-top: 20px;
   padding: 12px;
-  border: 1px solid var(--ink);
+  border: 8px solid var(--ink);
   background-color: var(--plate-bg);
   background-image: radial-gradient(var(--line) 1px, transparent 1px);
   background-size: 7px 7px;
+  box-shadow: inset 0 0 0 1px var(--accent);
 }
 
 .archive-stats__bars span {
@@ -164,6 +233,7 @@
   .archive-stat--hero {
     grid-column: 1 / -1;
     min-height: 130px;
+    transform: none;
   }
 
   .archive-stat strong {

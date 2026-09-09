@@ -15,7 +15,7 @@
   });
 
   function syncStickyHeaderOffset() {
-    var header = document.querySelector('.station__row, .terminal');
+    var header = document.querySelector('.station, .terminal');
     if (!header) return;
     var offset = Math.ceil(header.getBoundingClientRect().height);
     document.documentElement.style.setProperty('--sticky-header-offset', offset + 'px');

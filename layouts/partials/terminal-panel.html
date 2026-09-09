@@ -38,7 +38,7 @@
 
 <section class="terminal">
   <div class="terminal__statusbar">
-    <span>Musithang archive terminal · Shelf {{ .Site.Params.shelfCode }} · {{ .Site.Params.geoCoords }}</span>
+    <span>Musithang archive index · Shelf {{ .Site.Params.shelfCode }} · {{ .Site.Params.geoCoords }}</span>
     <span class="terminal__link"><span class="terminal__pulse" aria-hidden="true"></span>Link established · {{ $buildTime }} CET</span>
   </div>
 
@@ -48,7 +48,7 @@
         <div class="terminal__os">{{ .Site.Params.osVersion }} · Archive daemon ready</div>
         <div class="terminal__wordmark-row">
           <h1 class="terminal__wordmark">MusiThang</h1>
-          <span class="terminal__subtitle">/ Radios · Kernels · Self-hosted things</span>
+          <span class="terminal__subtitle">/ Systems · Kernels · Self-hosted notes</span>
         </div>
         <div class="terminal__log">
           <div class="terminal__log-line">&gt; mount /archive ......... ok · {{ printf "%02d" $totalPosts }} records · {{ $totalTags }} tags</div>

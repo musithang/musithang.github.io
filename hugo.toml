@@ -43,7 +43,7 @@ title = "MusiThang"
   weight = 3
 
 [[menu.main]]
-  name = "Operator"
+  name = "About"
   url = "/about/"
   weight = 4
 

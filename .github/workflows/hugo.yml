@@ -43,8 +43,9 @@ jobs:
       - name: Write build info
         run: |
           mkdir -p data
-          printf '{"commit": "%s", "time": "%s"}' \
+          printf '{"commit": "%s", "date": "%s", "time": "%s"}' \
             "$(git rev-parse --short HEAD)" \
+            "$(TZ=Europe/Budapest date '+%Y-%m-%d')" \
             "$(TZ=Europe/Budapest date '+%H:%M:%S')" \
             > data/build.json
 

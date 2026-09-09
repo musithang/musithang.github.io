@@ -3,8 +3,9 @@
 {{ $totalTags := len .Site.Taxonomies.tags }}
 {{ $latest := index $posts 0 }}
 {{ $lastWrite := partial "relative-time.html" $latest.Date }}
-{{ $buildData := .Site.Data.build | default (dict "commit" "local" "time" "--:--:--") }}
+{{ $buildData := .Site.Data.build | default (dict "commit" "local" "date" "" "time" "--:--:--") }}
 {{ $commit := $buildData.commit }}
+{{ $buildDate := $buildData.date | default (now.Format "2006-01-02") }}
 {{ $buildTime := $buildData.time }}
 
 <header class="station">
@@ -87,11 +88,11 @@
     </div>
     <div class="station__stat station__stat--build">
       <span class="station__stat-label">Build</span>
-      <span class="station__stat-value">#{{ $commit }} · {{ printf "%.5s" $buildTime }}</span>
+      <span class="station__stat-value">#{{ $commit }} · {{ $buildDate }} · {{ printf "%.5s" $buildTime }}</span>
     </div>
     <div class="station__stat station__stat--time">
       <span class="station__stat-label">Local time</span>
-      <span class="station__stat-value">{{ $buildTime }} CET</span>
+      <span class="station__stat-value" id="local-time">{{ now.Format "15:04:05" }} CET</span>
     </div>
     <a href="/index.xml" class="station__feed">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.4">

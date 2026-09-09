@@ -226,6 +226,13 @@
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
+#search-toggle {
+  min-height: 38px;
+  justify-content: center;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
 .station__nav-link:hover,
 .station__nav-link:focus-visible {
   background: var(--row-hover);
@@ -345,8 +352,8 @@
 .station__feed {
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding: 11px 22px;
+  justify-content: center;
+  padding: 11px 24px;
   border-left: 1px solid rgba(239, 233, 221, 0.18);
   font-family: var(--font-mono);
   font-size: 10px;
@@ -354,6 +361,11 @@
   text-transform: uppercase;
   color: var(--footer-text);
   white-space: nowrap;
+}
+
+.station__feed svg {
+  width: 20px;
+  height: 20px;
 }
 
 /* ── Latest strip ─────────────────────────────────── */

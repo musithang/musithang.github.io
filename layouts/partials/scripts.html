@@ -70,6 +70,59 @@
     window.location.href = records[Math.floor(Math.random() * records.length)];
   });
 
+  document.querySelectorAll('.highlight').forEach(function(block) {
+    var code = block.querySelector('pre');
+    if (!code) return;
+    var copy = document.createElement('button');
+    copy.type = 'button';
+    copy.className = 'code-copy';
+    copy.setAttribute('aria-label', 'Copy code');
+    copy.title = 'Copy code';
+    copy.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg>';
+    copy.addEventListener('click', function() {
+      navigator.clipboard.writeText(code.innerText).then(function() {
+        copy.classList.add('code-copy--done');
+        copy.setAttribute('aria-label', 'Copied');
+        copy.title = 'Copied';
+        window.setTimeout(function() {
+          copy.classList.remove('code-copy--done');
+          copy.setAttribute('aria-label', 'Copy code');
+          copy.title = 'Copy code';
+        }, 1400);
+      });
+    });
+    block.appendChild(copy);
+  });
+
+  var inspection = document.createElement('div');
+  inspection.className = 'image-inspection';
+  inspection.setAttribute('role', 'dialog');
+  inspection.setAttribute('aria-modal', 'true');
+  inspection.setAttribute('aria-label', 'Image inspection');
+  inspection.innerHTML = '<button type="button" class="image-inspection__close" aria-label="Close image inspection" title="Close">×</button><div class="image-inspection__frame"><img alt=""></div><div class="image-inspection__caption"></div>';
+  document.body.appendChild(inspection);
+  var inspectionImage = inspection.querySelector('img');
+  var inspectionCaption = inspection.querySelector('.image-inspection__caption');
+
+  document.querySelectorAll('.single-post__content img').forEach(function(image) {
+    image.classList.add('inspectable-image');
+    image.addEventListener('click', function() {
+      inspectionImage.src = image.currentSrc || image.src;
+      inspectionImage.alt = image.alt || 'Archive image';
+      inspectionCaption.textContent = image.alt || 'Archive image';
+      inspection.classList.add('open');
+    });
+  });
+
+  function closeInspection() {
+    inspection.classList.remove('open');
+    inspectionImage.removeAttribute('src');
+  }
+
+  inspection.addEventListener('click', function(event) {
+    if (event.target === inspection || event.target === inspection.querySelector('.image-inspection__close')) closeInspection();
+  });
+
   document.addEventListener('keydown', function(e) {
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
       e.preventDefault();
@@ -77,6 +130,7 @@
       if (overlay.classList.contains('open')) input.focus();
     }
     if (e.key === 'Escape') overlay.classList.remove('open');
+    if (e.key === 'Escape') closeInspection();
   });
 
   var segs = document.querySelectorAll('.reading-progress__seg');

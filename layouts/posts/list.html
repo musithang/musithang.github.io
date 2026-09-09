@@ -42,9 +42,12 @@
   {{ end }}
 </div>
 
-{{ partial "post-list-columns.html" . }}
-
 <section class="post-list">
+  <div class="post-list__header">
+    <span class="label-muted">Index of entries</span>
+    <span class="label-muted">{{ $total }} filed · newest first</span>
+  </div>
+  {{ partial "post-list-columns.html" . }}
   {{ range $posts }}
     {{ partial "post-list-item.html" . }}
   {{ end }}

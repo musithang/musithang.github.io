@@ -33,14 +33,19 @@ title = "MusiThang"
   weight = 1
 
 [[menu.main]]
-  name = "Posts"
+  name = "Records"
   url = "/posts/"
   weight = 2
 
 [[menu.main]]
-  name = "About"
-  url = "/about/"
+  name = "Tags"
+  url = "/tags/"
   weight = 3
+
+[[menu.main]]
+  name = "Operator"
+  url = "/about/"
+  weight = 4
 
 [params]
   description = "Technology · Life · Whatever Else"
@@ -48,6 +53,9 @@ title = "MusiThang"
   issueNumber = "01"
   volumeNumber = "01"
   footerDocNumber = "MT-2026-BLOG"
+  osVersion = "MT-OS 4.0"
+  geoCoords = "47.5N 19.0E"
+  shelfCode = "MT-A"
   tickerItems = [
     "Now · rewriting the generator, again",
     "Status · online",

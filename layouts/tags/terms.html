@@ -1,0 +1,16 @@
+{{ define "main" }}
+<section class="tags-page">
+  <div class="post-list__header">
+    <span class="label-muted">Tag index</span>
+    <span class="label-muted">{{ len .Site.Taxonomies.tags }} tags on file</span>
+  </div>
+  <div class="tags-page__grid">
+    {{ range .Site.Taxonomies.tags.Alphabetical }}
+    <a href="{{ .Page.Permalink }}" class="tags-page__card">
+      <span class="tags-page__name">{{ .Page.Title }}</span>
+      <span class="tags-page__count">{{ .Count }} {{ if eq .Count 1 }}entry{{ else }}entries{{ end }}</span>
+    </a>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

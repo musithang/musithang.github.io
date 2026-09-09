@@ -1,0 +1,36 @@
+.tags-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border-top: 1px solid var(--line);
+}
+
+.tags-page__card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px 24px;
+  background: var(--paper);
+  transition: background 0.15s;
+}
+
+.tags-page__card:hover {
+  background: var(--row-hover);
+}
+
+.tags-page__name {
+  font-family: var(--font-archivo);
+  font-weight: 700;
+  font-size: 19px;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.tags-page__count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  text-transform: uppercase;
+}

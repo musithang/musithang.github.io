@@ -1,0 +1,2 @@
+{{- $days := div (sub now.Unix .Unix) 86400 -}}
+{{- if le $days 0 -}}today{{- else if eq $days 1 -}}yesterday{{- else -}}{{ $days }} days ago{{- end -}}

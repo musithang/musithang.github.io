@@ -1,0 +1,114 @@
+{{ $posts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+{{ $totalPosts := len $posts }}
+{{ $totalTags := len .Site.Taxonomies.tags }}
+{{ $latest := index $posts 0 }}
+{{ $latestCode := printf "MT-%03d" ($latest.Params.weight | default 0) }}
+
+{{ $words := 0 }}
+{{ range $posts }}{{ $words = add $words .WordCount }}{{ end }}
+
+{{ $cadence := slice }}
+{{ range $w := (seq 0 11) }}
+  {{ $target := sub 11 $w }}
+  {{ $count := 0 }}
+  {{ range $posts }}
+    {{ $daysAgo := div (sub now.Unix .Date.Unix) 86400 }}
+    {{ if ge $daysAgo 0 }}
+      {{ if eq (div $daysAgo 7) $target }}{{ $count = add $count 1 }}{{ end }}
+    {{ end }}
+  {{ end }}
+  {{ $cadence = $cadence | append $count }}
+{{ end }}
+{{ $cadenceMax := 1 }}
+{{ range $cadence }}{{ if gt . $cadenceMax }}{{ $cadenceMax = . }}{{ end }}{{ end }}
+
+{{ $commit := hugo.Data.build.commit }}
+{{ $buildTime := hugo.Data.build.time }}
+
+<section class="terminal">
+  <div class="terminal__statusbar">
+    <span>MusiThang Archive Terminal · Shelf {{ .Site.Params.shelfCode }} · {{ .Site.Params.geoCoords }}</span>
+    <span class="terminal__link"><span class="terminal__pulse" aria-hidden="true"></span>Link established · {{ $buildTime }} CET</span>
+  </div>
+
+  <div class="terminal__hero">
+    <div class="terminal__main">
+      <div class="label-accent">{{ .Site.Params.osVersion }} · Archive daemon ready</div>
+      <div class="terminal__wordmark-row">
+        <h1 class="terminal__wordmark">MusiThang</h1>
+        <span class="terminal__subtitle">/ Radios · Kernels · Self-hosted things</span>
+      </div>
+      <div class="terminal__log">
+        <div class="terminal__log-line">&gt; mount /archive ......... <span class="terminal__accent-text">ok</span> · {{ printf "%02d" $totalPosts }} records · {{ $totalTags }} tags</div>
+        <div class="terminal__log-line">&gt; last write ............. {{ partial "relative-time.html" $latest.Date }} ({{ $latestCode }})</div>
+        <div class="terminal__log-line">&gt; feed .................... <span class="terminal__accent-text">live</span> · rss/atom/json</div>
+        <div class="terminal__log-line">&gt; <span class="terminal__cursor" aria-hidden="true"></span></div>
+      </div>
+    </div>
+
+    <div class="terminal__figure" aria-hidden="true">
+      <div class="terminal__mesh">
+        <span class="terminal__mesh-ring terminal__mesh-ring--1"></span>
+        <span class="terminal__mesh-ring terminal__mesh-ring--2"></span>
+        <span class="terminal__mesh-ring terminal__mesh-ring--3"></span>
+      </div>
+      <span class="terminal__figure-caption">Fig. 01 · Depth corridor</span>
+    </div>
+
+    <div class="terminal__stats">
+      <div class="terminal__stat">
+        <span class="label-muted">Records on file</span>
+        <span class="terminal__stat-value">{{ printf "%02d" $totalPosts }} · {{ $totalTags }} tags</span>
+      </div>
+      <div class="terminal__stat">
+        <span class="label-muted">Last write</span>
+        <span class="terminal__stat-value terminal__stat-value--accent">{{ partial "relative-time.html" $latest.Date }}</span>
+      </div>
+      <div class="terminal__stat">
+        <span class="label-muted">Archive weight</span>
+        <span class="terminal__stat-value">{{ $words }} words</span>
+      </div>
+      <div class="terminal__stat">
+        <span class="label-muted">Build</span>
+        <span class="terminal__stat-value">#{{ $commit }} · {{ printf "%.5s" $buildTime }}</span>
+      </div>
+      <div class="terminal__stat terminal__stat--cadence">
+        <span class="label-muted">Cadence 12wk</span>
+        <div class="terminal__bars">
+          {{ range $i, $c := $cadence }}
+          <div class="terminal__bar{{ if ge $i 9 }} terminal__bar--accent{{ end }}" style="height: {{ math.Max 6 (div (mul $c 100) $cadenceMax) }}%"></div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="terminal__nav">
+    <div class="terminal__nav-links">
+      {{ range .Site.Menus.main }}
+      <a href="{{ .URL }}" class="terminal__nav-link{{ if eq .Name "Index" }} terminal__nav-link--active{{ end }}">{{ .Name }}</a>
+      {{ end }}
+    </div>
+    <div class="terminal__nav-tools">
+      <button class="terminal__query" id="search-toggle" aria-label="Search">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        Query
+      </button>
+      <button class="terminal__theme" id="theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-switch">
+          <span class="theme-switch__thumb"></span>
+        </span>
+        <span class="theme-label">Light</span>
+      </button>
+    </div>
+  </nav>
+
+  <a href="{{ $latest.Permalink }}" class="terminal__highlight">
+    <span class="terminal__highlight-badge">Newest</span>
+    <span class="terminal__highlight-title">{{ $latest.Title }} — filed {{ partial "relative-time.html" $latest.Date }} · {{ $latest.ReadingTime }} min</span>
+    <span class="terminal__highlight-cta">Open record →</span>
+  </a>
+</section>

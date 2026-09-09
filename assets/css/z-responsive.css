@@ -16,27 +16,6 @@
     padding: 18px 24px 12px;
   }
 
-  /* Hero: smaller circle */
-  .hero__circle,
-  .hero__circle-dots {
-    width: 300px;
-    height: 300px;
-    right: -60px;
-    top: -60px;
-  }
-
-  .hero__content {
-    padding: 40px 24px 36px;
-  }
-
-  .hero__title {
-    font-size: 42px;
-  }
-
-  .hero__number {
-    font-size: 72px;
-  }
-
   /* Post list: tighter padding */
   .post-list__header {
     padding: 22px 24px 10px;
@@ -180,45 +159,6 @@
     font-size: 10px;
     padding: 0 12px;
     height: 30px;
-  }
-
-  /* Hero: full rework */
-  .hero__circle,
-  .hero__circle-dots {
-    width: 180px;
-    height: 180px;
-    right: -40px;
-    top: -40px;
-  }
-
-  .hero__content {
-    padding: 28px 16px 28px;
-  }
-
-  .hero__top {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .hero__number {
-    font-size: 52px;
-  }
-
-  .hero__title {
-    font-size: 30px;
-  }
-
-  .hero__desc {
-    font-size: 14px;
-    max-width: 100%;
-  }
-
-  .hero__specs {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .hero__spec {
-    padding: 10px 14px;
   }
 
   /* Post list */

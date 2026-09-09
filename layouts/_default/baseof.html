@@ -38,6 +38,13 @@
   {{ end }}
 </head>
 <body>
+  {{ if .IsHome }}
+  {{ partial "terminal-panel.html" . }}
+  <div class="site-main">
+    {{ block "main" . }}{{ end }}
+    {{ partial "footer.html" . }}
+  </div>
+  {{ else }}
   <div class="site-wrapper">
     {{ partial "sidebar.html" . }}
     <div class="site-main">
@@ -47,6 +54,7 @@
       {{ partial "footer.html" . }}
     </div>
   </div>
+  {{ end }}
   {{ partial "search.html" . }}
   {{ partial "scripts.html" . }}
 </body>

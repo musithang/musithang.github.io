@@ -1,19 +1,19 @@
 :root {
   /* Colors - Light Theme */
-  --paper: #efe9dd;
+  --paper: #ece4d5;
   --ink: #14120f;
   --accent: #ff5a30;
   --muted: #6f6a5e;
   --line: rgba(20, 18, 15, 0.18);
   --num-stroke: rgba(20, 18, 15, 0.32);
-  --panel: #f7f3ea;
+  --panel: #f3ede1;
   --row-hover: rgba(20, 18, 15, 0.035);
   --track-bg: rgba(20, 18, 15, 0.12);
   --footer-bg: #14120f;
-  --footer-text: #efe9dd;
+  --footer-text: #ece4d5;
   --footer-muted: #a09a8d;
   --code-bg: #14120f;
-  --code-text: #d6d0c4;
+  --code-text: #d4cdbf;
   --plate-bg: #e2dbcc;
   --bar-empty: rgba(20, 18, 15, 0.2);
   --bar-filled: rgba(20, 18, 15, 0.5);

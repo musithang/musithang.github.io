@@ -288,12 +288,12 @@
     width: 100%;
   }
 
-  .station__orbit {
-    left: 45%;
-    top: -10px;
-    width: 132px;
-    height: 50px;
-    opacity: 0.18;
+  .station__spectral {
+    right: -108px;
+    top: -14px;
+    width: 470px;
+    height: 124px;
+    opacity: 0.24;
   }
 
   .station__wordmark {

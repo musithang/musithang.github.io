@@ -16,6 +16,34 @@
     padding: 18px 24px 12px;
   }
 
+  /* Terminal panel: drop the decorative figure, stack stats below the log */
+  .terminal__statusbar {
+    padding: 8px 24px;
+  }
+
+  .terminal__hero {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 28px 24px;
+  }
+
+  .terminal__figure {
+    display: none;
+  }
+
+  .terminal__wordmark {
+    font-size: 48px;
+  }
+
+  .terminal__nav-links,
+  .terminal__nav-tools {
+    flex-wrap: wrap;
+  }
+
+  .terminal__highlight {
+    padding: 12px 24px;
+  }
+
   /* Post list: tighter padding */
   .post-list__header {
     padding: 22px 24px 10px;
@@ -128,6 +156,72 @@
 
   .sidebar {
     display: none;
+  }
+
+  /* Terminal panel: full rework for narrow screens */
+  .terminal__statusbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 8px 16px;
+  }
+
+  .terminal__hero {
+    padding: 24px 16px;
+  }
+
+  .terminal__wordmark-row {
+    gap: 8px;
+    margin: 8px 0 16px;
+  }
+
+  .terminal__wordmark {
+    font-size: 32px;
+  }
+
+  .terminal__subtitle {
+    font-size: 10px;
+  }
+
+  .terminal__log-line {
+    font-size: 10.5px;
+  }
+
+  .terminal__nav {
+    flex-direction: column;
+  }
+
+  .terminal__nav-links {
+    width: 100%;
+  }
+
+  .terminal__nav-link {
+    flex: 1;
+    text-align: center;
+  }
+
+  .terminal__nav-tools {
+    width: 100%;
+    border-top: 1px solid rgba(239, 233, 221, 0.15);
+  }
+
+  .terminal__query,
+  .terminal__theme {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .terminal__highlight {
+    flex-wrap: wrap;
+    padding: 10px 16px;
+  }
+
+  .terminal__highlight-title {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    flex-basis: 100%;
+    order: 1;
   }
 
   /* Header: stack brand + nav */

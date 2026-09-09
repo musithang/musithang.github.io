@@ -4,9 +4,12 @@
 
 /* ── TABLET ≤ 1024px ────────────────────────────── */
 @media (max-width: 1024px) {
+  :root {
+    --station-header-offset: 72px;
+  }
 
   .reading-progress {
-    top: 72px;
+    top: var(--station-header-offset);
   }
 
   /* Station header: drop the shelf spine, tighten the callsign row */
@@ -125,7 +128,7 @@
   }
 
   .archive-filter {
-    top: 67px;
+    top: var(--station-header-offset);
   }
 
   /* Tag index */
@@ -182,9 +185,12 @@
 
 /* ── MOBILE ≤ 640px ─────────────────────────────── */
 @media (max-width: 640px) {
+  :root {
+    --station-header-offset: var(--station-header-offset-mobile);
+  }
 
   .reading-progress {
-    top: 108px;
+    top: var(--station-header-offset);
   }
 
   /* Terminal panel: full rework for narrow screens */
@@ -374,7 +380,7 @@
   }
 
   .archive-filter {
-    top: 60px;
+    top: var(--station-header-offset);
     padding: 0 16px;
   }
 

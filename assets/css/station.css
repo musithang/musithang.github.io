@@ -171,23 +171,54 @@
 .station__spectral {
   position: absolute;
   z-index: 0;
-  right: 4%;
-  top: -38px;
-  width: min(760px, 56vw);
-  height: 166px;
+  right: 0;
+  top: 0;
+  width: min(720px, 52vw);
+  height: 83px;
   overflow: hidden;
-  color: var(--ink);
-  opacity: 0.34;
-  transform: rotate(-3deg);
+  color: var(--paper);
+  opacity: 1;
+  transform: none;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  border: 1px solid var(--ink);
+  border-right: 0;
+  border-left: 8px solid var(--accent);
+  background: var(--footer-bg);
+}
+
+.station__spectral::before,
+.station__spectral::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.station__spectral::before {
+  left: 18%;
+  top: 0;
+  width: 7px;
+  height: 100%;
+  background: var(--accent);
+  box-shadow: 14px 0 0 var(--footer-bg);
+  opacity: 0.95;
+}
+
+.station__spectral::after {
+  right: 18px;
+  bottom: 10px;
+  width: 92px;
+  height: 8px;
+  border-top: 2px solid var(--accent);
+  border-bottom: 2px solid var(--ink);
+  transform: skewX(-28deg);
 }
 
 .station__spectral svg {
   display: block;
   width: 100%;
   height: 100%;
+  opacity: 0.96;
 }
 
 .station__spectral-wave {
@@ -195,7 +226,7 @@
 }
 
 .station__spectral-wave--cyan {
-  filter: drop-shadow(0 0 2px #6d9695);
+  filter: drop-shadow(3px 0 0 #6d9695);
 }
 
 .station__nav {
@@ -210,6 +241,7 @@
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+  background: var(--paper);
 }
 
 .station__nav-link {

@@ -60,13 +60,23 @@
   var randomAccess = document.getElementById('random-access');
   var searchResults = document.getElementById('search-results');
 
+  function closePalette() {
+    overlay.classList.remove('open');
+    input.value = '';
+    searchResults.innerHTML = '';
+    searchResults.hidden = true;
+  }
+
   document.getElementById('search-toggle').addEventListener('click', function() {
-    overlay.classList.toggle('open');
-    if (overlay.classList.contains('open')) input.focus();
+    if (overlay.classList.contains('open')) closePalette();
+    else {
+      overlay.classList.add('open');
+      input.focus();
+    }
   });
 
   overlay.addEventListener('click', function(e) {
-    if (e.target === overlay) overlay.classList.remove('open');
+    if (e.target === overlay) closePalette();
   });
 
   randomAccess.addEventListener('click', function() {
@@ -192,10 +202,13 @@
   document.addEventListener('keydown', function(e) {
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
       e.preventDefault();
-      overlay.classList.toggle('open');
-      if (overlay.classList.contains('open')) input.focus();
+      if (overlay.classList.contains('open')) closePalette();
+      else {
+        overlay.classList.add('open');
+        input.focus();
+      }
     }
-    if (e.key === 'Escape') overlay.classList.remove('open');
+    if (e.key === 'Escape') closePalette();
     if (e.key === 'Escape') closeInspection();
     if (inspection.classList.contains('open') && e.key === 'Tab') {
       e.preventDefault();

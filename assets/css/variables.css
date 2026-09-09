@@ -15,6 +15,8 @@
   --code-bg: #14120f;
   --code-text: #d6d0c4;
   --plate-bg: #e2dbcc;
+  --bar-empty: rgba(20, 18, 15, 0.2);
+  --bar-filled: rgba(20, 18, 15, 0.5);
 
   /* Typography */
   --font-archivo: 'Archivo', sans-serif;
@@ -40,4 +42,6 @@
   --row-hover: rgba(239, 233, 221, 0.05);
   --track-bg: rgba(239, 233, 221, 0.16);
   --plate-bg: #0e0c0a;
+  --bar-empty: rgba(239, 233, 221, 0.2);
+  --bar-filled: rgba(239, 233, 221, 0.5);
 }

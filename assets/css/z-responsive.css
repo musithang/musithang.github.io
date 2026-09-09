@@ -22,17 +22,36 @@
   }
 
   .terminal__hero {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 28px 24px;
+    flex-direction: column;
+  }
+
+  .terminal__console {
+    border-right: none;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .terminal__main {
+    padding: 24px;
   }
 
   .terminal__figure {
     display: none;
   }
 
+  .terminal__stats {
+    width: 100%;
+  }
+
+  .terminal__stat {
+    padding: 12px 24px;
+  }
+
+  .terminal__cadence {
+    padding: 12px 24px;
+  }
+
   .terminal__wordmark {
-    font-size: 48px;
+    font-size: 46px;
   }
 
   .terminal__nav-links,
@@ -166,13 +185,17 @@
     padding: 8px 16px;
   }
 
-  .terminal__hero {
-    padding: 24px 16px;
+  .terminal__main {
+    padding: 20px 16px;
+  }
+
+  .terminal__stat,
+  .terminal__cadence {
+    padding: 12px 16px;
   }
 
   .terminal__wordmark-row {
     gap: 8px;
-    margin: 8px 0 16px;
   }
 
   .terminal__wordmark {
@@ -196,8 +219,9 @@
   }
 
   .terminal__nav-link {
-    flex: 1;
-    text-align: center;
+    flex: 1 1 50%;
+    justify-content: center;
+    border-bottom: 1px solid rgba(239, 233, 221, 0.2);
   }
 
   .terminal__nav-tools {

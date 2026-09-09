@@ -1,0 +1,31 @@
+{{- /* Dot-print depth corridor: perspective lines + nested squares, masked into a dot screen. */ -}}
+<svg class="terminal__corridor" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="corridorDots" width="3" height="3" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.62" fill="var(--ink)"></circle>
+    </pattern>
+    <pattern id="corridorDotsAccent" width="3" height="3" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.72" fill="var(--accent)"></circle>
+    </pattern>
+    <mask id="corridorInk">
+      {{- range $i := seq 0 8 }}
+      {{- $t := add 6.0 (mul $i 23.5) }}
+      <line x1="{{ $t }}" y1="6" x2="100" y2="100" stroke="#fff" stroke-width="1.4" opacity="0.55"></line>
+      <line x1="{{ $t }}" y1="194" x2="100" y2="100" stroke="#fff" stroke-width="1.4" opacity="0.55"></line>
+      <line x1="6" y1="{{ $t }}" x2="100" y2="100" stroke="#fff" stroke-width="1.4" opacity="0.55"></line>
+      <line x1="194" y1="{{ $t }}" x2="100" y2="100" stroke="#fff" stroke-width="1.4" opacity="0.55"></line>
+      {{- end }}
+      {{- range $i := seq 0 8 }}
+      {{- $half := mul 94.0 (math.Pow (sub 1.0 (div $i 8.0)) 2.1) }}
+      <rect x="{{ sub 100.0 $half }}" y="{{ sub 100.0 $half }}" width="{{ mul $half 2.0 }}" height="{{ mul $half 2.0 }}" fill="none" stroke="#fff" stroke-width="1.8" opacity="{{ sub 0.95 (mul $i 0.04375) }}"></rect>
+      {{- end }}
+    </mask>
+    <mask id="corridorCore">
+      <circle cx="100" cy="100" r="34" fill="#fff"></circle>
+    </mask>
+  </defs>
+  <rect width="200" height="200" fill="url(#corridorDots)" mask="url(#corridorInk)"></rect>
+  <g mask="url(#corridorCore)">
+    <rect width="200" height="200" fill="url(#corridorDotsAccent)" mask="url(#corridorInk)"></rect>
+  </g>
+</svg>

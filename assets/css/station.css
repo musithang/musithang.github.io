@@ -149,6 +149,8 @@
 }
 
 .station__wordmark {
+  position: relative;
+  isolation: isolate;
   display: block;
   font-family: var(--font-archivo);
   font-weight: 900;
@@ -156,6 +158,29 @@
   line-height: 0.94;
   letter-spacing: -0.02em;
   text-transform: uppercase;
+}
+
+.station__wordmark::before,
+.station__wordmark::after {
+  content: attr(data-wordmark);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.station__wordmark::before {
+  color: #6d9695;
+  transform: translate(-2px, 1px);
+  clip-path: inset(0 42% 48% 0);
+  opacity: 0.85;
+}
+
+.station__wordmark::after {
+  color: var(--accent);
+  transform: translate(2px, -1px);
+  clip-path: inset(48% 0 0 42%);
+  opacity: 0.85;
 }
 
 .station__tagline {

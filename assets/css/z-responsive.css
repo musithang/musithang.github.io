@@ -174,6 +174,10 @@
 /* ── MOBILE ≤ 640px ─────────────────────────────── */
 @media (max-width: 640px) {
   /* Terminal panel: full rework for narrow screens */
+  .terminal {
+    position: sticky;
+  }
+
   .terminal__statusbar {
     flex-direction: column;
     align-items: flex-start;
@@ -181,6 +185,23 @@
     padding: 8px 12px;
     font-size: 8px;
     letter-spacing: 0.16em;
+  }
+
+  .terminal__hero {
+    flex-direction: column;
+  }
+
+  .terminal__console {
+    border-right: none;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .terminal__figure {
+    display: none;
+  }
+
+  .terminal__stats {
+    width: 100%;
   }
 
   .terminal__nav {
@@ -214,11 +235,12 @@
   }
 
   .terminal__wordmark {
-    font-size: 32px;
+    font-size: 36px;
   }
 
   .terminal__subtitle {
-    font-size: 10px;
+    font-size: 9px;
+    letter-spacing: 0.14em;
   }
 
   .terminal__log-line {

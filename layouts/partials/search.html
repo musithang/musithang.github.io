@@ -1,13 +1,37 @@
+{{ $records := slice }}
+{{ range (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+  {{ $records = $records | append (dict "title" .Title "url" .RelPermalink) }}
+{{ end }}
+
 <div class="search-overlay" id="search-overlay">
-  <div class="search-box">
+  <div class="search-box" role="dialog" aria-label="Command palette">
+    <div class="search-command-head">
+      <span>Command palette</span>
+      <kbd>ESC</kbd>
+    </div>
     <div class="search-input-wrap">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2.2">
         <circle cx="11" cy="11" r="7"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
       <input type="text" id="search-input" placeholder="Search the archive — posts, tags, regrets">
-      <span class="search-hint">ESC</span>
+      <span class="search-hint">TYPE</span>
+    </div>
+    <div class="command-list">
+      <a href="/archive/" class="command-item">
+        <span class="command-item__key">A</span>
+        <span><strong>Open archive statistics</strong><small>Index weight, records, tags, reading time</small></span>
+        <span class="command-item__arrow">→</span>
+      </a>
+      <button type="button" class="command-item" id="random-access">
+        <span class="command-item__key">R</span>
+        <span><strong>Random access</strong><small>Open an unknown record from the archive</small></span>
+        <span class="command-item__arrow">↗</span>
+      </button>
     </div>
     <div class="search-recent">Recent · rust · self-hosted · hello-world</div>
   </div>
+</div>
+<div id="archive-records" hidden>
+  {{ range $records }}<a href="{{ .url }}">{{ .title }}</a>{{ end }}
 </div>

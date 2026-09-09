@@ -1,0 +1,65 @@
+{{ define "main" }}
+{{ $posts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+{{ $tags := .Site.Taxonomies.tags }}
+{{ $totalWords := 0 }}
+{{ $totalRead := 0 }}
+{{ range $posts }}
+  {{ $totalWords = add $totalWords .WordCount }}
+  {{ $totalRead = add $totalRead .ReadingTime }}
+{{ end }}
+{{ $first := index ($posts.ByDate) 0 }}
+{{ $latest := index $posts 0 }}
+<section class="archive-stats">
+  <header class="archive-stats__header">
+    <div>
+      <span class="archive-stats__eyebrow">Archive instrument</span>
+      <h1>Statistics</h1>
+    </div>
+    <a class="archive-stats__back" href="/posts/">Back to records</a>
+  </header>
+
+  <div class="archive-stats__grid">
+    <article class="archive-stat archive-stat--hero">
+      <span class="archive-stat__label">Records on file</span>
+      <strong>{{ len $posts }}</strong>
+      <span class="archive-stat__note">Filed entries in the current index</span>
+    </article>
+    <article class="archive-stat">
+      <span class="archive-stat__label">Archive weight</span>
+      <strong>{{ $totalWords }}</strong>
+      <span class="archive-stat__note">Words across all records</span>
+    </article>
+    <article class="archive-stat">
+      <span class="archive-stat__label">Reading time</span>
+      <strong>{{ $totalRead }}<small> min</small></strong>
+      <span class="archive-stat__note">Estimated total duration</span>
+    </article>
+    <article class="archive-stat">
+      <span class="archive-stat__label">Tags indexed</span>
+      <strong>{{ len $tags }}</strong>
+      <span class="archive-stat__note">Distinct filing labels</span>
+    </article>
+  </div>
+
+  <div class="archive-stats__details">
+    <div class="archive-stats__detail">
+      <span>First filing</span>
+      <strong>{{ $first.Date.Format "2006-01-02" }}</strong>
+    </div>
+    <div class="archive-stats__detail">
+      <span>Latest filing</span>
+      <strong>{{ $latest.Date.Format "2006-01-02" }}</strong>
+    </div>
+    <div class="archive-stats__detail">
+      <span>Index state</span>
+      <strong>Operational</strong>
+    </div>
+  </div>
+
+  <div class="archive-stats__bars" aria-hidden="true">
+    {{ range $i, $post := $posts }}
+    <span style="--bar: {{ add 24 (mod (mul (add $i 3) 17) 72) }}%"></span>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

@@ -50,6 +50,11 @@
 
   var overlay = document.getElementById('search-overlay');
   var input = document.getElementById('search-input');
+  var records = Array.prototype.map.call(
+    document.querySelectorAll('#archive-records a'),
+    function(record) { return record.getAttribute('href'); }
+  );
+  var randomAccess = document.getElementById('random-access');
 
   document.getElementById('search-toggle').addEventListener('click', function() {
     overlay.classList.toggle('open');
@@ -60,8 +65,13 @@
     if (e.target === overlay) overlay.classList.remove('open');
   });
 
+  randomAccess.addEventListener('click', function() {
+    if (!records.length) return;
+    window.location.href = records[Math.floor(Math.random() * records.length)];
+  });
+
   document.addEventListener('keydown', function(e) {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
       e.preventDefault();
       overlay.classList.toggle('open');
       if (overlay.classList.contains('open')) input.focus();

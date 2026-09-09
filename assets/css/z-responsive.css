@@ -334,7 +334,7 @@
     display: none;
   }
 
-  .station__onair span:not(.station__onair-dot) {
+  .station__onair span:not(.station__archive-mark) {
     display: none;
   }
 

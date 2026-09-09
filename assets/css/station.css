@@ -304,22 +304,11 @@
   white-space: nowrap;
 }
 
-.station__onair-dot {
+.station__archive-mark {
   width: 7px;
   height: 7px;
-  border-radius: 50%;
   background: var(--footer-bg);
-  animation: station-blip 1.6s ease-in-out infinite;
-}
-
-@keyframes station-blip {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.15;
-  }
+  border: 1px solid var(--footer-bg);
 }
 
 .station__stat {

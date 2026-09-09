@@ -374,6 +374,16 @@
     text-align: right;
   }
 
+  .post-item__barcode {
+    display: block;
+    width: 72px;
+  }
+
+  .post-item__barcode .code39-barcode {
+    width: 72px;
+    height: 18px;
+  }
+
   .post-item__arrow {
     width: 28px;
     height: 28px;

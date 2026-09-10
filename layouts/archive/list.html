@@ -7,8 +7,12 @@
   {{ $totalWords = add $totalWords .WordCount }}
   {{ $totalRead = add $totalRead .ReadingTime }}
 {{ end }}
-{{ $first := index ($posts.ByDate) 0 }}
-{{ $latest := index $posts 0 }}
+{{ $firstDate := "—" }}
+{{ $latestDate := "—" }}
+{{ if gt (len $posts) 0 }}
+  {{ $firstDate = (index ($posts.ByDate) 0).Date.Format "2006-01-02" }}
+  {{ $latestDate = (index $posts 0).Date.Format "2006-01-02" }}
+{{ end }}
 <section class="archive-stats">
   <header class="archive-stats__header">
     <div>
@@ -44,11 +48,11 @@
   <div class="archive-stats__details">
     <div class="archive-stats__detail">
       <span>First filing</span>
-      <strong>{{ $first.Date.Format "2006-01-02" }}</strong>
+      <strong>{{ $firstDate }}</strong>
     </div>
     <div class="archive-stats__detail">
       <span>Latest filing</span>
-      <strong>{{ $latest.Date.Format "2006-01-02" }}</strong>
+      <strong>{{ $latestDate }}</strong>
     </div>
     <div class="archive-stats__detail">
       <span>Index state</span>

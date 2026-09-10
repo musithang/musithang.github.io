@@ -1,7 +1,7 @@
 {{ $posts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
 {{ $totalPosts := len $posts }}
 
-{{ $motivation := 15 }}
+{{ $motivation := 15.0 }}
 {{ if gt $totalPosts 0 }}
   {{ $cutoff := now.AddDate 0 0 -30 }}
   {{ $recentCount := len (where $posts "Date" "ge" $cutoff) }}
@@ -19,7 +19,7 @@
   {{ end }}
   {{ if $isYak }}{{ $yakCount = add $yakCount 1 }}{{ end }}
 {{ end }}
-{{ $yak := 10 }}
+{{ $yak := 10.0 }}
 {{ if gt $totalPosts 0 }}
   {{ $yak = math.Round (div (mul $yakCount 100.0) $totalPosts) }}
 {{ end }}

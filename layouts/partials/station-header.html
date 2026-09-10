@@ -1,8 +1,12 @@
 {{ $posts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
 {{ $totalPosts := len $posts }}
 {{ $totalTags := len .Site.Taxonomies.tags }}
-{{ $latest := index $posts 0 }}
-{{ $lastWrite := partial "relative-time.html" $latest.Date }}
+{{ $latest := "" }}
+{{ $lastWrite := "—" }}
+{{ if gt $totalPosts 0 }}
+  {{ $latest = index $posts 0 }}
+  {{ $lastWrite = partial "relative-time.html" $latest.Date }}
+{{ end }}
 {{ $buildData := hugo.Data.build | default (dict "commit" "local" "date" "" "time" "--:--:--") }}
 {{ $commit := $buildData.commit }}
 {{ $buildDate := $buildData.date | default (now.Format "2006-01-02") }}
@@ -107,6 +111,7 @@
     </a>
 </div>
 
+{{ if gt $totalPosts 0 }}
 <a href="{{ $latest.Permalink }}" class="station__latest">
     <span class="station__latest-main">
       <span class="station__latest-badge">Latest</span>
@@ -115,6 +120,7 @@
     </span>
     <span class="station__latest-cta">Read →</span>
  </a>
+{{ end }}
 
 {{ if .IsPage }}
 <div class="reading-progress" id="reading-progress">

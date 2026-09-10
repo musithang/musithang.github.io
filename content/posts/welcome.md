@@ -29,8 +29,6 @@ untitled-17
 
 ## The garbage is where the real story lives
 
-![A retro-technical waste manifest labeling a pile of obsolete electronics as an archive object](/images/garbage.jpg)
-
 There was something I actually liked about that pile, though.
 
 Looking through it years later, the interesting part was rarely the finished, polished thing. The interesting part was always the mess around it:
@@ -59,7 +57,7 @@ I wanted somewhere to keep that part too: the bench tests that failed, the "radi
 
 So this is the Archive. No PR bullshit, no corporate hand-waving. Just the work, the bugs, the muddle, and the measurements.
 
-## Why call it an archive, not a blog
+## No expiration date
 
 The name came from the specific vibe I wanted this place to have, but it also stems from something much more practical.
 
@@ -67,13 +65,7 @@ An archive implies that whatever is being stored doesn't have to be immediately 
 
 It can simply be worth keeping.
 
-That distinction matters a lot to me. Possibly more than it should.
-
-I have never given a single shit about maintaining a traditional blog.
-
-There is something inherently depressing about the idea that every thought, experiment, or random epiphany has to be packaged into "content" and fed to an algorithm. You publish a post, move on to the next shiny thing, and after a while the raw chronological feed buries the actual substance. Chronology becomes more important than the ideas themselves, as if the date you typed something matters more than whether it's actually true, interesting, or useful.
-
-I don't want a feed. I want to build a collection.
+That distinction matters a lot to me. Possibly more than it should. I don't want a feed. I want a collection.
 
 ## Unfinished roads and no conclusions
 
@@ -118,21 +110,17 @@ I have a persistent, almost unhealthy obsession with systems in general. Technic
 
 Expect writing about technology, philosophy, hardware, signal processing, human bureaucracy, random experiments, and whatever else hijacks my attention span long enough to demand a write-up.
 
-## Zero editorial strategy
+## Filed without a plan
 
 There is no content calendar here. No editorial board. No SEO-optimized bullshit designed to capture clicks or maintain "brand consistency."
 
 That is completely intentional. Mostly because a content calendar implies a level of planning I have never once demonstrated in my life.
 
+None of that is the same as saying this page wasn't edited. It went through several drafts, and it shows. The lack of a plan is about what gets written about, not about whether I bothered to clean it up afterward.
+
 I want this place to have enough structural scaffolding to feel like a proper, permanent archive, without forcing me to decide in advance what is "worthy" of being archived. If it's interesting, if it broke, or if it occupied my brain long enough to be worth logging, it gets written down.
 
-## The rules
-
-- Ship before it's perfect.
-- If it builds without errors, ship it.
-- Regret is a tomorrow problem.
-
-## The visual language
+## The costume
 
 The aesthetic here is completely intentional.
 
@@ -253,7 +241,7 @@ There is no hidden machine behind the machine.
 
 At least, not one that I am responsible for.
 
-## Preserving the why
+## What evaporates first
 
 I think the single most useful thing this Archive can do is preserve context.
 

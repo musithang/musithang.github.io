@@ -178,6 +178,18 @@
   font-family: inherit;
 }
 
+.single-post__content > pre {
+  margin: 30px 0;
+  padding: 16px 18px;
+  border: 1px solid var(--ink);
+  background: var(--code-bg);
+  color: var(--code-text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.85;
+  overflow-x: auto;
+}
+
 .code-copy {
   position: absolute;
   top: 8px;

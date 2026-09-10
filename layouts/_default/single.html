@@ -27,7 +27,8 @@
       </div>
       <div class="post-spec">
         <div class="label-accent">Rewrites</div>
-        <div class="post-spec__value">{{ printf "%02d" (.Params.rewrites | default 1) }} (so far)</div>
+        {{ $rewrites := .Params.rewrites | default 1 }}
+        <div class="post-spec__value">{{ if eq (printf "%T" $rewrites) "int" }}{{ printf "%02d" $rewrites }}{{ else }}{{ $rewrites }}{{ end }} (so far)</div>
       </div>
       <div class="post-spec">
         <div class="label-accent">Status</div>

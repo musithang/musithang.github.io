@@ -57,6 +57,8 @@ I wanted somewhere to keep that part too: the bench tests that failed, the "radi
 
 So this is the Archive. No PR bullshit, no corporate hand-waving. Just the work, the bugs, the muddle, and the measurements.
 
+## Why call it an archive, not a blog
+
 The name came from the specific vibe I wanted this place to have, but it also stems from something much more practical.
 
 An archive implies that whatever is being stored doesn't have to be immediately useful. It doesn't need an ROI, a call-to-action, or a step-by-step resolution.
@@ -122,6 +124,12 @@ That is completely intentional. Mostly because a content calendar implies a leve
 
 I want this place to have enough structural scaffolding to feel like a proper, permanent archive, without forcing me to decide in advance what is "worthy" of being archived. If it's interesting, if it broke, or if it occupied my brain long enough to be worth logging, it gets written down.
 
+## The rules
+
+- Ship before it's perfect.
+- If it builds without errors, ship it.
+- Regret is a tomorrow problem.
+
 ## The visual language
 
 The aesthetic here is completely intentional.
@@ -146,7 +154,7 @@ Is it a little theatrical? Fuck yes, it is. And that's completely fine. The inte
 
 But once you decide that an article is a record rather than just an ephemeral "blog post," a few things happen:
 
-- The catalog number becomes the entry's public identity, even though the sort order underneath is, honestly, still just the publish date. Chronology has to live somewhere.
+- The catalogue number becomes the entry's public identity, even though the sort order underneath is, honestly, still just the publish date. Chronology has to live somewhere.
 - Metadata becomes a visible part of the page, the entry number, the barcode, the spec sheet, instead of disappearing into `<meta>` tags nobody reads.
 - Calling something a record instead of a "post" makes it fine for it to sit unfinished, or never resolve. Records don't need a narrative arc.
 
@@ -166,11 +174,11 @@ A record header, stripped down to what actually ships, looks something like this
 
 Nothing about the number is automatic. There's no script incrementing a counter somewhere; I open the file and type the next one in by hand, because building an auto-increment system for an audience of my own browser tabs felt like solving a problem I didn't have.
 
-The barcode underneath it is real too, generated from the catalog number and the title. It's genuine Code 39, meaning the bars actually encode that string instead of just looking like they do. If you're bored enough to scan a blog post header, it will, in fact, resolve to the right text. I'm not entirely sure what that says about either of us.
+The barcode underneath it is real too, generated from the catalogue number and the title. It's genuine Code 39, meaning the bars actually encode that string instead of just looking like they do. If you're bored enough to scan a blog post header, it will, in fact, resolve to the right text. I'm not entirely sure what that says about either of us.
 
-The catalog number isn't meant to imply that there are thousands of important classified documents waiting in a vault somewhere. At the moment, there's just a handful. It's mostly pure administrative optimism.
+The catalogue number isn't meant to imply that there are thousands of important classified documents waiting in a vault somewhere. At the moment, there's just a handful. It's mostly pure administrative optimism.
 
-## The frame is fiction. The writing is not.
+## The frame is fiction, the writing is not
 
 This is probably the single most important distinction on this entire site.
 
@@ -243,11 +251,7 @@ There is no hidden machine behind the machine.
 
 At least, not one that I am responsible for.
 
-## The rules
-
-- Ship before it's perfect.
-- If it builds without errors, ship it.
-- Regret is a tomorrow problem.
+## Preserving the why
 
 I think the single most useful thing this Archive can do is preserve context.
 
@@ -287,7 +291,7 @@ I don't really know what this place will become yet.
 
 That is probably the only right way to start it.
 
-For now, it is a home for the things that usually disappear into the void between the first commit and the finished release: the experiments that never got a tag, the ideas that mutated into something else, the technical brick walls that taught me more than the solutions, the things I build, the things I tear apart, and occasionally the things I think about for no particularly productive reason.
+For now, it is a home for the things that usually disappear into the void between the first commit and the finished release: the experiments that never got a tag, the ideas that mutated into something else, the technical brick walls that taught me more than the solutions, the things I build, the things I tear apart, and occasionally the things I think about for no particularly productive reason. My therapist would probably have opinions.
 
 The interface may look like it came from a terminal designed twenty years ago to operate a computer that will exist twenty years in the future.
 

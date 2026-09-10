@@ -29,6 +29,8 @@ untitled-17
 
 ## The garbage is where the real story lives
 
+![A retro-technical waste manifest labeling a pile of obsolete electronics as an archive object](/images/garbage.jpg)
+
 There was something I actually liked about that pile, though.
 
 Looking through it years later, the interesting part was rarely the finished, polished thing. The interesting part was always the mess around it:

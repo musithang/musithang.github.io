@@ -69,7 +69,7 @@ That distinction matters a lot to me. Possibly more than it should. I don't want
 
 ## Unfinished roads and no conclusions
 
-Not everything written here is going to be a clean, step-by-step tutorial. Not everything will end with a neat, satisfying conclusion.
+Not everything written here is going to be a clean, step-by-step tutorial with a neat, satisfying conclusion.
 
 Some entries will be nothing more than a raw account of how I tackled a specific problem. Others might be a half-baked idea that never actually materializes into a finished project at all.
 
@@ -89,7 +89,7 @@ A project might eventually ship as a polished piece of software, but the actual 
 
 Those moments are usually lost forever, because they are a pain in the ass to document in real time.
 
-The Archive is my attempt to make them inconvenient as fuck to lose instead.
+That's the whole point of this place: making them inconvenient as fuck to lose instead.
 
 ## Rabbit holes, broken code, and the small stuff
 
@@ -116,7 +116,7 @@ There is no content calendar here. No editorial board. No SEO-optimized bullshit
 
 That is completely intentional. Mostly because a content calendar implies a level of planning I have never once demonstrated in my life.
 
-None of that is the same as saying this page wasn't edited. It went through several drafts, and it shows. The lack of a plan is about what gets written about, not about whether I bothered to clean it up afterward.
+None of that means this page wasn't edited. It went through several drafts, obviously. Not having a content calendar and not bothering to fix a bad sentence are not the same disease.
 
 I want this place to have enough structural scaffolding to feel like a proper, permanent archive, without forcing me to decide in advance what is "worthy" of being archived. If it's interesting, if it broke, or if it occupied my brain long enough to be worth logging, it gets written down.
 
@@ -155,6 +155,7 @@ A record header, stripped down to what actually ships, looks something like this
 │ ARCHIVE RECORD                        │
 ├───────────────────────────────────────┤
 │ ENTRY          MT-001                 │
+│ SIGNATURE      MT-001-42FE            │
 │ TITLE          Welcome to the archive │
 │ FILED UNDER    META, WELCOME          │
 │ PUBLISHED      2026-09-10             │
@@ -164,7 +165,7 @@ A record header, stripped down to what actually ships, looks something like this
 
 Nothing about the number is automatic. There's no script incrementing a counter somewhere; I open the file and type the next one in by hand, because building an auto-increment system for an audience of my own browser tabs felt like solving a problem I didn't have.
 
-The barcode underneath it is real too, generated from the catalogue number and the title. It's genuine Code 39, meaning the bars actually encode that string instead of just looking like they do. If you're bored enough to scan a blog post header, it will, in fact, resolve to the right text. I'm not entirely sure what that says about either of us.
+The barcode underneath it is real too. The entry number and the first four characters of the title's MD5 hash get concatenated into that signature above, MT-001-42FE, and encoded into genuine Code 39, meaning the bars actually decode back to that exact string instead of just looking like they do. If you're bored enough to scan a blog post header, it will, in fact, resolve to the right text. I'm not entirely sure what that says about either of us.
 
 The catalogue number isn't meant to imply that there are thousands of important classified documents waiting in a vault somewhere. At the moment, there's just a handful. It's mostly pure administrative optimism.
 
@@ -172,7 +173,7 @@ The catalogue number isn't meant to imply that there are thousands of important 
 
 This is probably the single most important distinction on this entire site.
 
-The Archive has a distinct visual identity, but I do not want the writing itself to turn into roleplay. The catalogue numbers, labels, status bars, and metadata grids you just read about are part of the site's fiction. The stuff sitting inside that frame is 100% real:
+This place has a distinct visual identity, but I do not want the writing itself to turn into roleplay. The catalogue numbers, labels, status bars, and metadata grids you just read about are part of the site's fiction. The stuff sitting inside that frame is 100% real:
 
 - The projects are real.
 - The experiments are real.
@@ -193,7 +194,7 @@ It is also a huge part of the reason I am writing this in the first place.
 
 ## The machine behind the screen
 
-The Archive might look like a terminal interface from 1998, but underneath, it's considerably less mysterious, and blissfully free of over-engineered bullshit.
+It might look like some retro instrument panel bolted together in 1998, but underneath, it's considerably less mysterious, and blissfully free of over-engineered bullshit.
 
 It's a static site built with Hugo and served directly through GitHub Pages. The entire source lives in a Git repository, the posts are plain text Markdown files, and Hugo compiles the whole thing into static HTML in a fraction of a millisecond. Faster, notably, than I am at fixing whatever I just broke.
 
@@ -202,21 +203,21 @@ No database waiting to corrupt itself at 4 AM. No dynamic CMS quietly tracking u
 In its rawest form, the pipeline is dead simple:
 
 ```
-   Markdown
-       │
-       ▼
-     Hugo
-       │
-       ├── templates
-       ├── content
-       ├── taxonomy
-       └── static assets
-       │
-       ▼
-   HTML / CSS
-       │
-       ▼
-  GitHub Pages
+           content/*.md
+        layouts/**/*.html
+         assets/css/*.css
+                │
+                ▼
+        hugo --gc --minify
+                │
+                ▼
+             public/
+                │
+                ▼
+          GitHub Actions
+                │
+                ▼
+           GitHub Pages
 ```
 
 Creating a new catalogue entry doesn't require clicking around a bloated admin dashboard. It's just a Markdown file with a frontmatter header, more or less identical to the one sitting at the top of this exact post:
@@ -283,19 +284,15 @@ That is probably the only right way to start it.
 
 For now, it is a home for the things that usually disappear into the void between the first commit and the finished release: the experiments that never got a tag, the ideas that mutated into something else, the technical brick walls that taught me more than the solutions, the things I build, the things I tear apart, and occasionally the things I think about for no particularly productive reason. My therapist would probably have opinions.
 
-The interface may look like it came from a terminal designed twenty years ago to operate a computer that will exist twenty years in the future.
+The interface may look like an instrument panel designed twenty years ago to operate a computer that will exist twenty years in the future.
 
 The writing will be much simpler.
 
 It will just be mine.
 
-And if everything works as intended, the Archive will slowly become a map of what I was curious about at different points in time.
+And if everything works as intended, this will slowly become a map of what I was curious about at different points in time.
 
-Not a portfolio.
-
-Not a product catalogue.
-
-Not a collection of perfectly finished answers.
+Not a portfolio, not a product catalogue, not a collection of perfectly finished answers.
 
 Just a growing record.
 

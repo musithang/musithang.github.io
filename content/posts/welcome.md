@@ -1,6 +1,6 @@
 ---
 title: "Welcome to the archive"
-date: 2026-09-10T12:44:00Z
+date: 2026-09-10T09:00:00Z
 draft: false
 weight: 1
 tags: ["meta", "welcome"]
@@ -234,7 +234,7 @@ Creating a new catalogue entry doesn't require clicking around a bloated admin d
 ```yaml
 ---
 title: "Welcome to the archive"
-date: 2026-09-10T12:44:00Z
+date: 2026-09-10T09:00:00Z
 draft: false
 weight: 1
 tags: ["meta", "welcome"]

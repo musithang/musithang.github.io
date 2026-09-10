@@ -1,0 +1,32 @@
+{{ $posts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+{{ $totalPosts := len $posts }}
+{{ $totalTags := len .Site.Taxonomies.tags }}
+{{ $buildData := hugo.Data.build | default (dict "commit" "local" "date" "" "time" "--:--:--") }}
+{{ $buildDate := $buildData.date | default (now.Format "2006-01-02") }}
+{{ $buildTime := $buildData.time | default "--:--:--" }}
+{{ $buildStamp := printf "%s %.5s" $buildDate $buildTime }}
+{{ $commits := hugo.Data.log | default slice }}
+
+<details class="system-log">
+  <summary class="system-log__summary">
+    <span class="system-log__dot" aria-hidden="true"></span>
+    <span>MT-OS event log</span>
+    <span class="system-log__count">{{ add (len $commits) 2 }}</span>
+  </summary>
+  <ul class="system-log__list">
+    <li class="system-log__entry">
+      <span class="system-log__time">{{ $buildStamp }}</span>
+      <span class="system-log__text">Build #{{ $buildData.commit }} deployed</span>
+    </li>
+    <li class="system-log__entry">
+      <span class="system-log__time">{{ $buildStamp }}</span>
+      <span class="system-log__text">Archive re-indexed · {{ $totalPosts }} records · {{ $totalTags }} tags</span>
+    </li>
+    {{ range $commits }}
+    <li class="system-log__entry">
+      <span class="system-log__time">{{ .date }}</span>
+      <span class="system-log__text">#{{ .hash }} · {{ .message }}</span>
+    </li>
+    {{ end }}
+  </ul>
+</details>

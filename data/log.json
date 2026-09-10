@@ -1,0 +1,8 @@
+[
+  {"hash": "0015ce6", "message": "Refactor post tags and table of contents markup for consistent styling; add print CSS for improved print layout", "date": "2026-09-10 11:33"},
+  {"hash": "b9ea582", "message": "Add custom 404 error page layout and styles for improved user experience", "date": "2026-09-10 11:19"},
+  {"hash": "6d3d1f9", "message": "Refactor post listing logic to ensure consistent ordering; update navigation links and add XML feed for posts.", "date": "2026-09-10 10:54"},
+  {"hash": "38ee79d", "message": "Refactor relative time calculation to account for UTC day boundaries; ensure accurate display of \"yesterday\" for posts within 24 hours.", "date": "2026-09-10 10:27"},
+  {"hash": "a119784", "message": "Fix build data reference in station header; remove deprecated robots.txt file.", "date": "2026-09-10 09:21"},
+  {"hash": "c13aafe", "message": "Update background opacity and add repeating linear gradient for enhanced visual effects; adjust color variables for improved consistency across themes.", "date": "2026-09-09 22:47"}
+]

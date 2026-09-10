@@ -49,6 +49,13 @@ jobs:
             "$(TZ=Europe/Budapest date '+%H:%M:%S')" \
             > data/build.json
 
+      - name: Write recent activity log
+        run: |
+          mkdir -p data
+          TZ=Europe/Budapest git log -n 6 --pretty=format:'%h||%s||%ad' --date=format-local:'%Y-%m-%d %H:%M' \
+            | jq -R -s -c 'split("\n") | map(select(length > 0) | split("||")) | map({hash: .[0], message: .[1], date: .[2]})' \
+            > data/log.json
+
       - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache

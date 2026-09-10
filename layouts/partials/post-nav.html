@@ -1,20 +1,22 @@
-{{ $weight := .Params.weight | default 0 }}
-{{ if gt $weight 0 }}
+{{ $posts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+{{ $index := -1 }}
+{{ range $i, $p := $posts }}{{ if eq $p.RelPermalink $.RelPermalink }}{{ $index = $i }}{{ end }}{{ end }}
+{{ if ge $index 0 }}
 <nav class="post-nav">
-  {{ $prev := first 1 (where .Site.RegularPages "Params.weight" (sub $weight 1)) }}
-  {{ with $prev }}
-  <a href="{{ (index . 0).Permalink }}" class="post-nav__prev">
-    <div class="post-nav__label">← Previous · {{ (index . 0).Params.weight | printf "%03d" }}</div>
-    <div class="post-nav__title">{{ (index . 0).Title }}</div>
+  {{ if lt (add $index 1) (len $posts) }}
+  {{ $prev := index $posts (add $index 1) }}
+  <a href="{{ $prev.Permalink }}" class="post-nav__prev">
+    <div class="post-nav__label">← Previous · {{ $prev.Params.weight | printf "%03d" }}</div>
+    <div class="post-nav__title">{{ $prev.Title }}</div>
   </a>
   {{ else }}
   <div></div>
   {{ end }}
-  {{ $next := first 1 (where .Site.RegularPages "Params.weight" (add $weight 1)) }}
-  {{ with $next }}
-  <a href="{{ (index . 0).Permalink }}" class="post-nav__next">
-    <div class="post-nav__label">Next · {{ (index . 0).Params.weight | printf "%03d" }} →</div>
-    <div class="post-nav__title">{{ (index . 0).Title }}</div>
+  {{ if gt $index 0 }}
+  {{ $next := index $posts (sub $index 1) }}
+  <a href="{{ $next.Permalink }}" class="post-nav__next">
+    <div class="post-nav__label">Next · {{ $next.Params.weight | printf "%03d" }} →</div>
+    <div class="post-nav__title">{{ $next.Title }}</div>
   </a>
   {{ end }}
 </nav>

@@ -84,6 +84,15 @@
     window.location.href = records[Math.floor(Math.random() * records.length)];
   });
 
+  input.addEventListener('keydown', function(e) {
+    if (e.key !== 'Enter') return;
+    var top = !searchResults.hidden && searchResults.querySelector('a.command-item');
+    if (top) {
+      e.preventDefault();
+      window.location.href = top.href;
+    }
+  });
+
   input.addEventListener('input', function() {
     var query = input.value.trim().toLowerCase();
     searchResults.innerHTML = '';

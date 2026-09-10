@@ -1,11 +1,12 @@
 {{ define "main" }}
+{{ $posts := .Pages.ByDate.Reverse }}
 <section class="post-list">
   <div class="post-list__header">
     <span class="label-muted">Index of entries</span>
-    <span class="label-muted">{{ len .Pages }} filed · newest first</span>
+    <span class="label-muted">{{ len $posts }} filed · newest first</span>
   </div>
   {{ partial "post-list-columns.html" . }}
-  {{ range .Pages }}
+  {{ range $posts }}
     {{ partial "post-list-item.html" . }}
   {{ end }}
 </section>

@@ -1,4 +1,4 @@
-{{ $posts := where .Site.RegularPages "Section" "posts" }}
+{{ $posts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
 <section class="post-list">
   <div class="post-list__header">
     <span class="label-muted">Index of entries</span>

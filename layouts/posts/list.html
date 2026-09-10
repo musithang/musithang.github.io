@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{ $posts := .Pages }}
+{{ $posts := .Pages.ByDate.Reverse }}
 {{ $total := len $posts }}
 {{ $withPlate := 0 }}
 {{ range $posts }}

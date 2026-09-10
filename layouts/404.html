@@ -1,0 +1,71 @@
+{{ define "main" }}
+{{ $chars := strings.Split (md5 "record-not-found") "" }}
+{{ $hex := "" }}
+{{ range (first 4 $chars) }}{{ $hex = printf "%s%s" $hex (. | upper) }}{{ end }}
+{{ $signature := printf "MT-404-%s" $hex }}
+
+<section class="error-404">
+  <span class="error-404__mark error-404__mark--tl" aria-hidden="true">+</span>
+  <span class="error-404__mark error-404__mark--br" aria-hidden="true">+</span>
+
+  <a href="/" class="back-link">← Back to index</a>
+
+  <div class="error-404__header">
+    <span class="num-stroke error-404__code">404</span>
+    <div>
+      <div class="label-muted">Section 04 — Retrieval error</div>
+      <h1 class="error-404__title">Record not found</h1>
+      <p class="error-404__desc">The signature you followed doesn't match anything on file. It may have been refiled, delisted, or never existed in this archive.</p>
+    </div>
+  </div>
+
+  <div class="error-404__plate">
+    <span class="error-404__stamp">No matching record</span>
+    <span class="post-plate__corner post-plate__corner--tl" aria-hidden="true"></span>
+    <span class="post-plate__corner post-plate__corner--tr" aria-hidden="true"></span>
+    <span class="post-plate__corner post-plate__corner--bl" aria-hidden="true"></span>
+    <span class="post-plate__corner post-plate__corner--br" aria-hidden="true"></span>
+    <div class="error-404__redaction" aria-hidden="true">
+      <span style="width: 78%"></span>
+      <span style="width: 94%"></span>
+      <span style="width: 52%"></span>
+      <span style="width: 88%"></span>
+      <span style="width: 34%"></span>
+      <span style="width: 70%"></span>
+    </div>
+  </div>
+
+  <div class="post-specs error-404__specs">
+    <div class="post-spec">
+      <div class="label-accent">Requested path</div>
+      <div class="post-spec__value error-404__path" id="error-404-path">—</div>
+    </div>
+    <div class="post-spec">
+      <div class="label-accent">Status</div>
+      <div class="post-spec__value">404 · not filed</div>
+    </div>
+    <div class="post-spec">
+      <div class="label-accent">Shelf</div>
+      <div class="post-spec__value">—</div>
+    </div>
+    <div class="post-spec">
+      <div class="label-accent">Signature</div>
+      <div class="post-spec__value">
+        <div class="error-404__barcode">{{ partial "code39-barcode.html" (dict "text" $signature) }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="error-404__actions">
+    <a href="/" class="error-404__cta error-404__cta--primary">Return to index</a>
+    <a href="/posts/" class="error-404__cta">Browse records</a>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var el = document.getElementById('error-404-path');
+    if (el) el.textContent = window.location.pathname || '/';
+  })();
+</script>
+{{ end }}

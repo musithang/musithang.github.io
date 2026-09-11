@@ -52,11 +52,11 @@ Put a thought into a default blog template and it comes out looking like a blog 
 
 {{< split caption="The same sentence twice. Nothing on the right improves the writing. It only changes what I am willing to leave in it." >}}
 {{< pane label="Loose in a document" >}}
-The homelab is a phone nobody has called in 2 years. It runs warm enough now that dust does not settle on it, which is the most useful thing it has ever done.
+The homelab is a phone nobody has called in two years. It runs warm enough now that dust does not settle on it, which is the most useful thing it has ever done.
 {{< /pane >}}
 {{< pane label="Filed as a record" tone="accent" >}}
 {{< plate label="Field note" ref="MT-000-A" footer="Status · unverified" >}}
-The homelab is a phone nobody has called in four years. It runs warm enough now that dust does not settle on it, which is the most useful thing it has ever done.
+The homelab is a phone nobody has called in two years. It runs warm enough now that dust does not settle on it, which is the most useful thing it has ever done.
 {{< /plate >}}
 {{< /pane >}}
 {{< /split >}}

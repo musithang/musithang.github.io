@@ -4,7 +4,7 @@ date: 2026-09-11T08:00:00Z
 draft: false
 weight: 2
 tags: ["homelab", "linux", "android", "networking", "security"]
-description: "A phone with no resale value left, a 400 gigabyte kernel rebuild, and a ten-year trip home that took about eleven months instead."
+description: "A phone with no resale value left, a firewall with two heads that don't talk to each other, and a couple of weeks that felt, at the time, like the Trojan War."
 rewrites: 1
 ---
 
@@ -45,9 +45,9 @@ I'd already named the homelab after Odysseus, for what felt at the time like a t
 
 {{< note side="right" >}}If you use fish as your shell, as any sensible person does, `source build/envsetup.sh` fails with something like "missing end to balance this if statement," because the AOSP build system has never heard of fish and never will. Open a plain `bash`, do the incantations there, `exit` back to civilisation when you're done.{{< /note >}}
 
-Two things nearly ended the project before the kernel had even finished compiling. The first: I forgot `git lfs install` before syncing the source, so every binary blob downloaded as a text pointer instead of the actual file. Nothing about this fails loudly. It fails quietly, hours later, as a SHA1 mismatch on an obscure partition image, at which point you get to discover that half your source tree has been lying to you the entire time. The second: `systemd-oomd`, Ubuntu's own out-of-memory killer, took one look at a kernel build eating thirteen gigabytes of RAM and decided this was exactly the kind of process it exists to murder. The build doesn't crash. It just stops, silently, with an exit code that explains nothing. Both fixes are one line each, and both cost me an evening apiece to actually diagnose.
+Getting there also involved a swapfile, Ubuntu's own out-of-memory killer trying to assassinate the build on principle, and one forgotten `git lfs install` that quietly corrupted half the vendor blobs and waited several hours to mention it. None of that is worth dragging through in full here. It already has a home: [the build toolkit is on GitHub](https://github.com/musithang/diting_droidspaces_kernel), profanity fully intact, if you want the director's cut with all the scar tissue still attached.
 
-So: swapfile, oomd stopped, lfs installed, config fragment patched, and then a source tree the size of a small operating system, because it is one, rebuilt itself from scratch. It worked. Full containers, actual namespaces, hardware access, on a 2022 flagship that was otherwise headed for a drawer of forgotten gadgets.
+It worked, eventually. Full containers, actual namespaces, hardware access, on a 2022 flagship that was otherwise headed for a drawer of forgotten gadgets.
 
 ## Four stops on the way home
 
@@ -62,7 +62,7 @@ Getting the kernel to boot was, comparatively, the easy part. Getting a working 
 
 None of this is a bug, exactly. It's all Android being extremely good at being Android, on a kernel that was never supposed to route a WireGuard tunnel out of somebody's spare room.
 
-And none of it is likely to be useful to another living soul, if we're honest. The exact combination of this phone, this Android build, and these four specific decisions is about as reusable as a fingerprint. But writing it down means I never have to solve any of these four problems twice, and if one fragment of it, the routing trick, the pin, the insert-before-append order, happens to save somebody else an evening on a completely unrelated project, that's a better outcome than the alternative, which is all of this quietly evaporating the next time I forget how my own network works.
+And none of it is likely to be useful to another living soul, if we're honest. The exact combination of this phone, this Android build, and these four specific decisions is about as reusable as a fingerprint. But that's more or less the entire thesis of this post, isn't it. A phone that looked like it was worth nothing turned out to be worth a homelab. A pile of Android routing trivia that looks like it's worth nothing might turn out to be worth somebody else's evening, on a project with nothing to do with phones, someday. Writing it down is cheap. Finding out it mattered is not something you get to decide in advance, which is exactly why the drawer full of things you're "definitely never going to need again" is worth a second look before it goes in the bin.
 
 ## Drawing the map
 
@@ -84,6 +84,8 @@ Once the routes actually worked, the shape of the thing turned out to be almost 
         VPN clients                  DNS · media · proxy
      (phone, laptop, tablet)          all on the same IP
 ```
+
+{{< note side="right" >}}Fourteen containers, one IP address, and a port map that lives entirely in my memory and one increasingly panicked spreadsheet.{{< /note >}}
 
 That `network_mode: host` line is doing more work than it looks like. The obvious choice, a Docker bridge network with its own subnet and port mapping, would have needed its own routing table and its own NAT rules, both of which would then be competing with Android's tethering stack for the same job. Two systems, both convinced they're in charge of the same traffic, is not a fight worth having on purpose. Host networking sidesteps it entirely: every container just listens on the phone's one real IP, containers reach each other over `127.0.0.1`, and there is exactly one thing on the box doing routing instead of two arguing about it.
 
@@ -129,13 +131,26 @@ What that leaves facing the actual internet is small on purpose: the WireGuard h
 {{< /spec >}}
 {{< /plate >}}
 
-Fail2ban watches the login failures and writes that eviction itself, straight into the same INPUT chain, no human involved. Three wrong passwords against the one public-facing login is enough. It does not care who's asking.
+Fail2ban watches the login failures and writes that eviction itself, straight into the same INPUT chain, no human involved. Three wrong passwords against the one public-facing login is enough. It does not care who's asking, and it has never once apologised for its tone.
 
 ## What a listening beast needs, in order to listen
 
 The last problem wasn't networking. It was attention span. Android throttles the CPU hard the moment the screen turns off, down to a few hundred megahertz on this device, which is sensible for a phone nobody is looking at and useless for a server that is meant to keep working at 3 a.m. A minimum frequency floor and a partial wake lock fix it. The screen is allowed to sleep. The phone is not.
 
 A beast whose entire job is listening doesn't get to doze off just because nobody's watching the screen.
+
+## The same four tricks, every morning
+
+None of the previous four sections happen once and stay fixed. They happen again, automatically, every single time the phone reboots, in order, before I've had the chance to notice anything went down.
+
+{{< log >}}
+{{< event at="Kernel boot" >}}wlan0 connects, DHCP hands out an address, and Android's own netd quietly loads its BPF programs before anything else gets a say in the matter.{{< /event >}}
+{{< event at="Userspace" >}}The DroidSpaces container starts. Somewhere around here, a phone becomes a Linux box again.{{< /event >}}
+{{< event at="The routing script" >}}A systemd service finds Android's real routing table, adds the policy rules, re-pins the BPF programs, loads the firewall, and pins the CPU awake. Every trick from four sections ago, replayed from muscle memory, every single boot.{{< /event >}}
+{{< event at="Everything else" >}}Docker starts. The containers restart themselves, because they were always going to. DNS, VPN, and Fail2ban are live before I've finished making coffee.{{< /event >}}
+{{< /log >}}
+
+Four fights, fought exactly once each, by hand, and then quietly automated into a script that refights all of them for me on every boot without complaint. That's the actual payoff of doing this properly instead of doing it live in a terminal at midnight: you only have to win each war one time.
 
 ## The lock on the tunnel
 
@@ -152,11 +167,28 @@ Session keys rotate every couple of minutes and never touch the disk, so recordi
 
 ## Ithaca, such as it is
 
-Odysseus took ten years to get home. This took about eleven months, which I am choosing to count as an improvement. But the shape of the story holds: the destination was never really a place on a map. It was a working state. My stuff, under my control, doing what I actually need it to do, instead of sitting in a drawer being worth nothing to anyone, including me.
+Odysseus took ten years to get home. But the shape of the story holds regardless of the exact number: the destination was never really a place on a map. It was a working state. My stuff, under my control, doing what I actually need it to do, instead of sitting in a drawer being worth nothing to anyone, including me.
 
-A DNS resolver that filters its own upstream queries. A WireGuard tunnel that only the devices with the right key can even see. A reverse proxy terminating TLS for the one thing that's allowed to face the internet at all. A media server, a download client, a dashboard, a handful of quieter tools, all sharing one IP because there was never a good reason to give them separate ones.
+{{< spec cols="2" >}}
+{{< field name="DNS + ad blocking" >}}Pi-hole{{< /field >}}
+{{< field name="VPN" >}}WireGuard{{< /field >}}
+{{< field name="Reverse proxy + TLS" >}}Nginx Proxy Manager{{< /field >}}
+{{< field name="Password manager" >}}Vaultwarden{{< /field >}}
+{{< field name="Media server" >}}Jellyfin{{< /field >}}
+{{< field name="Downloads" >}}qBittorrent{{< /field >}}
+{{< field name="Audiobooks" >}}Audiobookshelf{{< /field >}}
+{{< field name="File browser" >}}Filebrowser{{< /field >}}
+{{< field name="Container management" >}}Dockge{{< /field >}}
+{{< field name="Budget tracking" >}}Actual Budget{{< /field >}}
+{{< field name="Metrics" >}}Netdata{{< /field >}}
+{{< field name="Brute-force defence" >}}Fail2ban{{< /field >}}
+{{< /spec >}}
+
+Twelve services. One phone. It used to hold six apps I never opened and an alarm clock I could have replaced with an actual alarm clock.
 
 The exact public address, the exact ports, and the exact map of what's reachable from where are staying off this page. Not because the setup is fragile, but because there is no upside to publishing a floor plan of your own front door.
+
+One correction before I let you go: I said, a few sections back, that this took about eleven months. That was a lie, delivered in the same breath as a Greek epic and with a completely straight face, because "eleven months" sounds like the kind of number a serious odyssey should have. It took a little over two weeks. I have simply never fully recovered, and inflating two weeks of `iptables-legacy` into a decade-adjacent mythological ordeal felt more emotionally accurate than the calendar did. Call it artistic license. Call it two burst brain capillaries and a lingering grudge against `tetherctrl`. Both are true.
 
 The phone got home. It just needed the drawer part removed first.
 

@@ -88,7 +88,7 @@
     </div>
     <div class="station__stat">
       <span class="station__stat-label">Latest filing</span>
-      <span class="station__stat-value station__stat-value--accent">{{ $lastWrite }}</span>
+      <span class="station__stat-value station__stat-value--accent">{{ $lastWrite | safeHTML }}</span>
     </div>
     <div class="station__stat station__stat--records">
       <span class="station__stat-label">Records on file</span>
@@ -116,7 +116,7 @@
     <span class="station__latest-main">
       <span class="station__latest-badge">Latest</span>
       <span class="station__latest-title">{{ $latest.Title }}</span>
-      <span class="station__latest-meta">filed {{ $lastWrite }} · {{ $latest.ReadingTime }} min</span>
+      <span class="station__latest-meta">filed {{ $lastWrite | safeHTML }} · {{ $latest.ReadingTime }} min</span>
     </span>
     <span class="station__latest-cta">Read →</span>
  </a>

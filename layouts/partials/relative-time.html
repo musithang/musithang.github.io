@@ -1,8 +1,14 @@
 {{- /* Calendar-day difference (UTC day boundaries), not raw elapsed hours -
    a post from yesterday afternoon must still read "yesterday" even if
-   less than 24h have actually elapsed by the time this builds. */ -}}
+   less than 24h have actually elapsed by the time this builds.
+
+   The value is baked in at build time, so it would go stale on a static
+   site between deploys. The date travels with it in data-date and the
+   script recalculates it in the browser; this stays as the fallback. */ -}}
 {{- $day := time.ParseDuration "24h" -}}
 {{- $postMidnight := .Truncate $day -}}
 {{- $nowMidnight := now.Truncate $day -}}
 {{- $days := div (sub $nowMidnight.Unix $postMidnight.Unix) 86400 -}}
+<span class="js-relative" data-date="{{ .Format "2006-01-02T15:04:05Z07:00" }}">
 {{- if le $days 0 -}}today{{- else if eq $days 1 -}}yesterday{{- else -}}{{ $days }} days ago{{- end -}}
+</span>

@@ -1,0 +1,2 @@
+{{- $cols := .Get "cols" | default "1" -}}
+<dl class="spec" style="--spec-cols: {{ $cols }}">{{ .Inner | safeHTML }}</dl>

@@ -51,6 +51,30 @@
   updateLocalTime();
   window.setInterval(updateLocalTime, 1000);
 
+  // "Latest filing" is baked in at build time, so on a static site it would
+  // read "today" forever. Recalculated here against the archive's own
+  // timezone, the same one the clock above runs on.
+  function updateRelativeTimes() {
+    var nodes = document.querySelectorAll('.js-relative');
+    if (!nodes.length) return;
+    var dayOf = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Europe/Budapest',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    });
+    var today = Date.parse(dayOf.format(new Date()));
+    Array.prototype.forEach.call(nodes, function(node) {
+      var filed = new Date(node.getAttribute('data-date'));
+      if (isNaN(filed.getTime())) return;
+      var days = Math.round((today - Date.parse(dayOf.format(filed))) / 86400000);
+      node.textContent = days <= 0 ? 'today' : days === 1 ? 'yesterday' : days + ' days ago';
+    });
+  }
+
+  updateRelativeTimes();
+  window.setInterval(updateRelativeTimes, 60000);
+
   var overlay = document.getElementById('search-overlay');
   var input = document.getElementById('search-input');
   var records = Array.prototype.map.call(

@@ -235,6 +235,167 @@
   margin: 0 0 14px;
 }
 
+/* ── Panel strip ──────────────────────────────────────────────── */
+
+.strip {
+  display: grid;
+  grid-template-columns: repeat(var(--strip-cols, 3), minmax(0, 1fr));
+  gap: 10px;
+}
+
+.frame {
+  position: relative;
+  min-width: 0;
+}
+
+.frame__media {
+  display: block;
+}
+
+.frame__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--ink);
+}
+
+/* a shared ratio turns mismatched panels into a tidy grid */
+.strip--ratio .frame {
+  display: flex;
+  flex-direction: column;
+}
+
+.strip--ratio .frame__media {
+  aspect-ratio: var(--strip-ratio);
+}
+
+.strip--ratio .frame__img {
+  height: 100%;
+  object-fit: cover;
+}
+
+/* a panel spanning two columns is twice as wide, so keeping the ratio would
+   make it taller and break the row. it crops to the height the others set. */
+.strip--ratio .frame--span .frame__media {
+  position: relative;
+  aspect-ratio: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+/* taking the image out of flow is what stops it from setting the row height */
+.strip--ratio .frame--span .frame__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.frame__caption {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Event log ────────────────────────────────────────────────── */
+
+.log {
+  margin: 34px 0;
+  border-top: 1px solid var(--ink);
+}
+
+.log__event {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 20px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.log__at {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  line-height: 1.9;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.log__what {
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+
+.log__what > *:first-child {
+  margin-top: 0;
+}
+
+.log__what > *:last-child {
+  margin-bottom: 0;
+}
+
+.log__what p {
+  margin: 0 0 10px;
+}
+
+/* ── Spec sheet ───────────────────────────────────────────────── */
+
+.spec {
+  display: grid;
+  grid-template-columns: repeat(var(--spec-cols, 1), minmax(0, 1fr));
+  gap: 0 40px;
+  margin: 34px 0;
+  border-top: 1px solid var(--ink);
+}
+
+.spec__field {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 20px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.spec__field dt {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  line-height: 1.8;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.spec__field dd {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.6;
+}
+
+.spec__field dd p {
+  margin: 0;
+}
+
+/* ── Redaction ────────────────────────────────────────────────── */
+
+.redacted {
+  background: var(--ink);
+  color: transparent;
+  padding: 0 3px;
+  border-radius: 1px;
+  cursor: help;
+  transition: color 0.15s, background 0.15s;
+}
+
+.redacted:hover,
+.redacted:active {
+  background: var(--track-bg);
+  color: var(--ink);
+}
+
 /* ── Document plate ───────────────────────────────────────────── */
 
 .plate {

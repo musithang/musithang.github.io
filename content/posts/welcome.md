@@ -55,7 +55,7 @@ Put a thought into a default blog template and it comes out looking like a blog 
 The scanner in the back room still works. Nobody has requisitioned anything from Shelf A in eleven years.
 {{< /pane >}}
 {{< pane label="Filed as a record" tone="accent" >}}
-{{< plate label="Field note" ref="MT-000-B" footer="Status · unverified" >}}
+{{< plate label="Field note" ref="MT-000-A" footer="Status · unverified" >}}
 The scanner in the back room still works. Nobody has requisitioned anything from Shelf A in eleven years.
 {{< /plate >}}
 {{< /pane >}}
@@ -81,7 +81,7 @@ And when I write about something technical, I am going to explain it like you ar
 
 Here is one of the formats, pulled from a drawer that does not exist yet.
 
-{{< plate label="Field note" ref="MT-000-A" stamp="Unfiled" footer="Filed in error · retained anyway" >}}
+{{< plate label="Field note" ref="MT-000-B" stamp="Unfiled" footer="Filed in error · retained anyway" >}}
 - milk
 - AA batteries, the kind that are never in the drawer when you need them
 - coffee
@@ -107,9 +107,20 @@ The confidence, on the other hand, is not always earned.
 
 ## Volume 01 begins on an empty shelf
 
-That is the honest state of things. The filing system is elaborate. The archive itself currently holds almost nothing.
+That is the honest state of things. The filing system is elaborate. The archive itself currently holds almost nothing, which is the correct way round, I think. Better to build the room properly and then fill it, than to pile things up for a year and call it a collection afterwards.
 
-Which is the correct way round, I think. Better to build the room properly and then fill it, than to pile things up for a year and call it a collection afterwards.
+{{< plate label="Annual facility report" ref="MT-A/2026" stamp="Approved" footer="Reviewed and approved by the same person who wrote it" width="wide" >}}
+{{< spec cols="2" >}}
+{{< field name="Floor area" >}}One shelf{{< /field >}}
+{{< field name="Staff" >}}One, part time, unpaid{{< /field >}}
+{{< field name="Records held" >}}01{{< /field >}}
+{{< field name="Annual visitors" >}}{{< redacted >}}my mother, twice{{< /redacted >}}{{< /field >}}
+{{< field name="Opening hours" >}}Whenever the build passes{{< /field >}}
+{{< field name="Operating budget" >}}{{< redacted >}}nothing, it runs on free hosting{{< /redacted >}}{{< /field >}}
+{{< field name="Fire exits" >}}The browser back button{{< /field >}}
+{{< field name="Compliance" >}}Not applicable, and nobody has asked{{< /field >}}
+{{< /spec >}}
+{{< /plate >}}
 
 So: the drawers are open, the lights are humming, the scanner works.
 

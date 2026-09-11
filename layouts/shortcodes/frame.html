@@ -1,0 +1,9 @@
+{{- $span := .Get "span" -}}
+<div class="frame{{ if $span }} frame--span{{ end }}"{{ with $span }} style="grid-column: span {{ . }}"{{ end }}>
+  <span class="frame__media">
+    <img class="frame__img" src="{{ .Get "src" }}" alt="{{ .Get "alt" | default "" }}" loading="lazy">
+  </span>
+  {{- with .Get "caption" }}
+  <span class="frame__caption">{{ . }}</span>
+  {{- end }}
+</div>

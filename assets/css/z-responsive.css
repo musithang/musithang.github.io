@@ -130,6 +130,21 @@
     gap: 22px;
   }
 
+  /* panels keep their grid, just narrower, or a comic page falls apart */
+  .strip {
+    grid-template-columns: repeat(min(var(--strip-cols, 3), 2), minmax(0, 1fr));
+  }
+
+  .spec {
+    grid-template-columns: 1fr;
+  }
+
+  .log__event,
+  .spec__field {
+    grid-template-columns: 110px minmax(0, 1fr);
+    gap: 14px;
+  }
+
   .plate__body {
     padding: 18px;
     font-size: 15px;

@@ -1,0 +1,11 @@
+{{- $cols := .Get "cols" | default "3" -}}
+{{- $ratio := .Get "ratio" -}}
+<figure class="post-figure post-figure--{{ .Get "width" | default "wide" }}">
+  <div class="strip{{ if $ratio }} strip--ratio{{ end }}"
+       style="--strip-cols: {{ $cols }}{{ with $ratio }}; --strip-ratio: {{ . }}{{ end }}">
+    {{- .Inner | safeHTML -}}
+  </div>
+  {{- with .Get "caption" }}
+  <figcaption class="post-figure__caption">{{ . | markdownify }}</figcaption>
+  {{- end }}
+</figure>

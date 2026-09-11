@@ -1,1 +1,2 @@
-<span class="redacted" title="Redacted">{{ .Inner | markdownify }}</span>
+{{- /* no markdownify and no trailing newline: this has to stay inline, tight against the punctuation that follows it */ -}}
+<span class="redacted" title="Redacted">{{ .Inner }}</span>

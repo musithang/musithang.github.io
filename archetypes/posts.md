@@ -52,6 +52,39 @@ image: ""
   entry's own signature. legend="false" hides the explanation rows.
 
   {{ "{{</* signature text=\"MT-014-9C2A\" legend=\"false\" caption=\"Optional.\" */>}}" }}
+
+  ── Panel strip ────────────────────────────────────────────────
+  Images in a grid, for comics and spreads. Panels open in the
+  lightbox on click. ratio (e.g. "4/3") crops every panel to the same
+  shape; span widens one panel across several columns and crops it to
+  the height the others set. Leave ratio off to keep natural sizes.
+
+  {{ "{{</* strip cols=\"3\" ratio=\"4/3\" width=\"full\" caption=\"Optional.\" */>}}" }}
+  {{ "{{</* frame src=\"/images/p1.jpg\" alt=\"\" span=\"2\" caption=\"Optional panel label\" */>}}" }}
+  {{ "{{</* frame src=\"/images/p2.jpg\" alt=\"\" */>}}" }}
+  {{ "{{</* /strip */>}}" }}
+
+  ── Event log ──────────────────────────────────────────────────
+  Timestamped lines for a project diary. "at" is free text, so
+  "Day 1" works as well as a real date.
+
+  {{ "{{</* log */>}}" }}
+  {{ "{{</* event at=\"Day 1\" */>}}It worked on the bench.{{</* /event */>}}" }}
+  {{ "{{</* event at=\"Day 2\" */>}}It stopped working.{{</* /event */>}}" }}
+  {{ "{{</* /log */>}}" }}
+
+  ── Spec sheet ─────────────────────────────────────────────────
+  Key and value rows. cols="2" puts two pairs per line.
+
+  {{ "{{</* spec cols=\"2\" */>}}" }}
+  {{ "{{</* field name=\"Board\" */>}}Raspberry Pi 4, 4 GB{{</* /field */>}}" }}
+  {{ "{{</* /spec */>}}" }}
+
+  ── Redaction ──────────────────────────────────────────────────
+  Blacks out a few words mid sentence. Hovering reveals them, so use
+  it for jokes, not for anything that actually needs hiding.
+
+  The budget was {{ "{{</* redacted */>}}nothing{{</* /redacted */>}}" }}.
 -->
 
 Write the entry here.

@@ -1,0 +1,25 @@
+{{- $sig := partial "post-signature.html" .Page -}}
+{{- $parts := split $sig "-" -}}
+<figure class="post-figure post-figure--{{ .Get "width" | default "text" }}">
+  <div class="sig">
+    <div class="sig__barcode">{{ partial "code39-barcode.html" (dict "text" $sig) }}</div>
+    <div class="sig__string">{{ $sig }}</div>
+    <dl class="sig__legend">
+      <div class="sig__row">
+        <dt>{{ index $parts 0 }}</dt>
+        <dd>shelf prefix, the same on every record</dd>
+      </div>
+      <div class="sig__row">
+        <dt>{{ index $parts 1 }}</dt>
+        <dd>entry number, typed in by hand</dd>
+      </div>
+      <div class="sig__row">
+        <dt>{{ index $parts 2 }}</dt>
+        <dd>first four characters of the title's MD5 hash</dd>
+      </div>
+    </dl>
+  </div>
+  {{- with .Get "caption" }}
+  <figcaption class="post-figure__caption">{{ . | markdownify }}</figcaption>
+  {{- end }}
+</figure>

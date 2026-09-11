@@ -1,0 +1,7 @@
+{{- $width := .Get "width" | default "text" -}}
+<figure class="post-figure post-figure--{{ $width }}">
+  <img src="{{ .Get "src" }}" alt="{{ .Get "alt" | default "" }}" loading="lazy">
+  {{- with .Get "caption" }}
+  <figcaption class="post-figure__caption">{{ . | markdownify }}</figcaption>
+  {{- end }}
+</figure>

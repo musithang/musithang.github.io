@@ -2,7 +2,8 @@
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--ink);
-  padding: 40px 40px 0;
+  /* keeps the background full bleed while the content lines up with the body */
+  padding: 40px max(40px, calc((100% - 1400px) / 2)) 0;
   background-image: radial-gradient(var(--line) 1px, transparent 1px);
   background-size: 9px 9px;
 }
@@ -121,17 +122,248 @@
 
 .single-post__body {
   display: grid;
-  grid-template-columns: minmax(0, 680px) 230px;
+  grid-template-columns: minmax(0, 1fr) 230px;
   gap: 40px;
   padding: 44px 40px 60px;
-  max-width: 1140px;
+  max-width: 1480px;
   margin: 0 auto;
 }
 
+/* The text measure stays at 680px. The gutters around it exist so figures can
+   break out of the column and margin notes have somewhere to live. */
 .single-post__content {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(0, 1fr)
+    [wide-start] minmax(0, 130px)
+    [text-start] min(680px, 100%) [text-end]
+    minmax(0, 130px) [wide-end]
+    minmax(0, 1fr) [full-end];
+  counter-reset: figure;
   font-size: 17px;
   line-height: 1.8;
   color: var(--ink);
+}
+
+.single-post__content > * {
+  grid-column: text;
+}
+
+.post-figure {
+  grid-column: text;
+  counter-increment: figure;
+  margin: 34px 0;
+}
+
+.post-figure--wide {
+  grid-column: wide;
+}
+
+.post-figure--full {
+  grid-column: full;
+}
+
+.post-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+}
+
+.post-figure__caption {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.post-figure__caption::before {
+  content: "Fig. " counter(figure, decimal-leading-zero) " · ";
+  color: var(--accent);
+}
+
+.post-figure__caption p {
+  display: inline;
+  margin: 0;
+}
+
+/* ── Comparison plate ─────────────────────────────────────────── */
+
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.compare__label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.compare__label--accent {
+  color: var(--accent);
+}
+
+.compare__doc {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 200px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.compare__panel--filed .compare__doc {
+  border-color: var(--ink);
+  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 9px 9px;
+}
+
+.compare__title {
+  width: 55%;
+  height: 12px;
+  background: var(--ink);
+  opacity: 0.55;
+}
+
+.compare__line {
+  height: 6px;
+  background: var(--ink);
+  opacity: 0.22;
+}
+
+.compare__line--short {
+  width: 45%;
+}
+
+.compare__head,
+.compare__foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.compare__head {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.compare__foot {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.compare__mark {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--accent);
+}
+
+.compare__mark--tl {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+}
+
+.compare__mark--br {
+  right: -1px;
+  bottom: -1px;
+  border-width: 0 1px 1px 0;
+}
+
+/* ── Signature breakdown ──────────────────────────────────────── */
+
+.sig {
+  padding: 24px 26px;
+  border: 1px solid var(--ink);
+  background: var(--panel);
+}
+
+.sig__barcode {
+  color: var(--ink);
+}
+
+.sig__barcode .code39-barcode {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: 38px;
+}
+
+.sig__string {
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 22px;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+}
+
+.sig__legend {
+  margin: 18px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.sig__row {
+  display: flex;
+  gap: 14px;
+  padding: 5px 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.sig__row dt {
+  flex-shrink: 0;
+  width: 58px;
+  color: var(--accent);
+}
+
+.sig__row dd {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* The note sits in its own grid row, but with no height of its own, so it lines
+   up with the text it was written next to without pushing that text down. */
+.margin-note {
+  grid-column: full-start / text-start;
+  justify-self: end;
+  align-self: start;
+  width: min(200px, 100%);
+  height: 0;
+  margin: 0;
+  padding: 0 24px 0 0;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  line-height: 1.65;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+.margin-note p {
+  margin: 8px 0 0;
+}
+
+.margin-note p:last-child {
+  margin-bottom: 0;
 }
 
 .single-post__content > *:first-child {
@@ -144,7 +376,9 @@
   font-weight: 800;
   font-size: 25px;
   letter-spacing: -0.01em;
-  margin: 38px 0 6px;
+  /* grid items do not collapse margins, so this stacks with the 22px above it
+     and lands on the same 38px rhythm the single column layout gets */
+  margin: 16px 0 6px;
 }
 
 .single-post__content h2::after {

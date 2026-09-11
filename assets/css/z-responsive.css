@@ -96,6 +96,44 @@
     padding: 36px 24px 50px;
   }
 
+  /* no gutters left to break out into, so everything returns to one column */
+  .single-post__content {
+    display: block;
+  }
+
+  /* margins collapse again here, so the heading carries the full gap itself */
+  .single-post__content h2 {
+    margin-top: 38px;
+  }
+
+  .post-figure--wide,
+  .post-figure--full {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .margin-note {
+    width: auto;
+    height: auto;
+    margin: 24px 0;
+    padding: 4px 0 4px 14px;
+    border-top: none;
+    border-left: 2px solid var(--accent);
+  }
+
+  .margin-note p:first-child {
+    margin-top: 0;
+  }
+
+  .compare {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .sig__string {
+    font-size: 18px;
+  }
+
   .single-post__aside {
     flex-direction: row;
     flex-wrap: wrap;

@@ -20,7 +20,9 @@ That is roughly what this is.
 
 ## The staff is one person
 
-There is no institution behind this. No editorial board, no team, no content strategy, no quarterly plan. Shelf MT-A is one shelf, in one apartment, at 47.5N 19.0E, and the entire operations department is a man who thought "what if my website had a barcode" and then could not be talked out of it.
+{{< note >}}46.3N 18.5E is Bonyhád, in southern Hungary. The archive is not a building. It is a desk.{{< /note >}}
+
+There is no institution behind this. No editorial board, no team, no content strategy, no quarterly plan. Shelf MT-A is one shelf, in one apartment, at 46.3N 18.5E, and the entire operations department is a man who thought "what if my website had a barcode" and then could not be talked out of it.
 
 Calling it a blog feels wrong, though, and not for pretentious reasons. A blog is a stream. Things wash past, the newest thing wins, and everything older quietly sinks. An archive is the opposite promise: the thing has a number, it has a place on a shelf, and it will still be there when you come back for it.
 
@@ -32,7 +34,7 @@ I would love to tell you there is an origin story behind the way this place look
 
 But the feeling it gives me is specific, and I think it is worth describing.
 
-Look at an old vision of the future for long enough and something odd happens. It is not nostalgia, because you are not really looking at the past. You are looking at somebody in the past being absolutely certain about a future that then failed to arrive. The chrome. The status readouts. Serial numbers stamped on objects that did not need serial numbers. The total conviction that everything ahead of us would be measured, labelled, catalogued and slightly overengineered.
+Look at an old vision of the future for long enough and something odd happens. It is not nostalgia, because you are not really looking at the past. You are looking at somebody in the past being absolutely certain about a future that then failed to arrive. The halftone dot screens. The warning orange. Status readouts on machines that had nothing urgent to report. Serial numbers stamped on objects that did not need serial numbers. The total conviction that everything ahead of us would be measured, labelled, catalogued and slightly overengineered.
 
 They were wrong. They were wrong in a way that is far more interesting than being right, and the gap between the future they drew and the one that actually turned up is the exact spot where this building stands.
 
@@ -42,9 +44,13 @@ There is a practical reason too.
 
 A blank white page with a nice serif font is a perfectly good place to publish writing. It is a terrible place to play. There is nothing to climb on. Every idea you put on it comes out looking like the same thing, because the page has already decided what it is before you start.
 
+{{< note >}}That event log is at the bottom of every page, and it is real. The deploy job writes the last few commits into it on the way out.{{< /note >}}
+
 So I built somewhere with equipment on it. Catalogue numbers. Status readouts. Barcodes. A shelf code. An event log at the bottom of the page that quietly records what changed and when. None of it is necessary. All of it is load-bearing, because it changes what I am willing to make.
 
 Put a thought into a default blog template and it comes out looking like a blog post: disposable, chronological, faintly obligated. Put the same thought into a catalogue entry with a number, a barcode and a status field, and something shifts. You start asking whether it is actually worth filing.
+
+{{< compare left="A thought in a blog template" right="The same thought, filed" caption="Nothing in the right panel improves the writing. It only changes what I am willing to leave in it." >}}
 
 That is the whole trick. I am aware that it is a trick. It works anyway.
 
@@ -70,7 +76,11 @@ The catalogue numbers, the status labels, the barcodes: that is set dressing, an
 
 What goes inside the frame is real, unless it is clearly labelled as a story. The projects are real, the failures are real, and when I have no idea what I am doing I intend to write down that I have no idea what I am doing.
 
+{{< note >}}The whole place is three colours: #ece4d5 paper, #14120f ink, and #ff5a30 for anything that wants attention.{{< /note >}}
+
 The barcode is genuine Code 39, incidentally. The bars decode back to the actual entry signature, because building a fake barcode would have been the one dishonest thing in a building made entirely of props.
+
+{{< signature caption="The signature on this entry, drawn by the same code that prints the one in the header. Scan either and you get the same string back." >}}
 
 The confidence, on the other hand, is not always earned.
 

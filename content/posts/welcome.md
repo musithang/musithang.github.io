@@ -109,17 +109,15 @@ The confidence, on the other hand, is not always earned.
 
 That is the honest state of things. The filing system is elaborate. The archive itself currently holds almost nothing, which is the correct way round, I think. Better to build the room properly and then fill it, than to pile things up for a year and call it a collection afterwards.
 
-{{< plate label="Annual facility report" ref="MT-A/2026" stamp="Approved" footer="Reviewed and approved by the same person who wrote it" width="wide" >}}
-{{< spec cols="2" >}}
-{{< field name="Floor area" >}}One shelf{{< /field >}}
-{{< field name="Staff" >}}One, part time, unpaid{{< /field >}}
-{{< field name="Records held" >}}01{{< /field >}}
-{{< field name="Annual visitors" >}}{{< redacted >}}my mother, twice{{< /redacted >}}{{< /field >}}
-{{< field name="Opening hours" >}}Whenever the build passes{{< /field >}}
-{{< field name="Operating budget" >}}{{< redacted >}}nothing, it runs on free hosting{{< /redacted >}}{{< /field >}}
-{{< field name="Fire exits" >}}The browser back button{{< /field >}}
-{{< field name="Compliance" >}}Not applicable, and nobody has asked{{< /field >}}
-{{< /spec >}}
+{{< plate label="Reading room register" ref="MT-A/REG · sheet 1 of 200" footer="Please sign before removing material from the shelf" width="wide" >}}
+{{< log >}}
+{{< event at="2026-09-10 09:02" >}}MusiThang (staff). Purpose of visit: confirming the lights work.{{< /event >}}
+{{< event at="" >}}{{< /event >}}
+{{< event at="" >}}{{< /event >}}
+{{< event at="" >}}{{< /event >}}
+{{< event at="" >}}{{< /event >}}
+{{< event at="" >}}{{< /event >}}
+{{< /log >}}
 {{< /plate >}}
 
 So: the drawers are open, the lights are humming, the scanner works.

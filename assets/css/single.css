@@ -121,9 +121,11 @@
 
 .single-post__body {
   display: grid;
-  grid-template-columns: minmax(0, 680px) 190px;
+  grid-template-columns: minmax(0, 680px) 230px;
   gap: 40px;
   padding: 44px 40px 60px;
+  max-width: 1140px;
+  margin: 0 auto;
 }
 
 .single-post__content {
@@ -355,7 +357,13 @@ blockquote p {
   border-bottom: 1px solid var(--line);
 }
 
-.toc__link {
+#TableOfContents ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#TableOfContents > ul > li > a {
   display: block;
   font-family: var(--font-mono);
   font-size: 11px;
@@ -363,10 +371,32 @@ blockquote p {
   padding: 8px 0;
   border-bottom: 1px solid var(--line);
   color: var(--ink);
+  hyphens: auto;
+  overflow-wrap: break-word;
   transition: color 0.15s;
 }
 
-.toc__link:hover {
+#TableOfContents > ul > li > a:hover {
+  color: var(--accent);
+}
+
+#TableOfContents li ul {
+  padding-left: 12px;
+}
+
+#TableOfContents li ul a {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  line-height: 1.5;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+#TableOfContents li ul a:hover {
   color: var(--accent);
 }
 

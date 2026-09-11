@@ -130,6 +130,16 @@
     gap: 22px;
   }
 
+  .plate__body {
+    padding: 18px;
+    font-size: 15px;
+  }
+
+  .plate__head,
+  .plate__foot {
+    padding: 10px 18px;
+  }
+
   .sig__string {
     font-size: 18px;
   }

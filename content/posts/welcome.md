@@ -70,6 +70,14 @@ Everything that would not survive anywhere else.
 
 And when I write about something technical, I am going to explain it like you are intelligent and busy, not like you already know. Nobody has ever learned anything from a paragraph whose real purpose was proving the author knows more than the reader.
 
+Here is one of the formats, pulled from a drawer that does not exist yet.
+
+{{< plate label="Field note" ref="MT-000-A" stamp="Unfiled" footer="Fragment · retained for tone" >}}
+The scanner in the back room still works. Nobody has requisitioned anything from Shelf A in eleven years, but the bulb warms up, the carriage travels, and the machine reads whatever you put in front of it without comment.
+
+I have started feeding it documents it was never designed to see, purely to watch it try.
+{{< /plate >}}
+
 ## The costume is a permission slip, the writing is not
 
 The catalogue numbers, the status labels, the barcodes: that is set dressing, and I enjoy it enormously.

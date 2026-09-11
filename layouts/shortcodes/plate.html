@@ -1,0 +1,19 @@
+{{- $width := .Get "width" | default "text" -}}
+{{- $tone := .Get "tone" -}}
+<div class="plate plate--{{ $width }}{{ with $tone }} plate--{{ . }}{{ end }}{{ if .Get "stamp" }} plate--stamped{{ end }}">
+  {{- with .Get "stamp" }}
+  <span class="plate__stamp">{{ . }}</span>
+  {{- end }}
+  {{- if or (.Get "label") (.Get "ref") }}
+  <div class="plate__head">
+    <span class="plate__label">{{ .Get "label" | default "Record" }}</span>
+    {{- with .Get "ref" }}<span class="plate__ref">{{ . }}</span>{{ end }}
+  </div>
+  {{- end }}
+  <div class="plate__body">{{ .Inner | markdownify }}</div>
+  {{- with .Get "footer" }}
+  <div class="plate__foot">{{ . | markdownify }}</div>
+  {{- end }}
+  <span class="plate__mark plate__mark--tl" aria-hidden="true"></span>
+  <span class="plate__mark plate__mark--br" aria-hidden="true"></span>
+</div>

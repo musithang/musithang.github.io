@@ -4,7 +4,7 @@
   padding: 52px 40px 72px;
   border-bottom: 1px solid var(--line);
   background-image: radial-gradient(var(--line) 1px, transparent 1px);
-  background-size: 9px 9px;
+  background-size: 14px 14px;
   background-position: 4px 4px;
 }
 
@@ -53,7 +53,7 @@
   display: block;
   line-height: 0.94;
   letter-spacing: -0.02em;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.2em;
   color: var(--accent);
   text-transform: uppercase;
@@ -79,7 +79,7 @@
   background: var(--ink);
   color: var(--paper);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 10.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -242,7 +242,7 @@
   }
 
   .archive-stat__note {
-    font-size: 10px;
+    font-size: 10.5px;
   }
 
   .archive-stats__details {

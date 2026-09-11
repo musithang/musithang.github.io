@@ -27,7 +27,7 @@
   justify-content: space-between;
   margin-bottom: 12px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 10.5px;
   letter-spacing: 0.18em;
   color: var(--accent);
   text-transform: uppercase;
@@ -38,7 +38,7 @@
   padding: 3px 6px;
   color: var(--muted);
   font: inherit;
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .search-input-wrap {
@@ -64,7 +64,7 @@
 
 .search-hint {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 10.5px;
   color: var(--muted);
   letter-spacing: 0.1em;
 }
@@ -72,7 +72,7 @@
 .search-recent {
   margin-top: 12px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 10.5px;
   letter-spacing: 0.14em;
   color: var(--muted);
   text-transform: uppercase;
@@ -99,7 +99,7 @@
   padding: 12px;
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 10.5px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -140,7 +140,7 @@
   background: var(--accent);
   color: var(--ink);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 10.5px;
   font-weight: 600;
 }
 
@@ -157,7 +157,7 @@
   margin-top: 3px;
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.04em;
 }
 

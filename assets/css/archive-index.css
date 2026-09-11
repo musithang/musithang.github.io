@@ -16,7 +16,7 @@
   border: 1px solid var(--accent);
   color: var(--accent);
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   transform: rotate(2deg);
@@ -89,7 +89,7 @@
   flex-wrap: wrap;
   padding: 22px 40px 40px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 10.5px;
   letter-spacing: 0.18em;
   color: var(--muted);
   text-transform: uppercase;
@@ -110,7 +110,7 @@
 
 .archive-filter__label {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.2em;
   color: var(--muted);
   text-transform: uppercase;

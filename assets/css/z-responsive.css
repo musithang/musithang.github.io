@@ -226,7 +226,7 @@
   .station__nav-link,
   .station__theme {
     padding: 7px 9px;
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 0.12em;
   }
 
@@ -511,7 +511,7 @@
   }
 
   .footer__desc {
-    font-size: 9px;
+    font-size: 10px;
     line-height: 1.5;
   }
 
@@ -553,7 +553,7 @@
 
   .footer__rss-btn {
     padding: 12px;
-    font-size: 10px;
+    font-size: 10.5px;
   }
 
   .footer__bottom {

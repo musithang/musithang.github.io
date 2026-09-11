@@ -20,7 +20,7 @@ body::after {
   inset: 0;
   z-index: 300;
   pointer-events: none;
-  opacity: 0.055;
+  opacity: 0.04;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMDAnIGhlaWdodD0nMjAwJz48ZmlsdGVyIGlkPSduJz48ZmVUdXJidWxlbmNlIHR5cGU9J2ZyYWN0YWxOb2lzZScgYmFzZUZyZXF1ZW5jeT0nMC44NScgbnVtT2N0YXZlcz0nMicgc3RpdGNoVGlsZXM9J3N0aXRjaCcvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbHRlcj0ndXJsKCNuKScvPjwvc3ZnPg==");
   background-size: 200px 200px;
@@ -36,7 +36,7 @@ body::after {
 
 .label-accent {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.18em;
   color: var(--accent);
   text-transform: uppercase;
@@ -48,7 +48,7 @@ body::before {
   inset: 0;
   z-index: 299;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.025;
   background: repeating-linear-gradient(
     0deg,
     transparent 0,
@@ -61,7 +61,7 @@ body::before {
 
 .label-muted {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 10.5px;
   letter-spacing: 0.22em;
   color: var(--muted);
   text-transform: uppercase;

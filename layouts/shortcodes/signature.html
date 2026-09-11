@@ -1,9 +1,11 @@
-{{- $sig := partial "post-signature.html" .Page -}}
+{{- $sig := .Get "text" | default (partial "post-signature.html" .Page) -}}
 {{- $parts := split $sig "-" -}}
+{{- $legend := and (ne (.Get "legend") "false") (eq (len $parts) 3) -}}
 <figure class="post-figure post-figure--{{ .Get "width" | default "text" }}">
   <div class="sig">
     <div class="sig__barcode">{{ partial "code39-barcode.html" (dict "text" $sig) }}</div>
     <div class="sig__string">{{ $sig }}</div>
+    {{- if $legend }}
     <dl class="sig__legend">
       <div class="sig__row">
         <dt>{{ index $parts 0 }}</dt>
@@ -18,6 +20,7 @@
         <dd>first four characters of the title's MD5 hash</dd>
       </div>
     </dl>
+    {{- end }}
   </div>
   {{- with .Get "caption" }}
   <figcaption class="post-figure__caption">{{ . | markdownify }}</figcaption>

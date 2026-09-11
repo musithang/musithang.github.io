@@ -1,0 +1,8 @@
+{{- $width := .Get "width" | default "wide" -}}
+{{- $cols := .Get "cols" | default "2" -}}
+<figure class="post-figure post-figure--{{ $width }}">
+  <div class="split" style="--split-cols: {{ $cols }}">{{ .Inner | safeHTML }}</div>
+  {{- with .Get "caption" }}
+  <figcaption class="post-figure__caption">{{ . | markdownify }}</figcaption>
+  {{- end }}
+</figure>

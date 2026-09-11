@@ -50,7 +50,16 @@ So I built somewhere with equipment on it. Catalogue numbers. Status readouts. B
 
 Put a thought into a default blog template and it comes out looking like a blog post: disposable, chronological, faintly obligated. Put the same thought into a catalogue entry with a number, a barcode and a status field, and something shifts. You start asking whether it is actually worth filing.
 
-{{< compare left="A thought in a blog template" right="The same thought, filed" caption="Nothing in the right panel improves the writing. It only changes what I am willing to leave in it." >}}
+{{< split caption="The same sentence twice. Nothing on the right improves the writing. It only changes what I am willing to leave in it." >}}
+{{< pane label="Loose in a document" >}}
+The scanner in the back room still works. Nobody has requisitioned anything from Shelf A in eleven years.
+{{< /pane >}}
+{{< pane label="Filed as a record" tone="accent" >}}
+{{< plate label="Field note" ref="MT-000-B" footer="Status · unverified" >}}
+The scanner in the back room still works. Nobody has requisitioned anything from Shelf A in eleven years.
+{{< /plate >}}
+{{< /pane >}}
+{{< /split >}}
 
 That is the whole trick. I am aware that it is a trick. It works anyway.
 
@@ -72,11 +81,15 @@ And when I write about something technical, I am going to explain it like you ar
 
 Here is one of the formats, pulled from a drawer that does not exist yet.
 
-{{< plate label="Field note" ref="MT-000-A" stamp="Unfiled" footer="Fragment · retained for tone" >}}
-The scanner in the back room still works. Nobody has requisitioned anything from Shelf A in eleven years, but the bulb warms up, the carriage travels, and the machine reads whatever you put in front of it without comment.
-
-I have started feeding it documents it was never designed to see, purely to watch it try.
+{{< plate label="Field note" ref="MT-000-A" stamp="Unfiled" footer="Filed in error · retained anyway" >}}
+- milk
+- AA batteries, the kind that are never in the drawer when you need them
+- coffee
+- something for dinner, decide later
+- ask about the thing
 {{< /plate >}}
+
+That is the wrong note. The format is correct.
 
 ## The costume is a permission slip, the writing is not
 
@@ -84,7 +97,7 @@ The catalogue numbers, the status labels, the barcodes: that is set dressing, an
 
 What goes inside the frame is real, unless it is clearly labelled as a story. The projects are real, the failures are real, and when I have no idea what I am doing I intend to write down that I have no idea what I am doing.
 
-{{< note >}}The whole place is three colours: #ece4d5 paper, #14120f ink, and #ff5a30 for anything that wants attention.{{< /note >}}
+{{< note side="right" >}}The whole place is three colours: #ece4d5 paper, #14120f ink, and #ff5a30 for anything that wants attention.{{< /note >}}
 
 The barcode is genuine Code 39, incidentally. The bars decode back to the actual entry signature, because building a fake barcode would have been the one dishonest thing in a building made entirely of props.
 

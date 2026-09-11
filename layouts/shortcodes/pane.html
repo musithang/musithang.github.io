@@ -1,0 +1,6 @@
+<div class="pane">
+  {{- with .Get "label" }}
+  <div class="pane__label{{ if eq ($.Get "tone") "accent" }} pane__label--accent{{ end }}">{{ . }}</div>
+  {{- end }}
+  <div class="pane__body">{{ .Inner | markdownify }}</div>
+</div>

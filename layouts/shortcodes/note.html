@@ -1,1 +1,2 @@
-<aside class="margin-note">{{ .Inner | markdownify }}</aside>
+{{- $side := .Get "side" | default "left" -}}
+<aside class="margin-note margin-note--{{ $side }}">{{ .Inner | markdownify }}</aside>

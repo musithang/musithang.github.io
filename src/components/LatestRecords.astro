@@ -1,0 +1,183 @@
+---
+const glyphs: Record<string, string> = {
+  Philosophy: 'M12 7.4a4.6 4.6 0 100 9.2 4.6 4.6 0 000-9.2M3.2 12c0-2.1 3.9-3.8 8.8-3.8s8.8 1.7 8.8 3.8-3.9 3.8-8.8 3.8S3.2 14.1 3.2 12z',
+  Plans: 'M3 4h18v16H3zM3 8.5h18M7.5 8.5V20M11 12h6.5v4.6H11zM6 4v4.5',
+  Ideas: 'M12 8.2a3.8 3.8 0 100 7.6 3.8 3.8 0 000-7.6M12 2v3.2M12 18.8V22M2 12h3.2M18.8 12H22M5.1 5.1l2.3 2.3M16.6 16.6l2.3 2.3M18.9 5.1l-2.3 2.3M7.4 16.6l-2.3 2.3',
+};
+
+const posts = [
+  { n: '047', title: 'Why I rebuild everything from scratch', dek: "The previous version ran for three years and I touched it exactly once. That's not stability, that's fear.", tag: 'Philosophy', date: '2026·09·12', read: '9 min' },
+  { n: '046', title: 'The note system I replace every week', dek: 'Four apps, one paper notebook, and the conviction that the fifth will fix it.', tag: 'Plans', date: '2026·09·04', read: '6 min' },
+  { n: '045', title: 'Straight from the drawer: eight abandoned projects', dek: 'Inventory. Not pride, not shame — documentation, so we know what happened.', tag: 'Ideas', date: '2026·08·27', read: '11 min' },
+  { n: '044', title: 'Slowness as a feature', dek: "If a page loads in two seconds, nobody asks why it doesn't load faster.", tag: 'Philosophy', date: '2026·08·15', read: '7 min' },
+];
+---
+<section class="records">
+  <div class="records__head">
+    <h2 class="records__title">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2">
+        <path d="M3 8l9-5 9 5-9 5-9-5zM3 13l9 5 9-5M3 17.5l9 5 9-5"></path>
+      </svg>
+      Latest records
+    </h2>
+    <a href="/archive" class="records__link">
+      Full index
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M4 12h15M13 6l6 6-6 6"></path>
+      </svg>
+    </a>
+  </div>
+
+  <div class="records__list">
+    {posts.map((p) => (
+      <a href={`/posts/${p.n}`} class="record">
+        <span class="record__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-cream)" stroke-width="1.7">
+            <path d={glyphs[p.tag] ?? glyphs.Philosophy}></path>
+          </svg>
+        </span>
+        <span class="record__num">{p.n}</span>
+        <span class="record__text">
+          <span class="record__title">{p.title}</span>
+          <span class="record__dek">{p.dek}</span>
+        </span>
+        <span class="record__meta">
+          <span class="record__tag">{p.tag}</span>
+          <span class="record__date">{p.date}</span>
+          <span class="record__read">{p.read}</span>
+        </span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  .records {
+    background: var(--color-cream);
+    border-radius: var(--radius-lg);
+    padding: clamp(14px, 2.4vw, 24px);
+  }
+
+  .records__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--color-ink);
+    margin-bottom: 4px;
+  }
+
+  .records__title {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 112;
+    font-weight: 900;
+    font-size: clamp(18px, 3vw, 26px);
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+
+  .records__link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .records__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .record {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+    padding: 14px 12px;
+    border-radius: 12px;
+    border-bottom: 1px solid rgba(20, 18, 15, 0.2);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+  }
+
+  .record:hover {
+    background: var(--color-surface);
+  }
+
+  .record__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+    background: var(--color-ink);
+    flex-shrink: 0;
+  }
+
+  .record__num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  .record__text {
+    flex: 1 1 280px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .record__title {
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 104;
+    font-weight: 800;
+    font-size: clamp(18px, 2.5vw, 24px);
+    line-height: 1.14;
+  }
+
+  .record__dek {
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: var(--color-body);
+    max-width: 62ch;
+  }
+
+  .record__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-body);
+  }
+
+  .record__tag {
+    border: 1.5px solid rgba(20, 18, 15, 0.35);
+    border-radius: 8px;
+    padding: 4px 9px;
+  }
+
+  .record__read {
+    color: var(--color-muted2);
+  }
+</style>

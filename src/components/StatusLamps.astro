@@ -1,0 +1,38 @@
+---
+---
+<div class="lamps">
+  <span class="lamp lamp--active"></span>
+  <span class="lamp lamp--dim"></span>
+  <span class="lamp lamp--dimmer"></span>
+</div>
+
+<style>
+  .lamps {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 4px;
+    flex-shrink: 0;
+  }
+
+  .lamp {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+  }
+
+  .lamp--active {
+    background: var(--color-accent);
+    opacity: 1;
+  }
+
+  .lamp--dim {
+    background: var(--color-cream);
+    opacity: 0.55;
+  }
+
+  .lamp--dimmer {
+    background: var(--color-cream);
+    opacity: 0.2;
+  }
+</style>

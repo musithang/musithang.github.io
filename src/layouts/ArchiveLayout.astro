@@ -1,9 +1,12 @@
 ---
+import Header from '../components/Header.astro';
+
 interface Props {
   title?: string;
+  currentPage?: 'index' | 'archive' | 'post';
 }
 
-const { title = 'The Archive' } = Astro.props;
+const { title = 'The Archive', currentPage = 'index' } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +21,7 @@ const { title = 'The Archive' } = Astro.props;
   </head>
   <body>
     <div class="grain-overlay" aria-hidden="true"></div>
+    <Header currentPage={currentPage} />
     <slot />
   </body>
 </html>

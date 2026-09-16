@@ -1,0 +1,23 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title = 'The Archive' } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{title}</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <style is:global>
+      @import '../styles/global.css';
+    </style>
+  </head>
+  <body>
+    <div class="grain-overlay" aria-hidden="true"></div>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,6 @@
+dev_docs/
+node_modules/
+dist/
+.astro/
+.env
+.env.*

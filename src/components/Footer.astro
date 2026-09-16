@@ -1,0 +1,141 @@
+---
+const meta = [
+  { k: 'System', v: 'Astro 7' },
+  { k: 'Editor', v: 'Keystatic' },
+  { k: 'Delivery', v: 'Static' },
+  { k: 'Tracking', v: 'None' },
+  { k: 'Licence', v: 'CC BY-NC' },
+];
+---
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__brand">
+      <div class="footer__brand-heading">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#efe9dd" stroke-width="1.6" style="flex-shrink:0">
+          <rect x="2.5" y="4.5" width="19" height="15" rx="3.5"></rect>
+          <path d="M6 9h6M6 12h9M6 15h4"></path>
+          <circle cx="18" cy="9.6" r="1.7" fill="#ff5a30" stroke="none"></circle>
+        </svg>
+        <span class="footer__brand-name">Musithang<br>data archive</span>
+      </div>
+      <p class="footer__brand-desc">One person, a few plans, and a stubborn belief that sorting things is work in itself.</p>
+    </div>
+
+    <div class="footer__meta">
+      {meta.map((item) => (
+        <div class="footer__meta-row">
+          <span class="footer__meta-key">{item.k}</span>
+          <span class="footer__meta-val">{item.v}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="footer__stripe" aria-hidden="true"></div>
+
+  <div class="footer__credits">
+    <span>Astro 7 · Keystatic · content/posts/*.mdoc</span>
+    <span class="footer__credits-lore">MT·OS 4.0 · cycle 2026</span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin: 0 10px 10px;
+    background: var(--color-ink);
+    color: var(--color-cream);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .footer__top {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  /* Brand side */
+  .footer__brand {
+    flex: 1 1 300px;
+    min-width: 0;
+    padding: 24px clamp(16px, 3vw, 32px);
+  }
+
+  .footer__brand-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .footer__brand-name {
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 118;
+    font-weight: 900;
+    font-size: clamp(22px, 4vw, 34px);
+    line-height: 0.94;
+    text-transform: uppercase;
+  }
+
+  .footer__brand-desc {
+    margin: 14px 0 0;
+    max-width: 44ch;
+    font-size: 15px;
+    line-height: 1.55;
+    color: #c5bcab;
+  }
+
+  /* Meta side */
+  .footer__meta {
+    flex: 1 1 240px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    padding: 18px clamp(16px, 3vw, 32px);
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .footer__meta-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(239, 233, 221, 0.14);
+  }
+
+  .footer__meta-key {
+    color: var(--color-muted2);
+  }
+
+  /* Stripe bar */
+  .footer__stripe {
+    height: 16px;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--color-accent) 0 12px,
+      var(--color-ink) 12px 24px
+    );
+  }
+
+  /* Credits */
+  .footer__credits {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 10px clamp(16px, 3vw, 32px);
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-muted2);
+  }
+
+  .footer__credits-lore {
+    color: var(--color-cream);
+  }
+</style>

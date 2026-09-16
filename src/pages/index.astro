@@ -1,8 +1,26 @@
 ---
 import ArchiveLayout from '../layouts/ArchiveLayout.astro';
+import HeroPanel from '../components/HeroPanel.astro';
 ---
 <ArchiveLayout title="The Archive" currentPage="index">
-  <main>
-    <p>The Archive</p>
+  <main class="index">
+    <section class="index__hero-row">
+      <HeroPanel />
+    </section>
   </main>
 </ArchiveLayout>
+
+<style>
+  .index {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .index__hero-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+</style>

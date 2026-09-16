@@ -1,0 +1,154 @@
+---
+const chips = [
+  { label: 'Version 4.0', glyph: 'M3.5 4.5h17v15h-17zM8 9h8v6H8zM12 4.5V9M12 15v4.5M6.5 4.5V2.6M17.5 4.5V2.6', bg: 'var(--color-accent)', fg: 'var(--color-ink)' },
+  { label: 'Static build', glyph: 'M3 4h18v16H3zM3 8.5h18M7.5 8.5V20M11 12h6.5v4.6H11zM6 4v4.5', bg: 'transparent', fg: 'var(--color-ink)' },
+  { label: 'No tracking', glyph: 'M12 2.5a9.5 9.5 0 100 19 9.5 9.5 0 000-19M12 7.2l4.2 2.4v4.8L12 16.8l-4.2-2.4V9.6z', bg: 'transparent', fg: 'var(--color-body)' },
+];
+
+const segments = Array.from({ length: 16 }, (_, i) => {
+  const on = i < 11;
+  if (!on) return 'rgba(20,18,15,.16)';
+  return i > 8 ? 'var(--color-accent)' : 'var(--color-ink)';
+});
+---
+<div class="hero">
+  <div class="hero__badges">
+    <span class="hero__badge hero__badge--live">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2">
+        <path d="M12 3v18M3 12h18"></path>
+        <circle cx="12" cy="12" r="5.5"></circle>
+      </svg>
+      Signal acquired
+    </span>
+    <span class="hero__badge">Open sector</span>
+  </div>
+
+  <h1 class="hero__title">
+    Open<br>workshop<br><span class="hero__title-accent">log</span>
+  </h1>
+
+  <p class="hero__desc">
+    Notes on plans, ideas and half-finished philosophy. The holdings keep growing; the order is only apparent.
+  </p>
+
+  <div class="hero__chips">
+    {chips.map((chip) => (
+      <span class="hero__chip" style={`background:${chip.bg};color:${chip.fg}`}>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+          <path d={chip.glyph}></path>
+        </svg>
+        {chip.label}
+      </span>
+    ))}
+  </div>
+
+  <div class="hero__segments">
+    {segments.map((color) => (
+      <span class="hero__seg" style={`background:${color}`}></span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .hero {
+    flex: 1 1 360px;
+    min-width: 0;
+    container-type: inline-size;
+    background: var(--color-cream);
+    border-radius: var(--radius-lg);
+    padding: clamp(18px, 3vw, 34px);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Badges */
+  .hero__badges {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .hero__badge {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border: 1.5px solid rgba(20, 18, 15, 0.4);
+    border-radius: var(--radius-chip);
+    padding: 5px 10px;
+    color: var(--color-body);
+  }
+
+  .hero__badge--live {
+    background: var(--color-ink);
+    color: var(--color-cream);
+    border-color: var(--color-ink);
+  }
+
+  /* Title */
+  .hero__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 112;
+    font-weight: 900;
+    font-size: clamp(38px, 14cqw, 92px);
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    overflow-wrap: break-word;
+  }
+
+  .hero__title-accent {
+    color: var(--color-accent);
+  }
+
+  /* Description */
+  .hero__desc {
+    margin: 0;
+    max-width: 50ch;
+    font-size: clamp(16px, 2vw, 19.5px);
+    line-height: 1.58;
+    color: #332e26;
+  }
+
+  /* Chips */
+  .hero__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .hero__chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 10px;
+    border: 1.5px solid var(--color-ink);
+    padding: 7px 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* Segments */
+  .hero__segments {
+    display: flex;
+    gap: 4px;
+    margin-top: 2px;
+  }
+
+  .hero__seg {
+    flex: 1;
+    height: 7px;
+    border-radius: 2px;
+  }
+</style>

@@ -40,15 +40,15 @@ const tabs = [
 
   <div class="header__main">
     <a href="/" class="header__brand">
-      <svg class="header__mark" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#14120f" stroke-width="1.7">
-        <rect x="2.5" y="4.5" width="19" height="15" rx="3.5"></rect>
-        <path d="M6 9h6M6 12h9M6 15h4"></path>
-        <circle cx="18" cy="9.6" r="1.7" fill="#ff5a30" stroke="none"></circle>
-      </svg>
-      <span class="header__brand-text">
+      <span class="header__brand-row">
+        <svg class="header__mark" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#14120f" stroke-width="1.7">
+          <rect x="2.5" y="4.5" width="19" height="15" rx="3.5"></rect>
+          <path d="M6 9h6M6 12h9M6 15h4"></path>
+          <circle class="header__mark-dot" cx="18" cy="9.6" r="1.7" fill="#ff5a30" stroke="none"></circle>
+        </svg>
         <span class="header__brand-name">Musithang</span>
-        <span class="header__brand-sub">Data archive · MT·4</span>
       </span>
+      <span class="header__brand-sub">Data archive · MT·4</span>
     </a>
 
     <nav class="header__nav">
@@ -127,8 +127,8 @@ const tabs = [
   /* Brand */
   .header__brand {
     display: flex;
-    align-items: flex-start;
-    gap: 10px;
+    flex-direction: column;
+    gap: 2px;
     background: var(--color-cream);
     color: var(--color-ink);
     border-radius: var(--radius-sm);
@@ -142,15 +142,21 @@ const tabs = [
     color: var(--color-ink);
   }
 
+  .header__brand-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
   .header__mark {
     flex-shrink: 0;
     transition: all 0.25s ease;
   }
 
-  .header__brand-text {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
+  .header__mark-dot {
+    transform-origin: 18px 9.6px;
+    animation: lamp 1.8s ease-in-out infinite;
   }
 
   .header__brand-name {
@@ -170,7 +176,7 @@ const tabs = [
     letter-spacing: 0.24em;
     color: var(--color-muted);
     text-transform: uppercase;
-    margin-top: 2px;
+    margin-left: 44px;
   }
 
   /* Collapsed state (scrolled) */
@@ -185,6 +191,10 @@ const tabs = [
 
   .header--collapsed .header__brand-name {
     font-size: 17px;
+  }
+
+  .header--collapsed .header__brand-sub {
+    margin-left: 34px;
   }
 
   /* Navigation */

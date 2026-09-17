@@ -1,0 +1,39 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArchiveLayout from '../../layouts/ArchiveLayout.astro';
+import PostHeader from '../../components/PostHeader.astro';
+import PostMetadata from '../../components/PostMetadata.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<ArchiveLayout title={`${post.data.title} — The Archive`} currentPage="post">
+  <main class="post">
+    <PostHeader
+      recordNo={post.data.recordNo}
+      tag={post.data.tag}
+      date={post.data.date}
+      readTime={post.data.readTime}
+      title={post.data.title}
+      description={post.data.description}
+    />
+    <PostMetadata />
+  </main>
+</ArchiveLayout>
+
+<style>
+  .post {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+</style>

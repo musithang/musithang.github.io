@@ -1,0 +1,119 @@
+---
+interface Props {
+  recordNo: string;
+  tag: string;
+  date: string;
+  readTime: string;
+  title: string;
+  description: string;
+}
+
+const { recordNo, tag, date, readTime, title, description } = Astro.props;
+---
+<div class="progress"><div class="progress__fill" id="progress-fill"></div></div>
+
+<section class="post-header">
+  <div class="post-header__badges">
+    <span class="post-header__file">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2">
+        <rect x="4" y="3" width="16" height="18" rx="3"></rect>
+        <path d="M8 8h8M8 12h8M8 16h4"></path>
+      </svg>
+      MT·{recordNo}
+    </span>
+    <span class="post-header__tag">{tag}</span>
+    <span class="post-header__meta">Cycle {date} · {readTime}</span>
+  </div>
+  <h1 class="post-header__title">{title}</h1>
+  <p class="post-header__desc">{description}</p>
+</section>
+
+<script>
+  function updateProgress() {
+    const fill = document.getElementById('progress-fill');
+    if (!fill) return;
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    fill.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+</script>
+
+<style>
+  .progress {
+    height: 6px;
+    border-radius: 3px;
+    background: #cfc7b5;
+    overflow: hidden;
+  }
+
+  .progress__fill {
+    height: 6px;
+    width: 0%;
+    background: var(--color-accent);
+    transition: width 0.1s linear;
+  }
+
+  .post-header {
+    background: var(--color-cream);
+    border-radius: var(--radius-lg);
+    padding: clamp(18px, 3vw, 34px);
+  }
+
+  .post-header__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .post-header__file {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--color-ink);
+    color: var(--color-cream);
+    border-radius: 9px;
+    padding: 5px 10px;
+    font-weight: 600;
+  }
+
+  .post-header__tag {
+    border: 1.5px solid rgba(20, 18, 15, 0.4);
+    border-radius: 9px;
+    padding: 5px 10px;
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .post-header__meta {
+    color: var(--color-muted2);
+  }
+
+  .post-header__title {
+    margin: 14px 0 0;
+    max-width: 26ch;
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 110;
+    font-weight: 900;
+    font-size: clamp(28px, 6vw, 56px);
+    line-height: 0.96;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .post-header__desc {
+    margin: 16px 0 0;
+    max-width: 58ch;
+    font-size: clamp(17px, 2.2vw, 20px);
+    line-height: 1.5;
+    font-style: italic;
+    color: var(--color-body);
+  }
+</style>

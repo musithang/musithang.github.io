@@ -1,0 +1,86 @@
+---
+const filters = [
+  { label: 'All', active: true },
+  { label: 'Plans', active: false },
+  { label: 'Ideas', active: false },
+  { label: 'Philosophy', active: false },
+  { label: 'Log', active: false },
+];
+---
+<section class="filters">
+  <div class="filters__btns">
+    {filters.map((f) => (
+      <button class:list={['filters__btn', { 'filters__btn--active': f.active }]}>
+        <span class:list={['filters__dot', { 'filters__dot--active': f.active }]}></span>
+        {f.label}
+      </button>
+    ))}
+  </div>
+  <div class="filters__info">
+    <span>08 results</span>
+    <span>Sort: cycle ↓</span>
+  </div>
+</section>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: var(--color-cream);
+    border-radius: 14px;
+    padding: 10px 12px;
+  }
+
+  .filters__btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .filters__btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 7px 12px;
+    border-radius: 10px;
+    border: 1.5px solid var(--color-ink);
+    background: transparent;
+    color: var(--color-ink);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .filters__btn--active {
+    background: var(--color-ink);
+    color: var(--color-cream);
+  }
+
+  .filters__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(20, 18, 15, 0.25);
+  }
+
+  .filters__dot--active {
+    background: var(--color-accent);
+  }
+
+  .filters__info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-body);
+  }
+</style>

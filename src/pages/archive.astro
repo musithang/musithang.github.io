@@ -1,8 +1,25 @@
 ---
+import { getCollection } from 'astro:content';
 import ArchiveLayout from '../layouts/ArchiveLayout.astro';
 import ArchiveFilters from '../components/ArchiveFilters.astro';
 import ArchiveList from '../components/ArchiveList.astro';
 import ArchivePagination from '../components/ArchivePagination.astro';
+import { readingTime, formatDate, recordNumber } from '../lib/utils';
+
+const allPosts = await getCollection('posts');
+const total = allPosts.length;
+
+const archivePosts = allPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .map((post, i) => ({
+    id: post.id,
+    recordNo: recordNumber(i, total),
+    title: post.data.title,
+    tag: post.data.section || 'Log',
+    date: formatDate(post.data.date),
+    readTime: readingTime(post.body ?? '') + ' min',
+    bg: i % 2 ? '#e9e2d2' : '#efe9dd',
+  }));
 
 const segs = Array.from({ length: 16 }, (_, i) => {
   const on = i < 11;
@@ -29,7 +46,7 @@ const segs = Array.from({ length: 16 }, (_, i) => {
     </section>
 
     <ArchiveFilters />
-    <ArchiveList />
+    <ArchiveList posts={archivePosts} />
     <ArchivePagination />
   </main>
 </ArchiveLayout>

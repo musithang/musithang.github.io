@@ -28,6 +28,11 @@ const { holdings, cycle } = Astro.props;
     transition: height 0.25s ease, opacity 0.2s ease;
   }
 
+  :global(.header--collapsed) .ticker {
+    height: 0;
+    opacity: 0;
+  }
+
   .ticker__track {
     display: flex;
     align-items: center;

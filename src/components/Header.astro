@@ -35,7 +35,7 @@ const tabs = [
   },
 ];
 ---
-<header class="header">
+<header class="header" id="site-header">
   <Ticker holdings={holdings} cycle={cycle} />
 
   <div class="header__main">
@@ -83,6 +83,29 @@ const tabs = [
   </div>
 </header>
 
+<script>
+  const header = document.getElementById('site-header');
+
+  if (header) {
+    let ticking = false;
+    const update = () => {
+      header.classList.toggle('header--collapsed', window.scrollY > 36);
+      ticking = false;
+    };
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(update);
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+    update();
+  }
+</script>
+
 <style>
   .header {
     position: sticky;
@@ -104,7 +127,7 @@ const tabs = [
   /* Brand */
   .header__brand {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
     background: var(--color-cream);
     color: var(--color-ink);
@@ -148,6 +171,20 @@ const tabs = [
     color: var(--color-muted);
     text-transform: uppercase;
     margin-top: 2px;
+  }
+
+  /* Collapsed state (scrolled) */
+  .header--collapsed .header__brand {
+    padding: 6px 14px;
+  }
+
+  .header--collapsed .header__mark {
+    width: 24px;
+    height: 24px;
+  }
+
+  .header--collapsed .header__brand-name {
+    font-size: 17px;
   }
 
   /* Navigation */

@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "NODE_ENV=production astro build",
+    "build": "NODE_ENV=production astro build && pagefind --site dist",
     "preview": "astro preview",
     "check": "astro check",
     "keystatic": "astro dev --open /keystatic"
@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "pagefind": "^1.5.2",
     "typescript": "^6.0.3"
   }
 }

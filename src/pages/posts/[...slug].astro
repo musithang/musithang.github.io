@@ -31,7 +31,7 @@ const nextPost = posts[index + 1] ?? null;
 const nextRecordNo = nextPost ? String(total - (index + 1)).padStart(4, '0') : null;
 ---
 <ArchiveLayout title={`${post.data.title} — The Archive`} currentPage="post">
-  <main class="post">
+  <main class="post" data-pagefind-body>
     <PostHeader
       recordNo={recordNo}
       tag={tag}

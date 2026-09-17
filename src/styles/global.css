@@ -69,3 +69,27 @@ button {
   0% { transform: translateY(-6%); }
   100% { transform: translateY(106%); }
 }
+
+/* ---- Responsive ---- */
+
+@media (max-width: 640px) {
+  .ticker {
+    display: none;
+  }
+
+  .header__brand-sub {
+    display: none;
+  }
+
+  .header__brand-name {
+    font-size: 18px;
+  }
+
+  .header__tab span {
+    display: none;
+  }
+
+  .header__retrieve span {
+    display: none;
+  }
+}

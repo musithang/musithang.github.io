@@ -1,0 +1,81 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArchiveLayout from '../../layouts/ArchiveLayout.astro';
+import PostHeader from '../../components/PostHeader.astro';
+import PostMetadata from '../../components/PostMetadata.astro';
+import PostArticle from '../../components/PostArticle.astro';
+import PostTOC from '../../components/PostTOC.astro';
+import PostNextRecord from '../../components/PostNextRecord.astro';
+import { readingTime, wordCount, formatDate } from '../../lib/utils';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: { post, index: i, total: posts.length, posts },
+  }));
+}
+
+const { post, index, total, posts } = Astro.props;
+const { Content, headings } = await render(post);
+
+const recordNo = String(total - index).padStart(4, '0');
+const tag = post.data.section || 'Log';
+const readTime = readingTime(post.body ?? '') + ' min';
+const wc = wordCount(post.body ?? '');
+const date = formatDate(post.data.date);
+const amended = post.data.amended ? formatDate(post.data.amended) : undefined;
+const status = post.data.status ?? 'Final';
+
+const nextPost = posts[index + 1] ?? null;
+const nextRecordNo = nextPost ? String(total - (index + 1)).padStart(4, '0') : null;
+---
+<ArchiveLayout title={`${post.data.title} — The Archive`} currentPage="post">
+  <main class="post">
+    <PostHeader
+      recordNo={recordNo}
+      tag={tag}
+      date={date}
+      readTime={readTime}
+      title={post.data.title}
+      description={post.data.description}
+    />
+    <PostMetadata
+      recordNo={recordNo}
+      tag={tag}
+      date={date}
+      amended={amended}
+      wordCount={wc}
+      status={status}
+    />
+    <PostArticle>
+      <Content />
+    </PostArticle>
+    <section class="post__bottom">
+      <PostTOC headings={headings} />
+      {nextPost && nextRecordNo && (
+        <PostNextRecord
+          recordNo={nextRecordNo}
+          title={nextPost.data.title}
+          description={nextPost.data.description}
+          slug={nextPost.id}
+        />
+      )}
+    </section>
+  </main>
+</ArchiveLayout>
+
+<style>
+  .post {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .post__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+</style>

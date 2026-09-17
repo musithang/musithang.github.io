@@ -1,0 +1,311 @@
+---
+const R = 118, CX = 132, CY = 232;
+
+const lats = [-62, -40, -20, 0, 20, 40, 62].map(d => {
+  const t = d * Math.PI / 180;
+  const rx = R * Math.cos(t);
+  return { cy: (CY - R * Math.sin(t)).toFixed(1), rx: rx.toFixed(1), ry: (rx * 0.19).toFixed(1) };
+});
+
+const longs = [0, 30, 60, 90].map(d => ({
+  rx: (R * Math.abs(Math.cos(d * Math.PI / 180))).toFixed(1),
+}));
+
+const rings = [26, 46, 66, 86].map((rr, i) => ({
+  r: rr, c: i === 2 ? '#ff5a30' : '#14120f', o: i === 2 ? 1 : 0.5, w: i === 2 ? 1.5 : 0.8,
+}));
+
+const ticksBottom = Array.from({ length: 26 }, (_, i) => {
+  const x = 16 + i * 14.6;
+  return `M${x.toFixed(1)} 292v${i % 4 === 0 ? -11 : -5}`;
+});
+
+const ticksLeft = Array.from({ length: 16 }, (_, i) => {
+  const y = 18 + i * 17.2;
+  return `M8 ${y.toFixed(1)}h${i % 4 === 0 ? 11 : 5}`;
+});
+
+const trim = [4, 7, 10, 13, 16, 13, 10, 7, 4].map((h, i) => ({
+  h: h + 'px', c: i === 4 ? '#ff5a30' : 'rgba(20,18,15,.45)',
+}));
+---
+<div class="obs">
+  <div class="obs__rivets" aria-hidden="true">
+    <span class="obs__rivet" style="top:5px;left:5px"></span>
+    <span class="obs__rivet" style="top:5px;right:5px"></span>
+    <span class="obs__rivet" style="bottom:5px;left:5px"></span>
+    <span class="obs__rivet" style="bottom:5px;right:5px"></span>
+  </div>
+
+  <div class="obs__label">
+    <span>Observation panel 01</span>
+    <span class="obs__live">Live</span>
+  </div>
+
+  <div class="obs__screen">
+    <!-- Globe SVG -->
+    <svg class="obs__globe" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <pattern id="scanDots" width="8" height="8" patternUnits="userSpaceOnUse">
+          <circle cx="1" cy="1" r="0.55" fill="#14120f" opacity="0.4"></circle>
+        </pattern>
+      </defs>
+      <rect width="400" height="300" fill="url(#scanDots)"></rect>
+
+      <!-- Globe outline -->
+      <circle cx={CX} cy={CY} r={R} fill="none" stroke="#14120f" stroke-width="1.6" opacity="0.9"></circle>
+
+      <!-- Latitude lines -->
+      {lats.map((l) => (
+        <ellipse cx={CX} cy={l.cy} rx={l.rx} ry={l.ry} fill="none" stroke="#14120f" stroke-width="0.85" opacity="0.5"></ellipse>
+      ))}
+
+      <!-- Longitude lines -->
+      {longs.map((l) => (
+        <ellipse cx={CX} cy={CY} rx={l.rx} ry={R} fill="none" stroke="#14120f" stroke-width="0.85" opacity="0.5"></ellipse>
+      ))}
+
+      <!-- Orange terminator ellipse -->
+      <ellipse cx="132" cy="232" rx="196" ry="86" fill="none" stroke="#ff5a30" stroke-width="1.5" stroke-dasharray="7 5" opacity="0.95" transform="rotate(-17 132 232)"></ellipse>
+
+      <!-- Rings -->
+      {rings.map((g) => (
+        <circle cx="306" cy="74" r={g.r} fill="none" stroke={g.c} stroke-width={g.w} opacity={g.o} stroke-linecap="square"></circle>
+      ))}
+
+      <!-- Crosshair on rings -->
+      <path d="M306 34v-14M306 114v14M266 74h-14M346 74h14" stroke="#14120f" stroke-width="1" opacity="0.6" fill="none" stroke-linecap="square"></path>
+
+      <!-- Orbit mark -->
+      <rect x="306" y="74" width="9" height="9" fill="#ff5a30" transform="translate(-4.5,-4.5)"></rect>
+
+      <!-- Orbit vector -->
+      <path d="M306 74l32-13M338 61l-7.5.6M338 61l.6 7.5" fill="none" stroke="#ff5a30" stroke-width="1.4"></path>
+
+      <!-- Bottom ticks -->
+      {ticksBottom.map((d) => (
+        <path d={d} fill="none" stroke="#14120f" stroke-width="1" opacity="0.55"></path>
+      ))}
+
+      <!-- Left ticks -->
+      {ticksLeft.map((d) => (
+        <path d={d} fill="none" stroke="#14120f" stroke-width="1" opacity="0.55"></path>
+      ))}
+    </svg>
+
+    <!-- Corner brackets + crosshair overlay -->
+    <svg class="obs__overlay" viewBox="0 0 400 300" preserveAspectRatio="none">
+      <g stroke="#14120f" fill="none" stroke-width="2.4">
+        <path d="M14 46V22a8 8 0 018-8h24"></path>
+        <path d="M354 14h24a8 8 0 018 8v24"></path>
+        <path d="M386 254v24a8 8 0 01-8 8h-24"></path>
+        <path d="M46 286H22a8 8 0 01-8-8v-24"></path>
+      </g>
+      <g stroke="#ff5a30" stroke-width="1.6" fill="none">
+        <path d="M200 132v-22M200 168v22M182 150h-22M218 150h22"></path>
+      </g>
+    </svg>
+
+    <!-- Sweep gradient -->
+    <div class="obs__sweep" aria-hidden="true"></div>
+
+    <!-- Labels -->
+    <div class="obs__labels">
+      <div class="obs__labels-top">
+        <span class="obs__labels-left">
+          <span class="obs__tag">AZ 118.4</span>
+          <span class="obs__tag">EL 07.2</span>
+        </span>
+        <span class="obs__labels-right">
+          <span class="obs__tag">Drift +0.003</span>
+          <span class="obs__trim">
+            {trim.map((t) => (
+              <span class="obs__trim-bar" style={`height:${t.h};background:${t.c}`}></span>
+            ))}
+          </span>
+        </span>
+      </div>
+      <div class="obs__labels-bottom">
+        <span class="obs__tag obs__tag--cream">Sector 07 · plane B</span>
+        <span class="obs__labels-right">
+          <span class="obs__tag">Range 04.7 AU</span>
+          <span class="obs__tag obs__tag--accent">Signal locked</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="obs__caption">
+    <span>Fig. 01 · sector 07 sweep</span>
+    <span>Sweep 24 / band 07</span>
+  </div>
+</div>
+
+<style>
+  .obs {
+    position: relative;
+    flex: 1 1 320px;
+    min-width: min(100%, 300px);
+    background: var(--color-ink);
+    border-radius: var(--radius-lg);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Rivets */
+  .obs__rivets {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .obs__rivet {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(239, 233, 221, 0.3);
+  }
+
+  /* Label */
+  .obs__label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 2px 6px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-muted2);
+  }
+
+  .obs__live {
+    color: var(--color-accent);
+  }
+
+  /* Screen */
+  .obs__screen {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: clamp(240px, 34vw, 360px);
+    border-radius: var(--radius-xs);
+    overflow: hidden;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-inset);
+  }
+
+  .obs__globe,
+  .obs__overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .obs__overlay {
+    pointer-events: none;
+  }
+
+  /* Sweep */
+  .obs__sweep {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 38%;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(255, 90, 48, 0), rgba(255, 90, 48, 0.16));
+    animation: sweep 7s linear infinite;
+  }
+
+  /* Labels overlay */
+  .obs__labels {
+    position: absolute;
+    inset: 26px;
+    z-index: 2;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .obs__labels-top,
+  .obs__labels-bottom {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .obs__labels-bottom {
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .obs__labels-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+  }
+
+  .obs__labels-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  .obs__tag {
+    background: var(--color-ink);
+    color: var(--color-cream);
+    padding: 3px 7px;
+    border-radius: 5px;
+    white-space: nowrap;
+  }
+
+  .obs__tag--cream {
+    background: var(--color-cream);
+    color: var(--color-body);
+    border: 1px solid rgba(20, 18, 15, 0.25);
+  }
+
+  .obs__tag--accent {
+    background: var(--color-accent);
+    color: var(--color-ink);
+    font-weight: 700;
+  }
+
+  /* Trim bars */
+  .obs__trim {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .obs__trim-bar {
+    width: 3px;
+  }
+
+  /* Caption */
+  .obs__caption {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    justify-content: space-between;
+    padding: 2px 6px 4px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-muted2);
+  }
+</style>

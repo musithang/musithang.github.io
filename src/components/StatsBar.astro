@@ -1,0 +1,62 @@
+---
+const stats = [
+  { k: 'Holdings', v: '047', c: 'var(--color-ink)', glyph: 'M4.5 5h15a2.5 2.5 0 012.5 2.5v9a2.5 2.5 0 01-2.5 2.5h-15A2.5 2.5 0 012 16.5v-9A2.5 2.5 0 014.5 5zM8 9a3 3 0 100 6 3 3 0 000-6M16 9a3 3 0 100 6 3 3 0 000-6M11 12h2' },
+  { k: 'Last write', v: '09·12', c: 'var(--color-accent)', glyph: 'M12 3.2a8.8 8.8 0 100 17.6 8.8 8.8 0 000-17.6M12 7.6V12l3.4 2.1M12 1.5v1.7' },
+  { k: 'Payload', v: '1.4 MB', c: 'var(--color-ink)', glyph: 'M4 6h16M6 6v12h12V6M9.5 9.5h5M9.5 13h5M4 18h16' },
+  { k: 'Build cycle', v: '812 ms', c: 'var(--color-ink)', glyph: 'M13.6 2.4L6 13h5.2l-1.1 8.6L18 11h-5.3z' },
+];
+---
+<section class="stats">
+  {stats.map((s) => (
+    <div class="stat">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--color-ink)" stroke-width="1.7" style="flex-shrink:0">
+        <path d={s.glyph}></path>
+      </svg>
+      <span class="stat__text">
+        <span class="stat__label">{s.k}</span>
+        <span class="stat__value" style={`color:${s.c}`}>{s.v}</span>
+      </span>
+    </div>
+  ))}
+</section>
+
+<style>
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .stat {
+    flex: 1 1 170px;
+    min-width: 0;
+    background: var(--color-cream);
+    border-radius: 14px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+  }
+
+  .stat__text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .stat__label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-muted2);
+  }
+
+  .stat__value {
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 108;
+    font-weight: 800;
+    font-size: clamp(19px, 2.6vw, 26px);
+    margin-top: 3px;
+  }
+</style>

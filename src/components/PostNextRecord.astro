@@ -1,0 +1,60 @@
+---
+interface Props {
+  recordNo: string;
+  title: string;
+  description: string;
+  slug: string;
+}
+
+const { recordNo, title, description, slug } = Astro.props;
+---
+<div class="next">
+  <div class="next__label">Next record · MT·{recordNo}</div>
+  <a href={`/posts/${slug}`} class="next__title">{title} →</a>
+  <p class="next__desc">{description}</p>
+</div>
+
+<style>
+  .next {
+    flex: 1 1 280px;
+    min-width: 0;
+    background: var(--color-ink);
+    color: var(--color-cream);
+    border-radius: 14px;
+    padding: 16px 18px;
+  }
+
+  .next__label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 10px;
+  }
+
+  .next__title {
+    display: block;
+    color: var(--color-cream);
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 106;
+    font-weight: 900;
+    font-size: clamp(19px, 3vw, 26px);
+    line-height: 1.12;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .next__title:hover {
+    color: var(--color-accent);
+  }
+
+  .next__desc {
+    margin: 10px 0 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #c5bcab;
+    max-width: 46ch;
+  }
+</style>

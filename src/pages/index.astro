@@ -1,8 +1,52 @@
 ---
+import { getCollection } from 'astro:content';
 import ArchiveLayout from '../layouts/ArchiveLayout.astro';
+import HeroPanel from '../components/HeroPanel.astro';
+import ObservationPanel from '../components/ObservationPanel.astro';
+import StatsBar from '../components/StatsBar.astro';
+import LatestRecords from '../components/LatestRecords.astro';
+import CategoryPanels from '../components/CategoryPanels.astro';
+import { readingTime, formatDate, recordNumber } from '../lib/utils';
+
+const allPosts = await getCollection('posts');
+const total = allPosts.length;
+
+const latestPosts = allPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4)
+  .map((post, i) => ({
+    id: post.id,
+    recordNo: recordNumber(i, total),
+    title: post.data.title,
+    description: post.data.description,
+    tag: post.data.section || 'Log',
+    date: formatDate(post.data.date),
+    readTime: readingTime(post.body ?? '') + ' min',
+  }));
 ---
 <ArchiveLayout title="The Archive" currentPage="index">
-  <main>
-    <p>The Archive</p>
+  <main class="index">
+    <section class="index__hero-row">
+      <HeroPanel />
+      <ObservationPanel />
+    </section>
+    <StatsBar />
+    <LatestRecords posts={latestPosts} />
+    <CategoryPanels />
   </main>
 </ArchiveLayout>
+
+<style>
+  .index {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .index__hero-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+</style>

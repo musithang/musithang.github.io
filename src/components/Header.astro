@@ -5,7 +5,7 @@ import StatusLamps from './StatusLamps.astro';
 import { formatDate } from '../lib/utils';
 
 interface Props {
-  currentPage?: 'index' | 'archive' | 'post';
+  currentPage?: 'index' | 'archive' | 'post' | 'manifest';
 }
 
 const { currentPage = 'index' } = Astro.props;
@@ -26,6 +26,12 @@ const tabs = [
     href: '/archive',
     glyph: 'M4.5 5h15a2.5 2.5 0 012.5 2.5v9a2.5 2.5 0 01-2.5 2.5h-15A2.5 2.5 0 012 16.5v-9A2.5 2.5 0 014.5 5zM8 9a3 3 0 100 6 3 3 0 000-6M16 9a3 3 0 100 6 3 3 0 000-6M11 12h2',
     page: 'archive' as const,
+  },
+  {
+    label: 'Manifest',
+    href: '/manifest',
+    glyph: 'M6 3.5h12v17H6zM9 8h6M9 11.5h6M9 15h3.5M6 3.5l-1.6 1.6v13.8L6 20.5',
+    page: 'manifest' as const,
   },
 ];
 ---
@@ -64,6 +70,13 @@ const tabs = [
         </svg>
         <span>Retrieve</span>
       </button>
+      <a href="/rss.xml" class="header__retrieve" aria-label="RSS feed">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M4 4a16 16 0 0116 16M4 10.5a9.5 9.5 0 019.5 9.5"></path>
+          <circle cx="5.5" cy="18.5" r="1.7" fill="currentColor" stroke="none"></circle>
+        </svg>
+        <span>Relay</span>
+      </a>
     </nav>
 
     <StatusLamps />

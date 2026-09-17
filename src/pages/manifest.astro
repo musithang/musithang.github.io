@@ -1,0 +1,53 @@
+---
+import ArchiveLayout from '../layouts/ArchiveLayout.astro';
+---
+<ArchiveLayout title="Manifest — The Archive" currentPage="manifest">
+  <main class="manifest">
+    <section class="manifest__panel">
+      <div class="manifest__label">Manifest</div>
+      <h1 class="manifest__title">About this archive</h1>
+      <p class="manifest__desc">
+        [TODO: real about text — who writes this, what it's for, what it's
+        built with. Placeholder until supplied.]
+      </p>
+    </section>
+  </main>
+</ArchiveLayout>
+
+<style>
+  .manifest {
+    padding: 10px;
+  }
+
+  .manifest__panel {
+    background: var(--color-cream);
+    border-radius: var(--radius-lg);
+    padding: clamp(18px, 3vw, 34px);
+    max-width: 74ch;
+  }
+
+  .manifest__label {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-muted2);
+  }
+
+  .manifest__title {
+    margin: 12px 0 14px;
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 118;
+    font-weight: 900;
+    font-size: clamp(28px, 5vw, 44px);
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+
+  .manifest__desc {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--color-body);
+  }
+</style>

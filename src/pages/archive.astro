@@ -1,6 +1,8 @@
 ---
 import ArchiveLayout from '../layouts/ArchiveLayout.astro';
 import ArchiveFilters from '../components/ArchiveFilters.astro';
+import ArchiveList from '../components/ArchiveList.astro';
+import ArchivePagination from '../components/ArchivePagination.astro';
 
 const segs = Array.from({ length: 16 }, (_, i) => {
   const on = i < 11;
@@ -27,6 +29,8 @@ const segs = Array.from({ length: 16 }, (_, i) => {
     </section>
 
     <ArchiveFilters />
+    <ArchiveList />
+    <ArchivePagination />
   </main>
 </ArchiveLayout>
 

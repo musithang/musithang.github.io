@@ -1,0 +1,117 @@
+---
+const glyphs: Record<string, string> = {
+  Philosophy: 'M12 7.4a4.6 4.6 0 100 9.2 4.6 4.6 0 000-9.2M3.2 12c0-2.1 3.9-3.8 8.8-3.8s8.8 1.7 8.8 3.8-3.9 3.8-8.8 3.8S3.2 14.1 3.2 12z',
+  Plans: 'M3 4h18v16H3zM3 8.5h18M7.5 8.5V20M11 12h6.5v4.6H11zM6 4v4.5',
+  Ideas: 'M12 8.2a3.8 3.8 0 100 7.6 3.8 3.8 0 000-7.6M12 2v3.2M12 18.8V22M2 12h3.2M18.8 12H22M5.1 5.1l2.3 2.3M16.6 16.6l2.3 2.3M18.9 5.1l-2.3 2.3M7.4 16.6l-2.3 2.3',
+  Log: 'M2 12h3.2l2.1-6.4 3 12.6 2.6-9.4 1.8 4.4h7.3',
+};
+
+const archive = [
+  { n: '047', title: 'Why I rebuild everything from scratch', tag: 'Philosophy', date: '2026·09·12', read: '9 min' },
+  { n: '046', title: 'The note system I replace every week', tag: 'Plans', date: '2026·09·04', read: '6 min' },
+  { n: '045', title: 'Straight from the drawer: eight abandoned projects', tag: 'Ideas', date: '2026·08·27', read: '11 min' },
+  { n: '044', title: 'Slowness as a feature', tag: 'Philosophy', date: '2026·08·15', read: '7 min' },
+  { n: '043', title: 'Static site, dynamic self-deception', tag: 'Plans', date: '2026·08·02', read: '5 min' },
+  { n: '042', title: 'What three abandoned blog engines taught me', tag: 'Log', date: '2026·07·21', read: '8 min' },
+  { n: '041', title: 'The tag that means everything and nothing', tag: 'Ideas', date: '2026·07·09', read: '4 min' },
+  { n: '040', title: 'Twenty lines of CSS I will not explain', tag: 'Log', date: '2026·06·28', read: '3 min' },
+];
+---
+<section class="alist">
+  {archive.map((r, i) => (
+    <a
+      href={`/posts/${r.n}`}
+      class="alist__row"
+      style={`background:${i % 2 ? '#e9e2d2' : '#efe9dd'}`}
+    >
+      <span class="alist__icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-cream)" stroke-width="1.7">
+          <path d={glyphs[r.tag] ?? glyphs.Log}></path>
+        </svg>
+      </span>
+      <span class="alist__num">{r.n}</span>
+      <span class="alist__title">{r.title}</span>
+      <span class="alist__meta">
+        <span class="alist__tag">{r.tag}</span>
+        <span class="alist__date">{r.date}</span>
+        <span class="alist__read">{r.read}</span>
+      </span>
+    </a>
+  ))}
+</section>
+
+<style>
+  .alist {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .alist__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: 13px;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+  }
+
+  .alist__row:hover {
+    background: var(--color-surface) !important;
+  }
+
+  .alist__icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--color-ink);
+    flex-shrink: 0;
+  }
+
+  .alist__num {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--color-muted2);
+    width: 38px;
+    flex-shrink: 0;
+  }
+
+  .alist__title {
+    flex: 1 1 240px;
+    min-width: 0;
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 104;
+    font-weight: 700;
+    font-size: clamp(16px, 2.2vw, 20px);
+    line-height: 1.2;
+  }
+
+  .alist__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-body);
+  }
+
+  .alist__tag {
+    border: 1.5px solid rgba(20, 18, 15, 0.35);
+    border-radius: 8px;
+    padding: 4px 9px;
+  }
+
+  .alist__read {
+    color: var(--color-accent);
+  }
+</style>

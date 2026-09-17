@@ -1,12 +1,18 @@
 ---
+import { getCollection } from 'astro:content';
 import Ticker from './Ticker.astro';
 import StatusLamps from './StatusLamps.astro';
+import { formatDate } from '../lib/utils';
 
 interface Props {
   currentPage?: 'index' | 'archive' | 'post';
 }
 
 const { currentPage = 'index' } = Astro.props;
+
+const allPosts = await getCollection('posts');
+const holdings = String(allPosts.length).padStart(3, '0');
+const cycle = formatDate(new Date());
 
 const tabs = [
   {
@@ -21,16 +27,10 @@ const tabs = [
     glyph: 'M4.5 5h15a2.5 2.5 0 012.5 2.5v9a2.5 2.5 0 01-2.5 2.5h-15A2.5 2.5 0 012 16.5v-9A2.5 2.5 0 014.5 5zM8 9a3 3 0 100 6 3 3 0 000-6M16 9a3 3 0 100 6 3 3 0 000-6M11 12h2',
     page: 'archive' as const,
   },
-  {
-    label: 'Record',
-    href: '/posts/why-i-rebuild-everything-from-scratch',
-    glyph: 'M2 12h3.2l2.1-6.4 3 12.6 2.6-9.4 1.8 4.4h7.3',
-    page: 'post' as const,
-  },
 ];
 ---
 <header class="header">
-  <Ticker />
+  <Ticker holdings={holdings} cycle={cycle} />
 
   <div class="header__main">
     <a href="/" class="header__brand">

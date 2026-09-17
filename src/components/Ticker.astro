@@ -1,4 +1,10 @@
 ---
+interface Props {
+  holdings: string;
+  cycle: string;
+}
+
+const { holdings, cycle } = Astro.props;
 ---
 <div class="ticker">
   <div class="ticker__track">
@@ -9,9 +15,9 @@
     <span class="ticker__sep">////</span>
     <span class="ticker__item">Berth MT·4 · sector 07</span>
     <span class="ticker__sep">////</span>
-    <span class="ticker__item">Holdings 047</span>
+    <span class="ticker__item">Holdings {holdings}</span>
     <span class="ticker__sep">////</span>
-    <span class="ticker__item">Cycle 2026·09·16</span>
+    <span class="ticker__item">Cycle {cycle}</span>
   </div>
 </div>
 

@@ -1,0 +1,133 @@
+---
+const sections = [
+  { num: '01', code: 'Trajectory · readiness', title: 'Plans', glyph: 'M3 4h18v16H3zM3 8.5h18M7.5 8.5V20M11 12h6.5v4.6H11zM6 4v4.5', ring: 'rgba(239,233,221,.26)', body: "What I intend to build, written down mostly so I don't have to remember it.", count: '18 records' },
+  { num: '02', code: 'Raw signal · scattered', title: 'Ideas', glyph: 'M12 8.2a3.8 3.8 0 100 7.6 3.8 3.8 0 000-7.6M12 2v3.2M12 18.8V22M2 12h3.2M18.8 12H22M5.1 5.1l2.3 2.3M16.6 16.6l2.3 2.3M18.9 5.1l-2.3 2.3M7.4 16.6l-2.3 2.3', ring: 'rgba(255,90,48,.75)', body: 'Half-formed thoughts that will either become something, or at least a decent paragraph.', count: '14 records' },
+  { num: '03', code: 'Long wave · slow', title: 'Philosophy', glyph: 'M12 7.4a4.6 4.6 0 100 9.2 4.6 4.6 0 000-9.2M3.2 12c0-2.1 3.9-3.8 8.8-3.8s8.8 1.7 8.8 3.8-3.9 3.8-8.8 3.8S3.2 14.1 3.2 12z', ring: 'rgba(239,233,221,.26)', body: "Longer notes on why we do things we probably shouldn't.", count: '15 records' },
+];
+---
+<section class="cats">
+  {sections.map((s) => (
+    <div class="cat">
+      <div class="cat__head">
+        <!-- Background rings -->
+        <svg class="cat__bg" viewBox="0 0 200 168" preserveAspectRatio="none">
+          <g fill="none" stroke={s.ring} stroke-width="1.1">
+            <circle cx="100" cy="84" r="72"></circle>
+            <circle cx="100" cy="84" r="56"></circle>
+          </g>
+          <g fill="none" stroke="var(--color-cream)" stroke-width="1" opacity="0.3">
+            <path d="M18 84h14M168 84h14M46 84h6M148 84h6"></path>
+          </g>
+          <g fill="none" stroke="var(--color-cream)" stroke-width="1.6" opacity="0.5">
+            <path d="M10 20v-6a4 4 0 014-4h6M180 10h6a4 4 0 014 4v6M190 148v6a4 4 0 01-4 4h-6M20 158h-6a4 4 0 01-4-4v-6"></path>
+          </g>
+        </svg>
+        <!-- Glyph -->
+        <svg width="82" height="82" viewBox="0 0 24 24" fill="none" stroke="var(--color-cream)" stroke-width="1.15" stroke-linejoin="round" class="cat__glyph">
+          <path d={s.glyph}></path>
+        </svg>
+        <span class="cat__num">Panel {s.num}</span>
+        <span class="cat__count">{s.count}</span>
+      </div>
+      <div class="cat__body">
+        <div class="cat__code">{s.code}</div>
+        <h3 class="cat__title">{s.title}</h3>
+        <p class="cat__desc">{s.body}</p>
+      </div>
+    </div>
+  ))}
+</section>
+
+<style>
+  .cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .cat {
+    flex: 1 1 260px;
+    min-width: 0;
+    background: var(--color-cream);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cat__head {
+    position: relative;
+    height: 168px;
+    background: var(--color-ink);
+    margin: 10px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+  }
+
+  .cat__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .cat__glyph {
+    position: relative;
+  }
+
+  .cat__num {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 12px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    color: var(--color-accent);
+  }
+
+  .cat__count {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 11px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 8.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-muted2);
+  }
+
+  .cat__body {
+    padding: 2px 18px 18px;
+  }
+
+  .cat__code {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-muted2);
+  }
+
+  .cat__title {
+    margin: 7px 0 6px;
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 112;
+    font-weight: 900;
+    font-size: 21px;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+
+  .cat__desc {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--color-body);
+  }
+</style>

@@ -1,4 +1,4 @@
-import { config } from '@keystatic/core';
+import { config, fields } from '@keystatic/core';
 
 export default config({
   storage: {
@@ -9,10 +9,8 @@ export default config({
       label: 'Posts',
       slugField: 'title',
       path: 'src/content/posts/*',
-      format: 'frontmatter',
       schema: {
         title: fields.slug({
-          label: 'Title',
           name: { label: 'Slug' },
         }),
         description: fields.text({
@@ -44,9 +42,8 @@ export default config({
         amended: fields.date({
           label: 'Amended',
         }),
-        tags: fields.array({
+        tags: fields.text({
           label: 'Tags',
-          itemLabel: (props) => props.value,
         }),
         body: fields.markdoc({
           label: 'Body',

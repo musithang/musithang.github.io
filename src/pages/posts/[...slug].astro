@@ -3,29 +3,49 @@ import { getCollection, render } from 'astro:content';
 import ArchiveLayout from '../../layouts/ArchiveLayout.astro';
 import PostHeader from '../../components/PostHeader.astro';
 import PostMetadata from '../../components/PostMetadata.astro';
+import PostArticle from '../../components/PostArticle.astro';
+import { readingTime, wordCount, formatDate } from '../../lib/utils';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
-  return posts.map((post) => ({
+  return posts.map((post, i) => ({
     params: { slug: post.id },
-    props: { post },
+    props: { post, index: i, total: posts.length },
   }));
 }
 
-const { post } = Astro.props;
+const { post, index, total } = Astro.props;
 const { Content } = await render(post);
+
+const recordNo = String(total - index).padStart(4, '0');
+const tag = post.data.section || 'Log';
+const readTime = readingTime(post.body ?? '') + ' min';
+const wc = wordCount(post.body ?? '');
+const amended = post.data.amended ? formatDate(post.data.amended) : undefined;
+const status = post.data.status ?? 'Final';
+const date = formatDate(post.data.date);
 ---
 <ArchiveLayout title={`${post.data.title} — The Archive`} currentPage="post">
   <main class="post">
     <PostHeader
-      recordNo={post.data.recordNo}
-      tag={post.data.tag}
-      date={post.data.date}
-      readTime={post.data.readTime}
+      recordNo={recordNo}
+      tag={tag}
+      date={date}
+      readTime={readTime}
       title={post.data.title}
       description={post.data.description}
     />
-    <PostMetadata />
+    <PostMetadata
+      recordNo={recordNo}
+      tag={tag}
+      date={date}
+      amended={amended}
+      wordCount={wc}
+      status={status}
+    />
+    <PostArticle>
+      <Content />
+    </PostArticle>
   </main>
 </ArchiveLayout>
 

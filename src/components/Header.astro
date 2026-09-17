@@ -5,7 +5,7 @@ import StatusLamps from './StatusLamps.astro';
 import { formatDate } from '../lib/utils';
 
 interface Props {
-  currentPage?: 'index' | 'archive' | 'post' | 'manifest';
+  currentPage?: 'index' | 'archive' | 'post' | 'manifest' | 'retrieve';
 }
 
 const { currentPage = 'index' } = Astro.props;
@@ -55,7 +55,8 @@ const tabs = [
       {tabs.map((tab) => (
         <a
           href={tab.href}
-          class:list={['header__tab', { 'header__tab--active': currentPage === tab.page }]}
+          aria-current={currentPage === tab.page ? 'page' : undefined}
+          class:list={['header__navitem', { 'header__navitem--active': currentPage === tab.page }]}
         >
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="flex-shrink:0">
             <path d={tab.glyph}></path>
@@ -63,14 +64,18 @@ const tabs = [
           <span>{tab.label}</span>
         </a>
       ))}
-      <a href="/retrieve" class="header__retrieve">
+      <a
+        href="/retrieve"
+        aria-current={currentPage === 'retrieve' ? 'page' : undefined}
+        class:list={['header__navitem', { 'header__navitem--active': currentPage === 'retrieve' }]}
+      >
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
           <circle cx="11" cy="11" r="6.5"></circle>
           <path d="M11 6.5v9M6.5 11h9"></path>
         </svg>
         <span>Retrieve</span>
       </a>
-      <a href="/rss.xml" class="header__retrieve" aria-label="RSS feed">
+      <a href="/rss.xml" class="header__navitem" aria-label="RSS feed">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
           <path d="M4 4a16 16 0 0116 16M4 10.5a9.5 9.5 0 019.5 9.5"></path>
           <circle cx="5.5" cy="18.5" r="1.7" fill="currentColor" stroke="none"></circle>
@@ -208,7 +213,10 @@ const tabs = [
     padding: 2px 0;
   }
 
-  .header__tab {
+  /* Every clickable nav pill — tabs (Index/Archive/Manifest) and the
+     action items (Retrieve/Relay) — shares one state system: rest,
+     hover, active (current page), focus-visible (keyboard). */
+  .header__navitem {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -223,44 +231,29 @@ const tabs = [
     text-transform: uppercase;
     white-space: nowrap;
     border: 1.5px solid rgba(239, 233, 221, 0.32);
-    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
   }
 
-  .header__tab:hover {
-    background: rgba(239, 233, 221, 0.1);
+  .header__navitem:hover {
+    background: rgba(239, 233, 221, 0.12);
+    border-color: rgba(239, 233, 221, 0.55);
     color: var(--color-cream);
   }
 
-  .header__tab--active {
+  .header__navitem:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .header__navitem--active {
     background: var(--color-accent);
     color: var(--color-ink);
     border-color: var(--color-accent);
   }
 
-  .header__tab--active:hover {
+  .header__navitem--active:hover {
     background: var(--color-accent);
     color: var(--color-ink);
-  }
-
-  .header__retrieve {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border-radius: var(--radius-xs);
-    padding: 0 15px;
-    background: none;
-    border: 1.5px solid rgba(239, 233, 221, 0.32);
-    color: var(--color-cream);
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: background 0.15s;
-  }
-
-  .header__retrieve:hover {
-    background: rgba(239, 233, 221, 0.1);
+    border-color: var(--color-accent);
   }
 </style>

@@ -85,11 +85,7 @@ button {
     font-size: 18px;
   }
 
-  .header__tab span {
-    display: none;
-  }
-
-  .header__retrieve span {
+  .header__navitem span {
     display: none;
   }
 }

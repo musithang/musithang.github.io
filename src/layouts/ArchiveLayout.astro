@@ -4,7 +4,7 @@ import Footer from '../components/Footer.astro';
 
 interface Props {
   title?: string;
-  currentPage?: 'index' | 'archive' | 'post' | 'manifest';
+  currentPage?: 'index' | 'archive' | 'post' | 'manifest' | 'retrieve';
 }
 
 const { title = 'The Archive', currentPage = 'index' } = Astro.props;

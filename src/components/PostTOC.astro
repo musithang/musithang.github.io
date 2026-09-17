@@ -1,0 +1,58 @@
+---
+interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { headings } = Astro.props;
+const toc = headings.filter((h) => h.depth === 2);
+---
+{toc.length > 0 && (
+  <div class="toc">
+    <div class="toc__head">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2">
+        <path d="M5 6h14M5 12h14M5 18h9"></path>
+      </svg>
+      In this record
+    </div>
+    {toc.map((h) => (
+      <a href={`#${h.slug}`} class="toc__link">{h.text}</a>
+    ))}
+  </div>
+)}
+
+<style>
+  .toc {
+    flex: 1 1 280px;
+    min-width: 0;
+    background: var(--color-cream);
+    border-radius: 14px;
+    padding: 16px 18px;
+  }
+
+  .toc__head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-muted2);
+    margin-bottom: 10px;
+  }
+
+  .toc__link {
+    display: block;
+    padding: 7px 0;
+    font-size: 15px;
+    line-height: 1.35;
+    border-bottom: 1px dotted rgba(20, 18, 15, 0.28);
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.15s;
+  }
+
+  .toc__link:hover {
+    color: var(--color-accent);
+  }
+</style>

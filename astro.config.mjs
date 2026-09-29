@@ -5,5 +5,6 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: 'https://musithang.github.io',
   trailingSlash: 'always',
+  devToolbar: { enabled: false },
   build: { format: 'directory' },
 });

@@ -13,3 +13,6 @@ export const SITE = {
   /** Posts older than this get a [STALE] banner unless `evergreen: true`. */
   staleAfterMonths: 18,
 } as const;
+
+/** Header navigation. Entries are added as their pages ship, so no dead links. */
+export const NAV: { label: string; href: string }[] = [];

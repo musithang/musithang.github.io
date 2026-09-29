@@ -1,0 +1,115 @@
+---
+// Cycles auto -> light -> dark. Hidden until the script runs, since it needs JS.
+---
+
+<button type="button" class="theme-toggle" id="theme-toggle" data-mode="auto" hidden>
+  <svg class="icon icon-auto" viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="8" />
+    <path d="M12 4a8 8 0 0 1 0 16z" class="fill" />
+  </svg>
+  <svg class="icon icon-light" viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" />
+  </svg>
+  <svg class="icon icon-dark" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" />
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition:
+      color 0.15s,
+      border-color 0.15s;
+  }
+
+  .theme-toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .icon {
+    grid-area: 1 / 1;
+    width: 1.15rem;
+    height: 1.15rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    display: none;
+  }
+
+  .icon .fill {
+    fill: currentColor;
+  }
+
+  .theme-toggle[data-mode='auto'] .icon-auto,
+  .theme-toggle[data-mode='light'] .icon-light,
+  .theme-toggle[data-mode='dark'] .icon-dark {
+    display: block;
+  }
+</style>
+
+<script>
+  type Mode = 'auto' | 'light' | 'dark';
+  const ORDER: Mode[] = ['auto', 'light', 'dark'];
+  const NAMES: Record<Mode, string> = {
+    auto: 'system default',
+    light: 'light',
+    dark: 'dark',
+  };
+
+  const button = document.getElementById('theme-toggle') as HTMLButtonElement | null;
+
+  function readMode(): Mode {
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light' || saved === 'dark') return saved;
+    } catch {
+      // storage blocked: fall through to auto
+    }
+    return 'auto';
+  }
+
+  function render(mode: Mode) {
+    if (!button) return;
+    const next = ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length];
+    button.dataset.mode = mode;
+    button.setAttribute('aria-label', `Theme: ${NAMES[mode]}. Switch to ${NAMES[next]}.`);
+    button.title = `Theme: ${NAMES[mode]}`;
+  }
+
+  function apply(mode: Mode) {
+    const root = document.documentElement;
+    if (mode === 'auto') delete root.dataset.theme;
+    else root.dataset.theme = mode;
+    try {
+      if (mode === 'auto') localStorage.removeItem('theme');
+      else localStorage.setItem('theme', mode);
+    } catch {
+      // storage blocked: the choice just won't persist
+    }
+    render(mode);
+    document.dispatchEvent(new CustomEvent('themechange'));
+  }
+
+  if (button) {
+    button.hidden = false;
+    render(readMode());
+    button.addEventListener('click', () => {
+      const current = readMode();
+      apply(ORDER[(ORDER.indexOf(current) + 1) % ORDER.length]);
+    });
+  }
+</script>

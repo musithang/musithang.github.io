@@ -4,9 +4,13 @@ import { SITE } from '../config';
 ---
 
 <Base>
-  <main>
-    <h1>{SITE.title}</h1>
+  <p class="label">Bench log · under construction</p>
+  <h1>{SITE.title}</h1>
+  <div class="prose">
     <p>{SITE.description}</p>
-    <p><small>Under construction. The bench is being wired up.</small></p>
-  </main>
+    <p>
+      Project logs and technical writing are coming. In the meantime, the code lives on{' '}
+      <a href={SITE.links.github}>GitHub</a>.
+    </p>
+  </div>
 </Base>

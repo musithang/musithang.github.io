@@ -1,0 +1,113 @@
+---
+// Dev-only visual regression page: /dev/styleguide/. Not generated in production builds.
+import Base from '../../layouts/Base.astro';
+
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: { page: 'styleguide' } }] : [];
+}
+
+const swatches = ['bg', 'surface', 'text', 'muted', 'border', 'accent'];
+---
+
+<Base title="Style guide">
+  <p class="label">Dev only · style guide</p>
+  <h1>Heading one, long enough to wrap onto a second line on narrow screens</h1>
+
+  <div class="swatches" role="list">
+    {
+      swatches.map((name) => (
+        <div role="listitem" class="swatch" style={`--c: var(--${name})`}>
+          <span class="chip" />
+          <span class="label">{name}</span>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="prose">
+    <p>
+      Body text set in Source Serif 4, at a comfortable measure. Here is a{' '}
+      <a href="#x">link</a>, some <strong>strong text</strong>, some <em>emphasis</em>, an
+      <code>inline_code()</code> span, a <kbd>Ctrl</kbd> + <kbd>K</kbd> shortcut, and some{' '}
+      <mark>highlighted</mark> text. Hungarian letters render properly: Laszló, árvíztűrő tükörfúrógép.
+      Water is H<sub>2</sub>O, and E = mc<sup>2</sup>.
+    </p>
+
+    <h2>Heading two</h2>
+    <p>
+      The bench does not lie, but it does need calibrating. Ordinary text follows a heading with a
+      slightly tighter gap than the gap before it.
+    </p>
+
+    <h3>Heading three</h3>
+    <ul>
+      <li>An unordered item</li>
+      <li>
+        Another item with a nested list
+        <ul>
+          <li>Nested one</li>
+          <li>Nested two</li>
+        </ul>
+      </li>
+    </ul>
+    <ol>
+      <li>First</li>
+      <li>Second</li>
+    </ol>
+
+    <h4>Heading four</h4>
+    <blockquote>
+      <p>Because the only thing worse than no data is confidently wrong data.</p>
+    </blockquote>
+
+    <pre><code>fn main() &#123;
+    println!("hello, bench");
+&#125;</code></pre>
+
+    <table>
+      <thead>
+        <tr><th>Device</th><th>Range</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>HackRF One</td><td>1 MHz – 6 GHz</td><td>Half-duplex, 8-bit ADC, plenty of fun</td></tr>
+        <tr><td>RTL-SDR</td><td>24 – 1766 MHz</td><td>Cheap and cheerful, a great first receiver for a long table that needs to scroll</td></tr>
+      </tbody>
+    </table>
+
+    <figure>
+      <svg viewBox="0 0 400 120" role="img" aria-label="Placeholder waveform">
+        <rect width="400" height="120" fill="var(--surface)" />
+        <path d="M0 60h60l20-45 30 90 30-70 20 25h240" fill="none" stroke="var(--accent)" stroke-width="3" />
+      </svg>
+      <figcaption>Figure 1. A placeholder figure with a caption.</figcaption>
+    </figure>
+
+    <details>
+      <summary>A collapsed section</summary>
+      <p>Hidden until you open it.</p>
+    </details>
+
+    <hr />
+    <p>End of the page.</p>
+  </div>
+</Base>
+
+<style>
+  .swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-block: var(--space-6) var(--space-5);
+  }
+  .swatch {
+    display: grid;
+    gap: var(--space-1);
+  }
+  .chip {
+    width: 5.5rem;
+    height: 2.5rem;
+    background: var(--c);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+</style>

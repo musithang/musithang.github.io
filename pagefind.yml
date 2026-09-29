@@ -1,0 +1,9 @@
+# Search index, built after `astro build` (see the "build" script in package.json).
+site: dist
+force_language: en
+# Only article bodies are indexed: they carry data-pagefind-body (see src/pages/posts/[slug].astro).
+exclude_selectors:
+  - pre.mermaid          # diagram source is not prose
+  - .katex-html          # the visual copy of a formula; the MathML copy stays
+  - annotation           # the TeX source inside MathML, which is noise in a snippet
+  - a.anchor

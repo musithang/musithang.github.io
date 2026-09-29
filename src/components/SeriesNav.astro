@@ -10,7 +10,7 @@ const name = post.data.series!;
 const position = parts.findIndex((p) => p.id === post.id) + 1;
 ---
 
-<nav class="series" aria-label={`Series: ${name}`}>
+<nav class="series" aria-label={`Series: ${name}`} data-pagefind-ignore>
   <p class="mono-label">
     Series · part {position} of {parts.length}
   </p>

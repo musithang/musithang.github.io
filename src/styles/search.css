@@ -1,0 +1,147 @@
+/* Search UI: shared by the modal and the /search/ page (see scripts/search.ts) */
+.search-ui {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.7em 0.9em;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font-serif);
+  font-size: var(--step-1);
+  color: var(--text);
+}
+
+.search-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.search-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.search-filters[hidden] {
+  display: none;
+}
+
+.search-filters button,
+.search-more {
+  padding: 0.3em 0.8em;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.search-filters button:hover,
+.search-more:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.search-filters button[aria-pressed='true'] {
+  color: var(--bg);
+  background: var(--text);
+  border-color: var(--text);
+}
+
+.search-status {
+  margin: 0;
+  min-height: 1.4em;
+}
+
+.search-results {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.search-results li {
+  border-top: 1px solid var(--border);
+}
+
+.search-results a {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-2);
+  color: var(--text);
+  text-decoration: none;
+  border-radius: var(--radius);
+}
+
+.search-results li[aria-selected='true'] a,
+.search-results a:hover,
+.search-results a:focus-visible {
+  background: var(--accent-soft);
+}
+
+.search-title {
+  font-weight: 650;
+  font-size: var(--step-0);
+}
+
+.search-meta {
+  text-transform: uppercase;
+}
+
+.search-excerpt {
+  font-size: var(--step--1);
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.search-excerpt mark {
+  background: var(--accent-soft);
+  color: var(--text);
+  border-radius: 2px;
+  padding: 0 0.1em;
+}
+
+.search-more {
+  justify-self: start;
+}
+
+.search-more[hidden] {
+  display: none;
+}
+
+/* Modal */
+dialog.search-dialog {
+  width: min(42rem, 94vw);
+  max-height: 84dvh;
+  margin: 8vh auto auto;
+  padding: var(--space-4);
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: auto;
+}
+
+dialog.search-dialog::backdrop {
+  background: rgb(8 10 14 / 0.6);
+}
+
+.search-hints {
+  display: flex;
+  gap: var(--space-4);
+  margin: var(--space-3) 0 0;
+}
+
+@media (pointer: coarse) {
+  .search-hints {
+    display: none;
+  }
+}
+
+@media print {
+  dialog.search-dialog {
+    display: none !important;
+  }
+}

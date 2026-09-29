@@ -35,12 +35,12 @@ const related = relatedPosts(post, all);
 
   <ReadingProgress />
 
-  <article class="post">
+  <article class="post" data-pagefind-body>
     {stale !== null && <StaleBanner months={stale} />}
 
     <header class="post-head">
-      <p class="mono-label meta">
-        <time datetime={day(date)}>{day(date)}</time>
+      <p class="mono-label meta" data-pagefind-ignore>
+        <time datetime={day(date)} data-pagefind-meta="date[datetime]">{day(date)}</time>
         <span aria-hidden="true">·</span>
         <span>{meta.readingMinutes} min read</span>
         <span aria-hidden="true">·</span>
@@ -53,8 +53,8 @@ const related = relatedPosts(post, all);
         )}
         {draft && <span class="draft">[DRAFT]</span>}
       </p>
-      <h1>{title}</h1>
-      <p class="lede">{description}</p>
+      <h1 data-pagefind-meta="title">{title}</h1>
+      <p class="lede" data-pagefind-meta="description">{description}</p>
       {
         updated && (
           <p class="mono-label revised">
@@ -64,6 +64,9 @@ const related = relatedPosts(post, all);
       }
       <TagList tags={tags} />
     </header>
+
+    <span hidden data-pagefind-ignore data-pagefind-filter="kind">{kind}</span>
+    {tags.map((tag) => <span hidden data-pagefind-ignore data-pagefind-filter="tag">{tag}</span>)}
 
     {toc && <Toc headings={headings} />}
 

@@ -12,7 +12,7 @@ const { prev, next, inSeries = false } = Astro.props;
 
 {
   (prev || next) && (
-    <nav class="post-nav" aria-label="More posts">
+    <nav class="post-nav" aria-label="More posts" data-pagefind-ignore>
       <div>
         {prev && (
           <a href={`/posts/${prev.id}/`} rel="prev">

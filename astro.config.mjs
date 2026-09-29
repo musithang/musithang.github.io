@@ -1,4 +1,6 @@
 // @ts-check
+import { createReadStream, existsSync, statSync } from 'node:fs';
+import { extname, join, resolve, sep } from 'node:path';
 import { defineConfig } from 'astro/config';
 import { unified } from '@astrojs/markdown-remark';
 import expressiveCode from 'astro-expressive-code';
@@ -15,6 +17,32 @@ import { remarkCallouts } from './src/lib/remark/callouts.ts';
 import { remarkMermaid } from './src/lib/remark/mermaid.ts';
 import { rehypeFigure } from './src/lib/rehype/figure.ts';
 
+/**
+ * Serves the Pagefind index from the last build (dist/pagefind) during `astro dev`,
+ * so search works locally after one `npm run build`. Not part of the production build.
+ */
+const pagefindDev = () => ({
+  name: 'pagefind-dev',
+  hooks: {
+    'astro:server:setup': (/** @type {{ server: import('vite').ViteDevServer }} */ { server }) => {
+      const root = resolve('dist/pagefind');
+      const types = /** @type {Record<string, string>} */ ({
+        '.js': 'text/javascript',
+        '.json': 'application/json',
+        '.css': 'text/css',
+      });
+      server.middlewares.use('/pagefind', (req, res, next) => {
+        const rel = decodeURIComponent(new URL(req.url ?? '/', 'http://localhost').pathname);
+        const file = resolve(join(root, rel));
+        if (!file.startsWith(root + sep) || !existsSync(file) || !statSync(file).isFile())
+          return next();
+        res.setHeader('Content-Type', types[extname(file)] ?? 'application/octet-stream');
+        createReadStream(file).pipe(res);
+      });
+    },
+  },
+});
+
 // User site (musithang.github.io): served from the domain root, so no `base`.
 export default defineConfig({
   site: 'https://musithang.github.io',
@@ -26,6 +54,7 @@ export default defineConfig({
     build: { chunkSizeWarningLimit: 1600 },
   },
   integrations: [
+    pagefindDev(),
     // Must come before anything that processes markdown.
     expressiveCode({
       themes: ['gruvbox-light-soft', 'gruvbox-dark-soft'],

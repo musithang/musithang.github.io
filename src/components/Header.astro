@@ -31,6 +31,9 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
           </nav>
         )
       }
+      <a class="search-link" href="/search/" id="search-link" aria-label="Search" title="Search (/)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="M16 16l5 5" /></svg>
+      </a>
       <ThemeToggle />
     </div>
   </div>
@@ -124,4 +127,64 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
       width: 1.3rem;
     }
   }
+
+  .search-link {
+    display: inline-grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition:
+      color 0.15s,
+      border-color 0.15s;
+  }
+  .search-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .search-link svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+  }
+  @media (max-width: 26rem) {
+    .tools {
+      gap: var(--space-2);
+    }
+  }
 </style>
+
+<script>
+  // Opens the search modal on click, `/` or Ctrl/Cmd+K. Without JS the link goes to /search/.
+  // The small UI module is fetched once the page is idle, so the first keystrokes after `/` are
+  // not lost. The Pagefind index and wasm only load when the modal actually opens.
+  let searchModule: Promise<typeof import('../scripts/search')> | undefined;
+  const load = () => (searchModule ??= import('../scripts/search'));
+  const open = async () => (await load()).openSearch();
+
+  if ('requestIdleCallback' in window) requestIdleCallback(() => void load());
+  else setTimeout(() => void load(), 1500);
+
+  document.getElementById('search-link')?.addEventListener('click', (event) => {
+    if (location.pathname === '/search/') return;
+    event.preventDefault();
+    void open();
+  });
+
+  addEventListener('keydown', (event) => {
+    const target = event.target as HTMLElement | null;
+    const typing = target?.matches('input, textarea, select, [contenteditable]');
+    const mod = event.ctrlKey || event.metaKey;
+    const slash = event.key === '/' && !mod && !event.altKey && !typing;
+    const shortcut = event.key.toLowerCase() === 'k' && mod;
+    if (slash || shortcut) {
+      event.preventDefault();
+      void open();
+    }
+  });
+</script>

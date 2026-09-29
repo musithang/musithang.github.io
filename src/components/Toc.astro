@@ -20,7 +20,7 @@ const count = sections.reduce((n, s) => n + 1 + s.children.length, 0);
 
 {
   count >= MIN_ITEMS && (
-    <aside class="toc-col">
+    <aside class="toc-col" data-pagefind-ignore>
       <details class="toc">
         <summary class="mono-label">On this page</summary>
         <nav aria-label="Table of contents">

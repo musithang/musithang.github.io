@@ -6,7 +6,7 @@ const { months } = Astro.props;
 const age = months >= 24 ? `${Math.floor(months / 12)} years` : `${months} months`;
 ---
 
-<aside class="stale" role="note">
+<aside class="stale" role="note" data-pagefind-ignore>
   <strong class="mono-label">[STALE]</strong>
   <p>
     This post is {age} old. Versions, commands and links may have drifted, so check the date before

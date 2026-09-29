@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+---
+
+<Base title="Search" description="Search every post.">
+  <PageHead eyebrow="Search" title="Find a post" lede="Full-text search across every post, right in your browser." />
+  <div id="search-page" data-pagefind-ignore></div>
+  <noscript>
+    <p>Search needs JavaScript. Without it, browse the <a href="/posts/">archive</a> or the <a href="/tags/">tags</a>.</p>
+  </noscript>
+</Base>
+
+<script>
+  import { mountSearch } from '../scripts/search';
+
+  const root = document.getElementById('search-page');
+  if (root) {
+    const handle = mountSearch(root, { syncUrl: true });
+    const q = new URLSearchParams(location.search).get('q');
+    if (q) handle.setQuery(q);
+    handle.focus();
+  }
+</script>

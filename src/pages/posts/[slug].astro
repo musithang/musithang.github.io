@@ -2,7 +2,13 @@
 import { render } from 'astro:content';
 import katexCss from 'katex/dist/katex.min.css?url';
 import Base from '../../layouts/Base.astro';
-import { getPosts } from '../../lib/posts';
+import KindBadge from '../../components/KindBadge.astro';
+import TagList from '../../components/TagList.astro';
+import StaleBanner from '../../components/StaleBanner.astro';
+import SeriesNav from '../../components/SeriesNav.astro';
+import PostNav from '../../components/PostNav.astro';
+import RelatedPosts from '../../components/RelatedPosts.astro';
+import { day, getPosts, getProjects, neighbours, relatedPosts, seriesMap, slugify, staleMonths } from '../../lib/posts';
 import '../../styles/post.css';
 
 export async function getStaticPaths() {
@@ -11,44 +17,57 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+const [all, projects] = await Promise.all([getPosts(), getProjects()]);
 const { Content, remarkPluginFrontmatter: meta } = await render(post);
-const { title, description, date, updated, kind, tags, draft } = post.data;
+const { title, description, date, updated, kind, tags, draft, series } = post.data;
 
-const day = (d: Date) => d.toISOString().slice(0, 10);
+const project = projects.find((p) => p.id === post.data.project?.id);
+const stale = staleMonths(post);
+const parts = series ? (seriesMap(all).get(slugify(series))?.parts ?? []) : [];
+const { prev, next } = neighbours(post, all);
+const related = relatedPosts(post, all);
 ---
 
 <Base title={title} description={description}>
   {meta.hasMath && <link slot="head" rel="stylesheet" href={katexCss} />}
 
   <article class="post">
+    {stale !== null && <StaleBanner months={stale} />}
+
     <header class="post-head">
       <p class="mono-label meta">
         <time datetime={day(date)}>{day(date)}</time>
         <span aria-hidden="true">·</span>
         <span>{meta.readingMinutes} min read</span>
         <span aria-hidden="true">·</span>
-        <span>{kind}</span>
+        <KindBadge kind={kind} />
+        {project && (
+          <>
+            <span aria-hidden="true">·</span>
+            <a href={`/projects/${project.id}/`}>{project.data.name}</a>
+          </>
+        )}
         {draft && <span class="draft">[DRAFT]</span>}
       </p>
       <h1>{title}</h1>
       <p class="lede">{description}</p>
-      {updated && (
-        <p class="mono-label">Revised <time datetime={day(updated)}>{day(updated)}</time></p>
-      )}
       {
-        tags.length > 0 && (
-          <ul class="tags" aria-label="Tags">
-            {tags.map((tag) => (
-              <li class="mono-label">#{tag}</li>
-            ))}
-          </ul>
+        updated && (
+          <p class="mono-label revised">
+            Revised <time datetime={day(updated)}>{day(updated)}</time>
+          </p>
         )
       }
+      <TagList tags={tags} />
     </header>
 
     <div class="prose">
       <Content />
     </div>
+
+    {parts.length > 1 && <SeriesNav post={post} parts={parts} />}
+    <PostNav prev={prev} next={next} inSeries={parts.length > 1} />
+    <RelatedPosts posts={related} />
   </article>
 </Base>
 
@@ -65,8 +84,17 @@ const day = (d: Date) => d.toISOString().slice(0, 10);
   .meta {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: var(--space-1) var(--space-2);
     margin: 0 0 var(--space-4);
+  }
+
+  .meta a {
+    color: var(--muted);
+  }
+
+  .meta a:hover {
+    color: var(--accent);
   }
 
   .draft {
@@ -85,12 +113,7 @@ const day = (d: Date) => d.toISOString().slice(0, 10);
     color: var(--muted);
   }
 
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2) var(--space-3);
-    margin: var(--space-4) 0 0;
-    padding: 0;
-    list-style: none;
+  .revised {
+    margin: 0 0 var(--space-3);
   }
 </style>

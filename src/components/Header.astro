@@ -103,4 +103,25 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
     text-decoration-thickness: 2px;
     text-underline-offset: 0.35em;
   }
+
+  nav a {
+    white-space: nowrap;
+  }
+
+  @media (max-width: 26rem) {
+    .bar,
+    .tools {
+      gap: var(--space-3);
+    }
+    nav ul {
+      flex-wrap: nowrap;
+      gap: var(--space-3);
+    }
+    nav a {
+      font-size: var(--step--2);
+    }
+    .wave {
+      width: 1.3rem;
+    }
+  }
 </style>

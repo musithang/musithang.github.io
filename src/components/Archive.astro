@@ -1,0 +1,130 @@
+---
+import { SITE } from '../config';
+import { getPosts, groupByYear, paginate, KIND_PLURALS } from '../lib/posts';
+import PageHead from './PageHead.astro';
+import PostRow from './PostRow.astro';
+import Pagination from './Pagination.astro';
+
+interface Props {
+  page: number;
+}
+
+const all = await getPosts();
+const { items, page, pages } = paginate(all, Astro.props.page, SITE.postsPerPage);
+const groups = groupByYear(items);
+const kinds = (['essay', 'devlog', 'note'] as const).filter((k) => all.some((p) => p.data.kind === k));
+const href = (n: number) => (n === 1 ? '/posts/' : `/posts/page/${n}/`);
+---
+
+<PageHead
+  eyebrow="Archive"
+  title="All posts"
+  lede={all.length > 0 ? `${all.length} ${all.length === 1 ? 'entry' : 'entries'}, newest first.` : undefined}
+/>
+
+{
+  all.length === 0 ? (
+    <p class="empty">Nothing here yet. The bench is clean, which is rare and won't last.</p>
+  ) : (
+    <>
+      {kinds.length > 1 && (
+        <div class="filter" role="group" aria-label="Filter by kind" hidden>
+          <button type="button" class="mono-label" data-kind="all" aria-pressed="true">
+            All
+          </button>
+          {kinds.map((kind) => (
+            <button type="button" class="mono-label" data-kind={kind} aria-pressed="false">
+              {KIND_PLURALS[kind]}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div class="archive">
+        {groups.map(({ year, posts }) => (
+          <section class="year" aria-labelledby={`y${year}`}>
+            <h2 id={`y${year}`} class="mono-label">
+              {year}
+            </h2>
+            <ul>
+              {posts.map((post) => (
+                <PostRow post={post} />
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+
+      <Pagination page={page} pages={pages} href={href} />
+    </>
+  )
+}
+
+<style>
+  .empty {
+    color: var(--muted);
+  }
+  .filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+  }
+  .filter[hidden] {
+    display: none;
+  }
+  button {
+    padding: 0.35em 0.9em;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  button:hover {
+    color: var(--text);
+    border-color: var(--muted);
+  }
+  button[aria-pressed='true'] {
+    color: var(--bg);
+    background: var(--text);
+    border-color: var(--text);
+  }
+  .archive {
+    max-width: 52rem;
+  }
+  .year + .year {
+    margin-top: var(--space-6);
+  }
+  h2 {
+    margin: 0 0 var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--step-0);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--text);
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-bottom: 1px solid var(--border);
+  }
+</style>
+
+<script>
+  // Progressive enhancement: kind filter. Without JS every post stays visible.
+  const group = document.querySelector<HTMLElement>('.filter');
+  if (group) {
+    group.hidden = false;
+    const buttons = [...group.querySelectorAll<HTMLButtonElement>('button')];
+    const rows = [...document.querySelectorAll<HTMLElement>('.archive .row')];
+    const years = [...document.querySelectorAll<HTMLElement>('.archive .year')];
+
+    const apply = (kind: string) => {
+      for (const b of buttons) b.setAttribute('aria-pressed', String(b.dataset.kind === kind));
+      for (const row of rows) row.hidden = kind !== 'all' && row.dataset.kind !== kind;
+      for (const year of years) year.hidden = !year.querySelector('.row:not([hidden])');
+    };
+    for (const b of buttons) b.addEventListener('click', () => apply(b.dataset.kind ?? 'all'));
+  }
+</script>

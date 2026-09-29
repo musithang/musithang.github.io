@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import PostList from '../../components/PostList.astro';
+import { getPosts, seriesMap } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const map = seriesMap(await getPosts());
+  return [...map].map(([slug, { name, parts }]) => ({ params: { series: slug }, props: { name, parts } }));
+}
+
+const { name, parts } = Astro.props;
+---
+
+<Base title={name} description={`A series of ${parts.length} posts: ${name}.`}>
+  <PageHead eyebrow="Series" title={name} lede={`${parts.length} parts, in reading order.`} />
+  <PostList posts={parts} fullDate />
+</Base>

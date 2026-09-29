@@ -1,0 +1,38 @@
+---
+interface Props {
+  months: number;
+}
+const { months } = Astro.props;
+const age = months >= 24 ? `${Math.floor(months / 12)} years` : `${months} months`;
+---
+
+<aside class="stale" role="note">
+  <strong class="mono-label">[STALE]</strong>
+  <p>
+    This post is {age} old. Versions, commands and links may have drifted, so check the date before
+    trusting a detail.
+  </p>
+</aside>
+
+<style>
+  .stale {
+    display: flex;
+    gap: var(--space-3);
+    align-items: baseline;
+    max-width: var(--measure);
+    margin-bottom: var(--space-6);
+    padding: var(--space-3) var(--space-4);
+    border: 1px dashed var(--accent);
+    border-radius: var(--radius);
+    background: var(--accent-soft);
+    font-size: var(--step--1);
+  }
+  strong {
+    color: var(--accent);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  p {
+    margin: 0;
+  }
+</style>

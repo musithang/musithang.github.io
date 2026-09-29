@@ -198,6 +198,16 @@ a:hover {
   text-decoration-color: currentColor;
 }
 
+/* External links get a small arrow */
+.prose a.external::after {
+  content: '↗';
+  margin-left: 0.15em;
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  text-decoration: none;
+  display: inline-block;
+}
+
 /* Prose: everything inside article content and simple pages */
 .prose {
   max-width: var(--measure);

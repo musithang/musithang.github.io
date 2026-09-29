@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Weekly rebuild so age-based [STALE] banners stay current without a push.
+  schedule:
+    - cron: '17 4 * * 1'
 
 permissions:
   contents: read

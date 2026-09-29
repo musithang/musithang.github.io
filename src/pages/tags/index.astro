@@ -1,0 +1,59 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import { getPosts, tagCounts } from '../../lib/posts';
+
+const tags = tagCounts(await getPosts());
+---
+
+<Base title="Tags" description="Browse posts by tag.">
+  <PageHead eyebrow="Index" title="Tags" lede="Everything filed under a handle." />
+  {
+    tags.length === 0 ? (
+      <p class="empty">No tags yet. Nothing to file, nothing filed.</p>
+    ) : (
+      <ul class="cloud">
+        {tags.map(({ tag, count }) => (
+          <li>
+            <a href={`/tags/${tag}/`}>
+              <span class="name">#{tag}</span>
+              <span class="mono-label count">{count}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Base>
+
+<style>
+  .empty {
+    color: var(--muted);
+  }
+  .cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    padding: 0.4em 0.9em;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text);
+    text-decoration: none;
+  }
+  a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .name {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+  }
+</style>

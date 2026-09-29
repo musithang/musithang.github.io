@@ -1,0 +1,47 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import PostList from '../../components/PostList.astro';
+import { getPosts, getProjects } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const [projects, posts] = await Promise.all([getProjects(), getPosts()]);
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project, posts: posts.filter((p) => p.data.project?.id === project.id) },
+  }));
+}
+
+const { project, posts } = Astro.props;
+---
+
+<Base title={project.data.name} description={project.data.tagline}>
+  <PageHead eyebrow="Project" title={project.data.name} lede={project.data.tagline} />
+  <div class="prose">
+    <p>{project.data.description}</p>
+    <p><a class="external" href={project.data.repo}>Source on GitHub</a></p>
+  </div>
+
+  <h2 class="mono-label">Devlog and posts</h2>
+  {
+    posts.length === 0 ? (
+      <p class="empty">No posts yet.</p>
+    ) : (
+      <PostList posts={posts} fullDate />
+    )
+  }
+</Base>
+
+<style>
+  h2 {
+    margin: var(--space-7) 0 var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--step-0);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--text);
+  }
+  .empty {
+    color: var(--muted);
+  }
+</style>

@@ -7,3 +7,11 @@ sdrtop:
     graphical interface. It works over SSH, marks panels [STALE] when data stops
     flowing, and prefers measured accuracy over convenience.
   repo: https://github.com/musithang/sdrtop
+
+blog:
+  name: This blog
+  tagline: The site you are reading, and how it gets built.
+  description: >-
+    A static blog on Astro and GitHub Pages: Markdown in, fast pages out, with
+    math, diagrams, search and no tracking. Devlogs about building it live here.
+  repo: https://github.com/musithang/musithang.github.io

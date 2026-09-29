@@ -1,0 +1,71 @@
+---
+import type { Post } from '../lib/posts';
+
+interface Props {
+  prev?: Post;
+  next?: Post;
+  /** True when prev/next follow a series rather than the timeline. */
+  inSeries?: boolean;
+}
+const { prev, next, inSeries = false } = Astro.props;
+---
+
+{
+  (prev || next) && (
+    <nav class="post-nav" aria-label="More posts">
+      <div>
+        {prev && (
+          <a href={`/posts/${prev.id}/`} rel="prev">
+            <span class="mono-label">← {inSeries ? 'Previous part' : 'Older'}</span>
+            <span class="title">{prev.data.title}</span>
+          </a>
+        )}
+      </div>
+      <div class="next">
+        {next && (
+          <a href={`/posts/${next.id}/`} rel="next">
+            <span class="mono-label">{inSeries ? 'Next part' : 'Newer'} →</span>
+            <span class="title">{next.data.title}</span>
+          </a>
+        )}
+      </div>
+    </nav>
+  )
+}
+
+<style>
+  .post-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    max-width: var(--measure);
+    margin-top: var(--space-7);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--border);
+  }
+  a {
+    display: grid;
+    gap: var(--space-1);
+    color: var(--text);
+    text-decoration: none;
+  }
+  a:hover .title {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+  .next {
+    text-align: right;
+  }
+  .title {
+    font-weight: 650;
+    line-height: 1.3;
+  }
+  @media (max-width: 34rem) {
+    .post-nav {
+      grid-template-columns: 1fr;
+    }
+    .next {
+      text-align: left;
+    }
+  }
+</style>

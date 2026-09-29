@@ -1,0 +1,18 @@
+---
+import { KIND_LABELS, type Post } from '../lib/posts';
+interface Props {
+  kind: Post['data']['kind'];
+}
+const { kind } = Astro.props;
+---
+
+<span class="kind" data-kind={kind}>{KIND_LABELS[kind]}</span>
+
+<style>
+  .kind {
+    padding: 0.05em 0.5em;
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    font-size: 0.95em;
+  }
+</style>

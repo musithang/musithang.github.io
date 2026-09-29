@@ -1,0 +1,24 @@
+---
+import type { Post } from '../lib/posts';
+import PostRow from './PostRow.astro';
+
+interface Props {
+  posts: Post[];
+  fullDate?: boolean;
+}
+const { posts, fullDate = false } = Astro.props;
+---
+
+<ul class="post-list">
+  {posts.map((post) => <PostRow post={post} fullDate={fullDate} />)}
+</ul>
+
+<style>
+  .post-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: 52rem;
+    border-bottom: 1px solid var(--border);
+  }
+</style>

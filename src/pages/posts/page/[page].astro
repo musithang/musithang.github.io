@@ -1,0 +1,20 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Archive from '../../../components/Archive.astro';
+import { SITE } from '../../../config';
+import { getPosts } from '../../../lib/posts';
+
+// Page 1 lives at /posts/. This route only makes pages 2 and up.
+export async function getStaticPaths() {
+  const pages = Math.ceil((await getPosts()).length / SITE.postsPerPage);
+  return Array.from({ length: Math.max(0, pages - 1) }, (_, i) => ({
+    params: { page: String(i + 2) },
+  }));
+}
+
+const page = Number(Astro.params.page);
+---
+
+<Base title={`Posts, page ${page}`} description="Every post, newest first.">
+  <Archive page={page} />
+</Base>

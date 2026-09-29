@@ -26,6 +26,8 @@ The frontmatter is validated at build time, so a typo fails the build instead of
 A full feature tour lives in `src/content/posts/kitchen-sink/` (a draft, so it only shows in dev).
 
 - Drafts (`draft: true`) show in `npm run dev`. To see them in a build: `SHOW_DRAFTS=1 npm run build`.
+- A table of contents appears when a post has three or more `##`/`###` headings. Set `toc: false` in the frontmatter to hide it.
+- Wide images (shown smaller than their real size) open in a lightbox on click.
 - Math, callouts (`> [!NOTE]`), code frames, and Mermaid diagrams are plain Markdown, see the kitchen-sink post.
 
 ## Gotchas

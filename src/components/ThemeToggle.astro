@@ -112,4 +112,15 @@
       apply(ORDER[(ORDER.indexOf(current) + 1) % ORDER.length]);
     });
   }
+
+  // Paper is light: switch the code themes to light while printing, then restore.
+  let beforePrint: string | undefined;
+  addEventListener('beforeprint', () => {
+    beforePrint = document.documentElement.dataset.theme;
+    document.documentElement.dataset.theme = 'light';
+  });
+  addEventListener('afterprint', () => {
+    if (beforePrint) document.documentElement.dataset.theme = beforePrint;
+    else delete document.documentElement.dataset.theme;
+  });
 </script>

@@ -366,8 +366,75 @@ a:hover {
   margin-bottom: 0.6em;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print: paper, ink, and just the words */
 @media print {
-  body::before {
-    display: none;
+  :root,
+  :root[data-theme] {
+    color-scheme: light;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
+
+  body::before,
+  .skip-link,
+  .site-header,
+  .site-footer,
+  .toc-col,
+  .series,
+  .post-nav,
+  .related,
+  .filter,
+  .pagination,
+  a.anchor,
+  .lightbox {
+    display: none !important;
+  }
+
+  .site > main {
+    padding: 0;
+  }
+
+  .wrap {
+    max-width: none;
+    padding: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  /* Spell out where external links go, since paper has no hover */
+  .prose a.external::after {
+    content: ' (' attr(href) ')';
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+    word-break: break-all;
+  }
+
+  .prose :is(pre, figure, table, blockquote, .callout, .expressive-code, .katex-display) {
+    break-inside: avoid;
+  }
+
+  .prose :is(h2, h3, h4) {
+    break-after: avoid;
+  }
+
+  .prose pre {
+    white-space: pre-wrap;
   }
 }

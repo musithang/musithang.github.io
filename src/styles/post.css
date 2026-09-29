@@ -168,3 +168,70 @@
 .prose figure img {
   width: 100%;
 }
+
+/* Footnote and fragment targets: show where a jump landed */
+.prose section.footnotes li:target,
+.prose :is(h2, h3, h4):target {
+  background: var(--accent-soft);
+  border-radius: 4px;
+  box-shadow: 0 0 0 0.3em var(--accent-soft);
+}
+
+/* Click-to-enlarge images (see scripts/lightbox.ts) */
+.prose button.zoom {
+  display: block;
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: var(--radius);
+  cursor: zoom-in;
+}
+
+dialog.lightbox {
+  width: min(96vw, 1400px);
+  max-height: 96dvh;
+  margin: auto;
+  padding: var(--space-3);
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: auto;
+}
+
+dialog.lightbox::backdrop {
+  background: rgb(8 10 14 / 0.82);
+}
+
+dialog.lightbox img {
+  width: 100%;
+  max-height: calc(96dvh - 7rem);
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+dialog.lightbox form {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--space-2);
+}
+
+dialog.lightbox .lightbox-close {
+  padding: 0.3em 0.8em;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+dialog.lightbox .lightbox-close:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+dialog.lightbox .lightbox-caption {
+  margin: var(--space-2) 0 0;
+  font-size: var(--step--1);
+  color: var(--muted);
+}

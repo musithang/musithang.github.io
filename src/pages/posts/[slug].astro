@@ -8,6 +8,8 @@ import StaleBanner from '../../components/StaleBanner.astro';
 import SeriesNav from '../../components/SeriesNav.astro';
 import PostNav from '../../components/PostNav.astro';
 import RelatedPosts from '../../components/RelatedPosts.astro';
+import Toc from '../../components/Toc.astro';
+import ReadingProgress from '../../components/ReadingProgress.astro';
 import { day, getPosts, getProjects, neighbours, relatedPosts, seriesMap, slugify, staleMonths } from '../../lib/posts';
 import '../../styles/post.css';
 
@@ -18,8 +20,8 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const [all, projects] = await Promise.all([getPosts(), getProjects()]);
-const { Content, remarkPluginFrontmatter: meta } = await render(post);
-const { title, description, date, updated, kind, tags, draft, series } = post.data;
+const { Content, headings, remarkPluginFrontmatter: meta } = await render(post);
+const { title, description, date, updated, kind, tags, draft, series, toc } = post.data;
 
 const project = projects.find((p) => p.id === post.data.project?.id);
 const stale = staleMonths(post);
@@ -30,6 +32,8 @@ const related = relatedPosts(post, all);
 
 <Base title={title} description={description}>
   {meta.hasMath && <link slot="head" rel="stylesheet" href={katexCss} />}
+
+  <ReadingProgress />
 
   <article class="post">
     {stale !== null && <StaleBanner months={stale} />}
@@ -61,6 +65,8 @@ const related = relatedPosts(post, all);
       <TagList tags={tags} />
     </header>
 
+    {toc && <Toc headings={headings} />}
+
     <div class="prose">
       <Content />
     </div>
@@ -73,9 +79,28 @@ const related = relatedPosts(post, all);
 
 <script>
   import '../../scripts/mermaid';
+  import '../../scripts/lightbox';
 </script>
 
 <style>
+  /* One column on small screens; from 72rem the TOC (see Toc.astro) takes a right-hand column. */
+  .post {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .post > :global(*) {
+    grid-column: 1;
+  }
+  @media (min-width: 72rem) {
+    .post {
+      grid-template-columns: minmax(0, var(--measure)) 15rem;
+      column-gap: var(--space-8);
+    }
+    .post > :global(.toc-col) {
+      grid-column: 2;
+    }
+  }
+
   .post-head {
     max-width: var(--measure);
     margin-bottom: var(--space-7);

@@ -1,0 +1,190 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+const MIN_ITEMS = 3;
+
+// h2 with their h3 children. The visually hidden footnotes label is not a section.
+const sections: { slug: string; text: string; children: { slug: string; text: string }[] }[] = [];
+for (const h of headings) {
+  if (h.slug === 'footnote-label') continue;
+  if (h.depth === 2) sections.push({ slug: h.slug, text: h.text, children: [] });
+  else if (h.depth === 3 && sections.length > 0) sections.at(-1)!.children.push(h);
+}
+const count = sections.reduce((n, s) => n + 1 + s.children.length, 0);
+---
+
+{
+  count >= MIN_ITEMS && (
+    <aside class="toc-col">
+      <details class="toc">
+        <summary class="mono-label">On this page</summary>
+        <nav aria-label="Table of contents">
+          <ol>
+            {sections.map((s) => (
+              <li>
+                <a href={`#${s.slug}`}>{s.text}</a>
+                {s.children.length > 0 && (
+                  <ol>
+                    {s.children.map((c) => (
+                      <li>
+                        <a href={`#${c.slug}`}>{c.text}</a>
+                      </li>
+                    ))}
+                  </ol>
+                )}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      </details>
+    </aside>
+  )
+}
+
+<style>
+  .toc {
+    font-size: var(--step--1);
+    line-height: 1.4;
+  }
+
+  /* Mobile: a collapsible box between the header and the text */
+  .toc-col {
+    max-width: var(--measure);
+    margin-bottom: var(--space-6);
+  }
+  .toc {
+    padding: var(--space-3) var(--space-4);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  summary {
+    cursor: pointer;
+  }
+  ol {
+    margin: var(--space-3) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  ol ol {
+    margin: var(--space-1) 0 0;
+    padding-left: var(--space-4);
+  }
+  li + li {
+    margin-top: var(--space-2);
+  }
+  ol ol li + li {
+    margin-top: var(--space-1);
+  }
+  a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--text);
+    text-decoration: underline;
+  }
+  a[aria-current='true'] {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Desktop: a sticky sidebar next to the text, always open */
+  @media (min-width: 72rem) {
+    .toc-col {
+      grid-column: 2;
+      grid-row: 1 / span 8;
+      align-self: start;
+      position: sticky;
+      top: var(--space-5);
+      max-width: none;
+      margin: 0;
+      max-height: calc(100dvh - 2 * var(--space-5));
+      overflow-y: auto;
+    }
+    .toc {
+      padding: 0 0 0 var(--space-4);
+      background: none;
+      border: 0;
+      border-left: 1px solid var(--border);
+      border-radius: 0;
+    }
+    .toc::details-content {
+      content-visibility: visible;
+      display: block;
+    }
+    summary {
+      pointer-events: none;
+      list-style: none;
+    }
+    summary::-webkit-details-marker {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const details = document.querySelector<HTMLDetailsElement>('details.toc');
+  if (details) {
+    const desktop = matchMedia('(min-width: 72rem)');
+    // Older browsers lack ::details-content, so keep the sidebar open explicitly.
+    const sync = () => {
+      if (desktop.matches) details.open = true;
+    };
+    sync();
+    desktop.addEventListener('change', () => {
+      details.open = desktop.matches;
+    });
+
+    // Scrollspy: the active section is the last heading that has passed the top quarter of the viewport.
+    const links = new Map<string, HTMLAnchorElement>();
+    for (const a of details.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')) {
+      links.set(decodeURIComponent(a.hash.slice(1)), a);
+    }
+    const headings = [...links.keys()]
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    let current: HTMLAnchorElement | undefined;
+    const update = () => {
+      const line = window.innerHeight * 0.25;
+      let active: HTMLElement | undefined;
+      for (const h of headings) {
+        if (h.getBoundingClientRect().top <= line) active = h;
+        else break;
+      }
+      const next = active ? links.get(active.id) : undefined;
+      if (next === current) return;
+      current?.removeAttribute('aria-current');
+      next?.setAttribute('aria-current', 'true');
+      current = next;
+
+      // Keep the active link visible inside a scrollable sidebar without moving the page.
+      const box = details.closest<HTMLElement>('.toc-col');
+      if (next && box && box.scrollHeight > box.clientHeight) {
+        const top = next.offsetTop - box.offsetTop;
+        if (top < box.scrollTop || top > box.scrollTop + box.clientHeight - 40) {
+          box.scrollTop = top - box.clientHeight / 3;
+        }
+      }
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        update();
+      });
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll, { passive: true });
+    update();
+  }
+</script>

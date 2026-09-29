@@ -1,0 +1,9 @@
+# Projects that posts can belong to (`project:` in post frontmatter).
+sdrtop:
+  name: sdrtop
+  tagline: A terminal monitor for software-defined radio hardware, written in Rust.
+  description: >-
+    Real-time spectrum, waterfall and measurements from SDR devices, without a
+    graphical interface. It works over SSH, marks panels [STALE] when data stops
+    flowing, and prefers measured accuracy over convenience.
+  repo: https://github.com/musithang/sdrtop

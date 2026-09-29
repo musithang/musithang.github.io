@@ -1,0 +1,96 @@
+---
+import { render } from 'astro:content';
+import katexCss from 'katex/dist/katex.min.css?url';
+import Base from '../../layouts/Base.astro';
+import { getPosts } from '../../lib/posts';
+import '../../styles/post.css';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content, remarkPluginFrontmatter: meta } = await render(post);
+const { title, description, date, updated, kind, tags, draft } = post.data;
+
+const day = (d: Date) => d.toISOString().slice(0, 10);
+---
+
+<Base title={title} description={description}>
+  {meta.hasMath && <link slot="head" rel="stylesheet" href={katexCss} />}
+
+  <article class="post">
+    <header class="post-head">
+      <p class="mono-label meta">
+        <time datetime={day(date)}>{day(date)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{meta.readingMinutes} min read</span>
+        <span aria-hidden="true">·</span>
+        <span>{kind}</span>
+        {draft && <span class="draft">[DRAFT]</span>}
+      </p>
+      <h1>{title}</h1>
+      <p class="lede">{description}</p>
+      {updated && (
+        <p class="mono-label">Revised <time datetime={day(updated)}>{day(updated)}</time></p>
+      )}
+      {
+        tags.length > 0 && (
+          <ul class="tags" aria-label="Tags">
+            {tags.map((tag) => (
+              <li class="mono-label">#{tag}</li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</Base>
+
+<script>
+  import '../../scripts/mermaid';
+</script>
+
+<style>
+  .post-head {
+    max-width: var(--measure);
+    margin-bottom: var(--space-7);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-2);
+    margin: 0 0 var(--space-4);
+  }
+
+  .draft {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  h1 {
+    margin-bottom: var(--space-4);
+  }
+
+  .lede {
+    margin: 0 0 var(--space-4);
+    font-size: var(--step-1);
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>

@@ -10,7 +10,7 @@ const swatches = ['bg', 'surface', 'text', 'muted', 'border', 'accent'];
 ---
 
 <Base title="Style guide">
-  <p class="label">Dev only · style guide</p>
+  <p class="mono-label">Dev only · style guide</p>
   <h1>Heading one, long enough to wrap onto a second line on narrow screens</h1>
 
   <div class="swatches" role="list">
@@ -18,7 +18,7 @@ const swatches = ['bg', 'surface', 'text', 'muted', 'border', 'accent'];
       swatches.map((name) => (
         <div role="listitem" class="swatch" style={`--c: var(--${name})`}>
           <span class="chip" />
-          <span class="label">{name}</span>
+          <span class="mono-label">{name}</span>
         </div>
       ))
     }

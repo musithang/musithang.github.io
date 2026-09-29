@@ -18,6 +18,13 @@
   --grid: light-dark(rgb(29 27 22 / 0.05), rgb(230 226 214 / 0.045));
   --focus: var(--accent);
 
+  /* Callout kinds (GitHub-style alerts) */
+  --note: light-dark(#1f5f8b, #6cb6ff);
+  --tip: light-dark(#1f6b3a, #5fd39a);
+  --important: light-dark(#6b3fa0, #b794f6);
+  --warning: light-dark(#8a5a00, #f0c040);
+  --caution: light-dark(#a3262a, #ff7b72);
+
   /* Type */
   --font-serif: 'Source Serif 4 Variable', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;

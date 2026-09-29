@@ -1,0 +1,180 @@
+/* Article-only styling: callouts, anchors, math, diagrams, footnotes, code frames. */
+
+/* Heading permalinks */
+.prose :is(h2, h3, h4) {
+  position: relative;
+}
+
+.prose a.anchor::before {
+  content: '#';
+}
+
+.prose a.anchor {
+  margin-left: 0.4em;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--muted);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.prose :is(h2, h3, h4):hover a.anchor,
+.prose a.anchor:focus-visible {
+  opacity: 1;
+}
+
+.prose a.anchor:hover {
+  color: var(--accent);
+}
+
+@media (hover: none) {
+  .prose a.anchor {
+    opacity: 0.5;
+  }
+}
+
+/* External links get a small arrow */
+.prose a.external::after {
+  content: '↗';
+  margin-left: 0.15em;
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* Callouts */
+.callout {
+  --c: var(--note);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--c);
+  border-radius: var(--radius);
+}
+
+.callout-tip {
+  --c: var(--tip);
+}
+.callout-important {
+  --c: var(--important);
+}
+.callout-warning {
+  --c: var(--warning);
+}
+.callout-caution {
+  --c: var(--caution);
+}
+
+.callout > * + * {
+  margin-top: 0.6em;
+}
+
+.callout > .callout-title {
+  margin-top: 0;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c);
+}
+
+.callout > .callout-title + * {
+  margin-top: 0.4em;
+}
+
+/* Task lists */
+.prose .contains-task-list {
+  padding-left: 0.2em;
+  list-style: none;
+}
+
+.prose .task-list-item input {
+  margin-right: 0.5em;
+  accent-color: var(--accent);
+}
+
+/* Math: long equations scroll instead of overflowing */
+.prose .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0.4em;
+}
+
+.prose .katex {
+  font-size: 1.08em;
+}
+
+/* Diagrams. Without JS the source stays visible as a code-like block. */
+.prose pre.mermaid {
+  padding: var(--space-4);
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  line-height: 1.5;
+}
+
+.prose pre.mermaid[data-rendered] {
+  display: flex;
+  justify-content: safe center;
+  font-family: var(--font-serif);
+}
+
+.prose pre.mermaid svg {
+  flex: none;
+  max-width: none;
+  height: auto;
+}
+
+/* Footnotes (GFM) */
+.prose section.footnotes {
+  margin-top: 3em;
+  padding-top: 1em;
+  border-top: 1px solid var(--border);
+  font-size: var(--step--1);
+  color: var(--muted);
+}
+
+.prose section.footnotes h2 {
+  /* the visually hidden "Footnotes" label */
+  font-size: inherit;
+}
+
+.prose section.footnotes ol {
+  padding-left: 1.2em;
+}
+
+.prose sup a[data-footnote-ref] {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  text-decoration: none;
+  padding-inline: 0.1em;
+}
+
+.prose a[data-footnote-backref] {
+  text-decoration: none;
+  margin-left: 0.3em;
+}
+
+/* Expressive Code: keep spacing consistent with the rest of the prose */
+.prose .expressive-code {
+  margin-block: 1.4em;
+}
+
+.prose .expressive-code + * {
+  margin-top: 1.4em;
+}
+
+/* Figures */
+.prose figure {
+  margin-block: 1.8em;
+}
+
+.prose figure img {
+  width: 100%;
+}

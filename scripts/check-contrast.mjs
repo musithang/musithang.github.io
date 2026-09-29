@@ -29,6 +29,7 @@ const PAIRS = [
   ['muted', 'surface', 4.5, 'meta text on surface'],
   ['accent', 'bg', 4.5, 'links and accents'],
   ['accent', 'surface', 4.5, 'links on surface'],
+  ...['note', 'tip', 'important', 'warning', 'caution'].map((k) => [k, 'surface', 4.5, `${k} callout title`]),
 ];
 
 let failed = false;

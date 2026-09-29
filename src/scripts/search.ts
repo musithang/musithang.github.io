@@ -51,17 +51,15 @@ export function mountSearch(
   root: HTMLElement,
   options: { syncUrl?: boolean; onEscape?: () => void } = {},
 ): SearchHandle {
-  const uid = Math.random().toString(36).slice(2, 7);
   root.classList.add('search-ui');
   root.innerHTML = `
     <div class="search-field">
       <input type="text" class="search-input" placeholder="Search posts" autocomplete="off" spellcheck="false" enterkeyhint="search"
-        role="combobox" aria-expanded="false" aria-controls="sr-list-${uid}" aria-autocomplete="list"
         aria-label="Search posts" />
     </div>
     <div class="search-filters" hidden></div>
     <p class="search-status mono-label" role="status" aria-live="polite"></p>
-    <ul class="search-results" id="sr-list-${uid}" role="listbox" aria-label="Search results"></ul>
+    <ul class="search-results" aria-label="Search results"></ul>
     <button type="button" class="search-more mono-label" hidden>Show more</button>`;
 
   const input = root.querySelector<HTMLInputElement>('.search-input')!;
@@ -74,27 +72,21 @@ export function mountSearch(
   let tag = '';
   let docs: PagefindDoc[] = [];
   let shown = 0;
-  let active = -1;
   let chipsBuilt = false;
   let run = 0;
 
-  const setActive = (index: number) => {
-    const items = [...list.children] as HTMLElement[];
-    active = items.length === 0 ? -1 : Math.max(0, Math.min(index, items.length - 1));
-    items.forEach((li, i) => li.setAttribute('aria-selected', String(i === active)));
-    if (active >= 0) {
-      input.setAttribute('aria-activedescendant', items[active].id);
-      items[active].scrollIntoView({ block: 'nearest' });
-    } else input.removeAttribute('aria-activedescendant');
+  const links = () => [...list.querySelectorAll<HTMLAnchorElement>('a')];
+
+  // While typing, the first result is the one Enter opens: show that.
+  const markFirst = () => {
+    const first = list.firstElementChild;
+    for (const li of list.children) li.classList.toggle('preselected', li === first && document.activeElement === input);
   };
 
   const renderMore = () => {
     const slice = docs.slice(shown, shown + PAGE_SIZE);
-    for (const [i, doc] of slice.entries()) {
+    for (const doc of slice) {
       const li = document.createElement('li');
-      li.id = `sr-${uid}-${shown + i}`;
-      li.setAttribute('role', 'option');
-      li.setAttribute('aria-selected', 'false');
       const tags = (doc.filters.tag ?? []).map((t) => `#${escapeHtml(t)}`).join(' ');
       const meta = [doc.meta.date?.slice(0, 10), doc.filters.kind?.[0], tags].filter(Boolean).join(' · ');
       li.innerHTML = `
@@ -107,7 +99,7 @@ export function mountSearch(
     }
     shown += slice.length;
     moreBtn.hidden = shown >= docs.length;
-    input.setAttribute('aria-expanded', String(list.children.length > 0));
+    markFirst();
   };
 
   const buildChips = async (pf: Pagefind) => {
@@ -140,12 +132,10 @@ export function mountSearch(
     list.replaceChildren();
     docs = [];
     shown = 0;
-    setActive(-1);
 
     if (!query && !kind && !tag) {
       statusEl.textContent = 'Type to search, or pick a kind or tag.';
       moreBtn.hidden = true;
-      input.setAttribute('aria-expanded', 'false');
       return;
     }
 
@@ -164,7 +154,6 @@ export function mountSearch(
         ? `No results${query ? ` for “${query}”` : ''}. Try fewer or different words.`
         : `${total} ${total === 1 ? 'result' : 'results'}${query ? ` for “${query}”` : ''}`;
     renderMore();
-    setActive(0);
   };
 
   input.addEventListener('input', () => {
@@ -177,22 +166,39 @@ export function mountSearch(
     void search();
   });
 
+  input.addEventListener('focus', markFirst);
+  input.addEventListener('blur', markFirst);
+
   input.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowDown') {
       event.preventDefault();
-      setActive(active + 1);
-    } else if (event.key === 'ArrowUp') {
-      event.preventDefault();
-      setActive(active - 1);
+      links()[0]?.focus();
     } else if (event.key === 'Escape' && options.onEscape) {
       event.preventDefault();
       options.onEscape();
     } else if (event.key === 'Enter') {
-      const link = list.children[active]?.querySelector('a');
+      const link = links()[0];
       if (link) {
         event.preventDefault();
         link.click();
       }
+    }
+  });
+
+  // Arrow keys move real focus between results; typing anywhere returns to the field.
+  list.addEventListener('keydown', (event) => {
+    const all = links();
+    const i = all.indexOf(document.activeElement as HTMLAnchorElement);
+    if (i < 0) return;
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      all[Math.min(i + 1, all.length - 1)].focus();
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      if (i === 0) input.focus();
+      else all[i - 1].focus();
+    } else if (event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey) {
+      input.focus();
     }
   });
 

@@ -75,7 +75,7 @@
   border-radius: var(--radius);
 }
 
-.search-results li[aria-selected='true'] a,
+.search-results li.preselected a,
 .search-results a:hover,
 .search-results a:focus-visible {
   background: var(--accent-soft);

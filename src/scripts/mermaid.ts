@@ -1,16 +1,19 @@
-// Draws ```mermaid blocks in the browser. The mermaid library is a large dynamic
-// import, so it is only fetched on pages that actually contain a diagram.
+// Draws ```mermaid blocks in the browser. The mermaid library is large, so it is a dynamic
+// import that only starts when a diagram is about to scroll into view. A diagram that is never
+// reached costs nothing, and the readable source stays visible until (and unless) it is drawn.
 
 const blocks = Array.from(document.querySelectorAll<HTMLElement>('pre.mermaid'));
 
 if (blocks.length > 0) {
   for (const el of blocks) el.dataset.source = el.textContent ?? '';
-  void init();
+  start();
 }
 
-async function init() {
-  const { default: mermaid } = await import('mermaid');
+function start() {
+  let mermaidPromise: Promise<typeof import('mermaid').default> | undefined;
+  const loadMermaid = () => (mermaidPromise ??= import('mermaid').then((m) => m.default));
   let counter = 0;
+  let configuredFor = '';
 
   // Custom properties hold light-dark() expressions; resolve them via a real property.
   const probe = document.createElement('span');
@@ -26,7 +29,11 @@ async function init() {
     return scheme === 'dark' || (scheme.includes('dark') && matchMedia('(prefers-color-scheme: dark)').matches);
   };
 
-  async function draw() {
+  /** Applies the blog palette. Cheap to skip when the theme has not changed since the last call. */
+  function configure(mermaid: Awaited<ReturnType<typeof loadMermaid>>) {
+    const key = String(isDark());
+    if (key === configuredFor) return;
+    configuredFor = key;
     mermaid.initialize({
       startOnLoad: false,
       securityLevel: 'strict',
@@ -60,21 +67,59 @@ async function init() {
         signalTextColor: color('--text'),
       },
     });
+  }
 
-    for (const el of blocks) {
-      try {
-        const { svg } = await mermaid.render(`mermaid-${counter++}`, el.dataset.source ?? '');
-        el.innerHTML = svg;
-        el.dataset.rendered = '';
-      } catch (error) {
-        console.error('mermaid: could not render diagram', error);
-        el.textContent = el.dataset.source ?? '';
-        delete el.dataset.rendered;
-      }
+  async function draw(el: HTMLElement) {
+    const mermaid = await loadMermaid();
+    configure(mermaid);
+    try {
+      const { svg } = await mermaid.render(`mermaid-${counter++}`, el.dataset.source ?? '');
+      el.innerHTML = svg;
+      el.dataset.rendered = '';
+      // A wide diagram scrolls sideways, so it must be reachable and named for keyboard users.
+      el.tabIndex = 0;
+      el.setAttribute('role', 'group');
+      el.setAttribute('aria-label', 'Diagram');
+    } catch (error) {
+      console.error('mermaid: could not render diagram', error);
+      el.textContent = el.dataset.source ?? '';
+      delete el.dataset.rendered;
+      el.removeAttribute('tabindex');
+      el.removeAttribute('role');
+      el.removeAttribute('aria-label');
     }
   }
 
-  await draw();
-  document.addEventListener('themechange', draw);
-  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
+  // Mermaid keeps shared state while rendering, so draw one diagram at a time.
+  let chain: Promise<void> = Promise.resolve();
+  const queue = (el: HTMLElement) => (chain = chain.then(() => draw(el)));
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        observer.unobserve(entry.target);
+        void queue(entry.target as HTMLElement);
+      }
+    },
+    { rootMargin: '200px 0px' },
+  );
+  for (const el of blocks) observer.observe(el);
+
+  // Diagrams nobody scrolled to would print as source, so draw the rest once things are quiet.
+  setTimeout(() => {
+    for (const el of blocks) {
+      if (el.dataset.rendered === undefined) {
+        observer.unobserve(el);
+        void queue(el);
+      }
+    }
+  }, 8000);
+
+  const redraw = () => {
+    configuredFor = '';
+    for (const el of blocks) if (el.dataset.rendered !== undefined) void queue(el);
+  };
+  document.addEventListener('themechange', redraw);
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', redraw);
 }

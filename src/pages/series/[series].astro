@@ -14,5 +14,5 @@ const { name, parts } = Astro.props;
 
 <Base title={name} description={`A series of ${parts.length} posts: ${name}.`}>
   <PageHead eyebrow="Series" title={name} lede={`${parts.length} parts, in reading order.`} />
-  <PostList posts={parts} fullDate />
+  <PostList posts={parts} fullDate level={2} />
 </Base>

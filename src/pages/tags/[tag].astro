@@ -22,7 +22,7 @@ const { posts } = Astro.props;
     title={`#${tag}`}
     lede={`${posts.length} ${posts.length === 1 ? 'post' : 'posts'}.`}
   />
-  <PostList posts={posts} fullDate />
+  <PostList posts={posts} fullDate level={2} />
   <p class="back mono-label"><a href="/tags/">← All tags</a></p>
 </Base>
 

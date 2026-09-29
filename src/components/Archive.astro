@@ -16,6 +16,8 @@ const kinds = (['essay', 'devlog', 'note'] as const).filter((k) => all.some((p) 
 const href = (n: number) => (n === 1 ? '/posts/' : `/posts/page/${n}/`);
 ---
 
+<noscript><style>.filter { display: none; }</style></noscript>
+
 <PageHead
   eyebrow="Archive"
   title="All posts"
@@ -28,7 +30,7 @@ const href = (n: number) => (n === 1 ? '/posts/' : `/posts/page/${n}/`);
   ) : (
     <>
       {kinds.length > 1 && (
-        <div class="filter" role="group" aria-label="Filter by kind" hidden>
+        <div class="filter" role="group" aria-label="Filter by kind">
           <button type="button" class="mono-label" data-kind="all" aria-pressed="true">
             All
           </button>
@@ -70,8 +72,12 @@ const href = (n: number) => (n === 1 ? '/posts/' : `/posts/page/${n}/`);
     gap: var(--space-2);
     margin-bottom: var(--space-6);
   }
-  .filter[hidden] {
-    display: none;
+  /* Invisible but present until the script runs, so revealing it moves nothing. */
+  .filter {
+    visibility: hidden;
+  }
+  .filter.ready {
+    visibility: visible;
   }
   button {
     padding: 0.35em 0.9em;
@@ -115,7 +121,7 @@ const href = (n: number) => (n === 1 ? '/posts/' : `/posts/page/${n}/`);
   // Progressive enhancement: kind filter. Without JS every post stays visible.
   const group = document.querySelector<HTMLElement>('.filter');
   if (group) {
-    group.hidden = false;
+    group.classList.add('ready');
     const buttons = [...group.querySelectorAll<HTMLButtonElement>('button')];
     const rows = [...document.querySelectorAll<HTMLElement>('.archive .row')];
     const years = [...document.querySelectorAll<HTMLElement>('.archive .year')];

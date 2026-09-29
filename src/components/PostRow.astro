@@ -8,9 +8,12 @@ interface Props {
   post: Post;
   /** Show the year in the date (lists that are not grouped by year). */
   fullDate?: boolean;
+  /** Heading level for the title, so lists fit under the page's own headings. */
+  level?: 2 | 3;
 }
 
-const { post, fullDate = false } = Astro.props;
+const { post, fullDate = false, level = 3 } = Astro.props;
+const Title = `h${level}` as 'h2' | 'h3';
 const { remarkPluginFrontmatter: meta } = await render(post);
 const iso = day(post.data.date);
 ---
@@ -18,7 +21,7 @@ const iso = day(post.data.date);
 <li class="row" data-kind={post.data.kind}>
   <time class="mono-label date" datetime={iso}>{fullDate ? iso : iso.slice(5)}</time>
   <div class="body">
-    <h3><a href={`/posts/${post.id}/`}>{post.data.title}</a></h3>
+    <Title class="title"><a href={`/posts/${post.id}/`}>{post.data.title}</a></Title>
     <p class="desc">{post.data.description}</p>
     <p class="mono-label meta">
       <KindBadge kind={post.data.kind} />
@@ -42,15 +45,17 @@ const iso = day(post.data.date);
     padding-top: 0.55em;
     white-space: nowrap;
   }
-  h3 {
+  .title {
     font-size: var(--step-1);
+    font-weight: 620;
+    letter-spacing: -0.01em;
     line-height: 1.25;
   }
-  h3 a {
+  .title a {
     color: var(--text);
     text-decoration: none;
   }
-  h3 a:hover {
+  .title a:hover {
     color: var(--accent);
     text-decoration: underline;
   }

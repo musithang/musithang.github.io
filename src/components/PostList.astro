@@ -5,12 +5,13 @@ import PostRow from './PostRow.astro';
 interface Props {
   posts: Post[];
   fullDate?: boolean;
+  level?: 2 | 3;
 }
-const { posts, fullDate = false } = Astro.props;
+const { posts, fullDate = false, level = 3 } = Astro.props;
 ---
 
 <ul class="post-list">
-  {posts.map((post) => <PostRow post={post} fullDate={fullDate} />)}
+  {posts.map((post) => <PostRow post={post} fullDate={fullDate} level={level} />)}
 </ul>
 
 <style>

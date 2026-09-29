@@ -17,6 +17,7 @@ import { remarkPostMeta } from './src/lib/remark/post-meta.ts';
 import { remarkCallouts } from './src/lib/remark/callouts.ts';
 import { remarkMermaid } from './src/lib/remark/mermaid.ts';
 import { rehypeFigure } from './src/lib/rehype/figure.ts';
+import { rehypeTaskLabels } from './src/lib/rehype/task-labels.ts';
 
 /**
  * Serves the Pagefind index from the last build (dist/pagefind) during `astro dev`,
@@ -99,6 +100,7 @@ export default defineConfig({
         [rehypeKatex, { throwOnError: true }],
         rehypeFigure,
         rehypeSlug,
+      rehypeTaskLabels,
         [rehypeExternalLinks, { rel: ['noopener'], properties: { className: ['external'] } }],
         [
           rehypeAutolinkHeadings,

@@ -142,12 +142,10 @@
 .prose sup a[data-footnote-ref] {
   font-family: var(--font-mono);
   font-size: 0.8em;
-  text-decoration: none;
   padding-inline: 0.1em;
 }
 
 .prose a[data-footnote-backref] {
-  text-decoration: none;
   margin-left: 0.3em;
 }
 

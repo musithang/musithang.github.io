@@ -1,7 +1,7 @@
 export const SITE = {
   title: 'musithang',
   description:
-    'Project logs and technical writing. Hobbyist, which means nobody pays me for any of this and nobody can make me stop.',
+    'Project logs and technical writing. Mostly Rust, mostly terminals, mostly working.',
   author: 'Viktor Laszló',
   handle: 'musithang',
   lang: 'en',

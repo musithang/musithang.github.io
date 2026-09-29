@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+---
+
+<Base title="Not found" description="This page is not here." noindex>
+  <PageHead eyebrow="404 · no signal" title="Nothing on this frequency" />
+  <div class="prose">
+    <p>
+      The page you asked for is not here. It may have moved, it may never have existed, or the link
+      may just have a typo. Measured honestly: I don't know which.
+    </p>
+    <ul>
+      <li><a href="/">Back to the front page</a></li>
+      <li><a href="/posts/">Browse every post</a></li>
+      <li><a href="/search/">Search for what you were after</a></li>
+    </ul>
+  </div>
+</Base>

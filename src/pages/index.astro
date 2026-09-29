@@ -9,7 +9,16 @@ const latest = posts.slice(0, 5);
 const featured = projects.find((p) => p.id === 'sdrtop') ?? projects[0];
 ---
 
-<Base>
+<Base
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.title,
+    url: SITE.url,
+    description: SITE.description,
+    author: { '@type': 'Person', name: SITE.author, url: SITE.links.github },
+  }}
+>
   <header class="hero">
     <p class="mono-label">Bench log</p>
     <h1>Notes from the bench</h1>

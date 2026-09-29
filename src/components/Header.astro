@@ -15,22 +15,23 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
       <span>{SITE.title}</span>
     </a>
 
-    <div class="tools">
-      {
-        NAV.length > 0 && (
-          <nav aria-label="Primary">
-            <ul>
-              {NAV.map((item) => (
-                <li>
-                  <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )
-      }
+    {
+      NAV.length > 0 && (
+        <nav aria-label="Primary">
+          <ul>
+            {NAV.map((item) => (
+              <li>
+                <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
+
+    <div class="actions">
       <a class="search-link" href="/search/" id="search-link" aria-label="Search" title="Search (/)">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="M16 16l5 5" /></svg>
       </a>
@@ -48,8 +49,17 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
   .bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--space-4);
+    gap: var(--space-5);
+  }
+
+  .wordmark {
+    margin-right: auto;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
   }
 
   .wordmark {
@@ -72,12 +82,6 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
     stroke-width: 2.4;
     stroke-linecap: round;
     stroke-linejoin: round;
-  }
-
-  .tools {
-    display: flex;
-    align-items: center;
-    gap: var(--space-5);
   }
 
   nav ul {
@@ -111,20 +115,15 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
     white-space: nowrap;
   }
 
-  @media (max-width: 26rem) {
-    .bar,
-    .tools {
-      gap: var(--space-3);
+  /* Narrow screens: the menu drops to its own row under the wordmark and tools */
+  @media (max-width: 34rem) {
+    .bar {
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-2);
     }
-    nav ul {
-      flex-wrap: nowrap;
-      gap: var(--space-3);
-    }
-    nav a {
-      font-size: var(--step--2);
-    }
-    .wave {
-      width: 1.3rem;
+    nav {
+      order: 3;
+      flex-basis: 100%;
     }
   }
 
@@ -151,11 +150,6 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
     stroke: currentColor;
     stroke-width: 1.7;
     stroke-linecap: round;
-  }
-  @media (max-width: 26rem) {
-    .tools {
-      gap: var(--space-2);
-    }
   }
 </style>
 

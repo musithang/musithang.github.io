@@ -31,6 +31,13 @@ A full feature tour lives in `src/content/posts/kitchen-sink/` (a draft, so it o
 - Wide images (shown smaller than their real size) open in a lightbox on click.
 - Math, callouts (`> [!NOTE]`), code frames, and Mermaid diagrams are plain Markdown, see the kitchen-sink post.
 
+## Feed, SEO and social cards
+
+- `/rss.xml` carries the full post content (sanitised; code blocks flattened, formulas as MathML), `sitemap-index.xml` and `robots.txt` are generated at build.
+- Every page gets a canonical URL, Open Graph and Twitter tags. Posts add `BlogPosting` JSON-LD.
+- Each post gets a generated 1200x630 social card at `/og/<slug>.png` (satori + sharp); other pages share `/og/_default.png`.
+- Icons in `public/` come from `public/favicon.svg`. After a logo change run `node scripts/make-icons.mjs`.
+
 ## Search
 
 Search is [Pagefind](https://pagefind.app): the index is built after `astro build` (that is what `npm run build` does)

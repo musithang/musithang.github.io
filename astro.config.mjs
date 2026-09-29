@@ -2,6 +2,7 @@
 import { createReadStream, existsSync, statSync } from 'node:fs';
 import { extname, join, resolve, sep } from 'node:path';
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 import { unified } from '@astrojs/markdown-remark';
 import expressiveCode from 'astro-expressive-code';
 import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
@@ -55,6 +56,7 @@ export default defineConfig({
   },
   integrations: [
     pagefindDev(),
+    sitemap({ filter: (page) => !page.includes('/search/') && !page.includes('/dev/') }),
     // Must come before anything that processes markdown.
     expressiveCode({
       themes: ['gruvbox-light-soft', 'gruvbox-dark-soft'],

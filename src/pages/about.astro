@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { SITE } from '../config';
+import { absoluteUrl } from '../lib/site';
+// DRAFT: written from the public GitHub profile and the sdrtop docs. Rewrite it in your own voice.
+---
+
+<Base
+  title="About"
+  description="Who writes this blog: a hobbyist from Hungary who builds Rust terminal tools."
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: SITE.author,
+    url: absoluteUrl('/about/'),
+    sameAs: [SITE.links.github],
+  }}
+>
+  <PageHead
+    eyebrow="About"
+    title="Hi, I'm Viktor"
+    lede="Hobbyist, which means nobody pays me for any of this and nobody can make me stop."
+  />
+
+  <div class="prose">
+    <p>
+      I'm Viktor Laszló, from Hungary. I mostly write Rust, mostly for the terminal, and I get
+      a bit too excited about tools that show you what's really going on.
+    </p>
+    <p>
+      My biggest project is <a class="external" href={SITE.links.sdrtop}>sdrtop</a>, a terminal
+      monitor for software-defined radios. It draws spectrum and waterfall views, measures things
+      instead of guessing them, and works over SSH. I test it against a HackRF One, an RTL-SDR
+      and a tinySA Ultra.
+    </p>
+    <p>
+      Between radio phases there are other obsessions that rotate in and out: homelab
+      infrastructure, containers, and whatever comes next. This blog is where the logs and the
+      write-ups end up, dead ends included.
+    </p>
+
+    <h2>Where to find me</h2>
+    <ul>
+      <li><a class="external" href={SITE.links.github}>GitHub: {SITE.handle}</a></li>
+      <li><a href="/rss.xml">RSS feed</a></li>
+    </ul>
+
+    <h2>About this blog</h2>
+    <p>
+      It is a static site with no trackers and no cookie banner. The source is on
+      <a class="external" href="https://github.com/musithang/musithang.github.io">GitHub</a>, and
+      the <a href="/projects/blog/">devlog</a> covers how it was built.
+    </p>
+  </div>
+</Base>

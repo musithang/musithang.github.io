@@ -2,7 +2,7 @@ export const SITE = {
   title: 'musithang',
   description:
     'Project logs and technical writing. Mostly Rust, mostly terminals, mostly working.',
-  author: 'Viktor Laszló',
+  author: 'László Viktor',
   handle: 'musithang',
   lang: 'en',
   url: 'https://musithang.github.io',

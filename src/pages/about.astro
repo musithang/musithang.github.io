@@ -3,16 +3,17 @@ import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import { SITE } from '../config';
 import { absoluteUrl } from '../lib/site';
-// DRAFT: written from the public GitHub profile and the sdrtop docs. Rewrite it in your own voice.
 ---
 
 <Base
   title="About"
-  description="Who writes this blog: a hobbyist from Hungary who builds Rust terminal tools."
+  description="About László Viktor: a hobbyist who writes Rust for the terminal, and writes down how he solved things."
   jsonLd={{
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: SITE.author,
+    givenName: 'Viktor',
+    familyName: 'László',
     url: absoluteUrl('/about/'),
     sameAs: [SITE.links.github],
   }}
@@ -20,35 +21,62 @@ import { absoluteUrl } from '../lib/site';
   <PageHead
     eyebrow="About"
     title="Hi, I'm Viktor"
-    lede="I build things in my free time, and then I write down what went wrong."
+    lede="László Viktor, from Hungary. This is what I do with my free time."
   />
 
   <div class="prose">
     <p>
-      I'm Viktor Laszló, from Hungary. I mostly write Rust, mostly for the terminal, and I get
-      a bit too excited about tools that show you what's really going on.
+      By day I have a day job. After it, I write software for fun, mostly in Rust, mostly for the
+      terminal. A fair share of my free time goes into waiting for things to compile, and I've made
+      peace with it: it's not frozen, it's just Rust. (Alt-Tab is my main sport.)
     </p>
+    <p>
+      The pattern is always the same. I learn how something works, then I can't rest until I've
+      built one. That's how I ended up with a radio in my terminal.
+    </p>
+
+    <h2>What I'm building</h2>
     <p>
       My biggest project is <a class="external" href={SITE.links.sdrtop}>sdrtop</a>, a terminal
-      monitor for software-defined radios. It draws spectrum and waterfall views, measures things
-      instead of guessing them, and works over SSH. I test it against a HackRF One, an RTL-SDR
-      and a tinySA Ultra.
+      monitor for software-defined radios. It shows spectrum and waterfall, measures things
+      instead of guessing them, and runs keyboard-only, even over SSH on a modest machine. I test
+      it against a HackRF One, an RTL-SDR and a tinySA Ultra.
     </p>
     <p>
-      Between radio phases there are other obsessions that rotate in and out: homelab
-      infrastructure, containers, and whatever comes next. This blog is where the logs and the
-      write-ups end up, dead ends included.
+      It is never almost done. I said that before 0.6.0 too, and then Bluetooth happened. Before
+      the radio phase it was homelab dashboards and containers, and whatever comes next will
+      probably end up here as well.
     </p>
 
-    <h2>Where to find me</h2>
+    <h2>What you'll find here</h2>
+    <ul>
+      <li>
+        <strong>Technical write-ups:</strong> how I solved something, the logic behind it, and how
+        it could have been done differently. The roads not taken are often the more interesting
+        ones.
+      </li>
+      <li>
+        <strong>Dev logs</strong> with the dead ends left in, because that's where I actually learn
+        things.
+      </li>
+      <li>
+        <strong>Everything around the code:</strong> programming in general, some philosophy, and
+        the occasional personal thing.
+      </li>
+    </ul>
+    <p>
+      Expect opinions with error bars. If I'm guessing, I'll say so, and if I got something wrong,
+      I'd much rather be corrected than stay confidently wrong.
+    </p>
+
+    <h2>Say hi</h2>
     <ul>
       <li><a class="external" href={SITE.links.github}>GitHub: {SITE.handle}</a></li>
-      <li><a href="/rss.xml">RSS feed</a></li>
+      <li><a href="mailto:viktor.laszlo92@protonmail.com">viktor.laszlo92@protonmail.com</a></li>
+      <li><a href="/rss.xml">RSS feed</a>, if you like new posts to come to you</li>
     </ul>
-
-    <h2>About this blog</h2>
     <p>
-      It is a static site with no trackers and no cookie banner. The source is on
+      The blog itself is a static site with no trackers and no cookie banner. The source is on
       <a class="external" href="https://github.com/musithang/musithang.github.io">GitHub</a>, and
       the <a href="/projects/blog/">devlog</a> covers how it was built.
     </p>

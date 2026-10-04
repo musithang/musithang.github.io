@@ -26,7 +26,7 @@ const href = (n: number) => (n === 1 ? '/posts/' : `/posts/page/${n}/`);
 
 {
   all.length === 0 ? (
-    <p class="empty">Nothing here yet. The bench is clean, which is rare and won't last.</p>
+    <p class="empty" data-pagefind-body>Nothing here yet. The bench is clean, which is rare and won't last.</p>
   ) : (
     <>
       {kinds.length > 1 && (

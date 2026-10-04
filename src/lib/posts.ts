@@ -67,7 +67,10 @@ export function seriesMap(posts: Post[]): Map<string, { name: string; parts: Pos
 
 /** Whole months between two dates. */
 export function monthsBetween(from: Date, to: Date): number {
-  return (to.getUTCFullYear() - from.getUTCFullYear()) * 12 + (to.getUTCMonth() - from.getUTCMonth());
+  let months = (to.getUTCFullYear() - from.getUTCFullYear()) * 12 + (to.getUTCMonth() - from.getUTCMonth());
+  const daysInToMonth = new Date(Date.UTC(to.getUTCFullYear(), to.getUTCMonth() + 1, 0)).getUTCDate();
+  if (to.getUTCDate() < Math.min(from.getUTCDate(), daysInToMonth)) months--;
+  return months;
 }
 
 /** Age in months of the newest of `date` / `updated`, or null when the post should not be flagged. */

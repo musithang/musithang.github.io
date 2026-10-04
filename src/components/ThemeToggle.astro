@@ -106,10 +106,11 @@
 
   if (button) {
     button.hidden = false;
-    render(readMode());
+    let mode = readMode();
+    render(mode);
     button.addEventListener('click', () => {
-      const current = readMode();
-      apply(ORDER[(ORDER.indexOf(current) + 1) % ORDER.length]);
+      mode = ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length];
+      apply(mode);
     });
   }
 

@@ -1,5 +1,6 @@
 ---
-// Cycles auto -> light -> dark. Hidden until the script runs, since it needs JS.
+// Cycles through auto and both explicit themes, switching away from the system theme first.
+// Hidden until the script runs, since it needs JS.
 ---
 
 <button type="button" class="theme-toggle" id="theme-toggle" data-mode="auto" hidden>
@@ -63,11 +64,15 @@
 
 <script>
   type Mode = 'auto' | 'light' | 'dark';
-  const ORDER: Mode[] = ['auto', 'light', 'dark'];
   const NAMES: Record<Mode, string> = {
     auto: 'system default',
     light: 'light',
     dark: 'dark',
+  };
+  const systemPrefersDark = () => matchMedia('(prefers-color-scheme: dark)').matches;
+  const nextMode = (mode: Mode): Mode => {
+    const order: Mode[] = systemPrefersDark() ? ['auto', 'light', 'dark'] : ['auto', 'dark', 'light'];
+    return order[(order.indexOf(mode) + 1) % order.length];
   };
 
   const button = document.getElementById('theme-toggle') as HTMLButtonElement | null;
@@ -84,7 +89,7 @@
 
   function render(mode: Mode) {
     if (!button) return;
-    const next = ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length];
+    const next = nextMode(mode);
     button.dataset.mode = mode;
     button.setAttribute('aria-label', `Theme: ${NAMES[mode]}. Switch to ${NAMES[next]}.`);
     button.title = `Theme: ${NAMES[mode]}`;
@@ -109,8 +114,11 @@
     let mode = readMode();
     render(mode);
     button.addEventListener('click', () => {
-      mode = ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length];
+      mode = nextMode(mode);
       apply(mode);
+    });
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (mode === 'auto') render(mode);
     });
   }
 

@@ -11,7 +11,13 @@ if (blocks.length > 0) {
 
 function start() {
   let mermaidPromise: Promise<typeof import('mermaid').default> | undefined;
-  const loadMermaid = () => (mermaidPromise ??= import('mermaid').then((m) => m.default));
+  const loadMermaid = () =>
+    (mermaidPromise ??= import('mermaid')
+      .then((m) => m.default)
+      .catch((error: unknown) => {
+        mermaidPromise = undefined;
+        throw error;
+      }));
   let counter = 0;
   let configuredFor = '';
 
@@ -33,7 +39,6 @@ function start() {
   function configure(mermaid: Awaited<ReturnType<typeof loadMermaid>>) {
     const key = String(isDark());
     if (key === configuredFor) return;
-    configuredFor = key;
     mermaid.initialize({
       startOnLoad: false,
       securityLevel: 'strict',
@@ -67,12 +72,13 @@ function start() {
         signalTextColor: color('--text'),
       },
     });
+    configuredFor = key;
   }
 
   async function draw(el: HTMLElement) {
-    const mermaid = await loadMermaid();
-    configure(mermaid);
     try {
+      const mermaid = await loadMermaid();
+      configure(mermaid);
       const { svg } = await mermaid.render(`mermaid-${counter++}`, el.dataset.source ?? '');
       el.innerHTML = svg;
       el.dataset.rendered = '';
@@ -81,7 +87,7 @@ function start() {
       el.setAttribute('role', 'group');
       el.setAttribute('aria-label', 'Diagram');
     } catch (error) {
-      console.error('mermaid: could not render diagram', error);
+      console.error('mermaid: could not load or render diagram', error);
       el.textContent = el.dataset.source ?? '';
       delete el.dataset.rendered;
       el.removeAttribute('tabindex');

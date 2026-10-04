@@ -67,10 +67,11 @@ export function mountSearch(
   const statusEl = root.querySelector<HTMLElement>('.search-status')!;
   const list = root.querySelector<HTMLUListElement>('.search-results')!;
   const moreBtn = root.querySelector<HTMLButtonElement>('.search-more')!;
+  const moreLabel = moreBtn.textContent;
 
   let kind = '';
   let tag = '';
-  let docs: PagefindDoc[] = [];
+  let results: PagefindResponse['results'] = [];
   let shown = 0;
   let chipsBuilt = false;
   let run = 0;
@@ -83,23 +84,41 @@ export function mountSearch(
     for (const li of list.children) li.classList.toggle('preselected', li === first && document.activeElement === input);
   };
 
-  const renderMore = () => {
-    const slice = docs.slice(shown, shown + PAGE_SIZE);
-    for (const doc of slice) {
-      const li = document.createElement('li');
-      const tags = (doc.filters.tag ?? []).map((t) => `#${escapeHtml(t)}`).join(' ');
-      const meta = [doc.meta.date?.slice(0, 10), doc.filters.kind?.[0], tags].filter(Boolean).join(' · ');
-      li.innerHTML = `
-        <a href="${escapeHtml(doc.url)}">
-          <span class="search-title">${escapeHtml(doc.meta.title ?? doc.url)}</span>
-          <span class="search-meta mono-label">${meta}</span>
-          <span class="search-excerpt">${doc.excerpt}</span>
-        </a>`;
-      list.append(li);
+  const renderMore = async () => {
+    const id = run;
+    const batch = results.slice(shown, shown + PAGE_SIZE);
+    if (batch.length === 0) return;
+    moreBtn.disabled = true;
+
+    try {
+      const docs = await Promise.all(batch.map((result) => result.data()));
+      if (id !== run) return;
+      for (const doc of docs) {
+        const li = document.createElement('li');
+        const tags = (doc.filters.tag ?? []).map((t) => `#${escapeHtml(t)}`).join(' ');
+        const meta = [doc.meta.date?.slice(0, 10), doc.filters.kind?.[0], tags].filter(Boolean).join(' · ');
+        li.innerHTML = `
+          <a href="${escapeHtml(doc.url)}">
+            <span class="search-title">${escapeHtml(doc.meta.title ?? doc.url)}</span>
+            <span class="search-meta mono-label">${meta}</span>
+            <span class="search-excerpt">${doc.excerpt}</span>
+          </a>`;
+        list.append(li);
+      }
+      shown += docs.length;
+      moreBtn.textContent = moreLabel;
+      moreBtn.hidden = shown >= results.length;
+      markFirst();
+    } catch (error) {
+      console.error('search: could not load result details', error);
+      if (id === run) {
+        statusEl.textContent = 'Could not load search results. Select Retry to try again.';
+        moreBtn.textContent = 'Retry';
+        moreBtn.hidden = false;
+      }
+    } finally {
+      if (id === run) moreBtn.disabled = false;
     }
-    shown += slice.length;
-    moreBtn.hidden = shown >= docs.length;
-    markFirst();
   };
 
   const buildChips = async (pf: Pagefind) => {
@@ -128,10 +147,14 @@ export function mountSearch(
       return;
     }
     await buildChips(pf);
+    if (id !== run) return;
 
     list.replaceChildren();
-    docs = [];
+    results = [];
     shown = 0;
+    moreBtn.hidden = true;
+    moreBtn.disabled = false;
+    moreBtn.textContent = moreLabel;
 
     if (!query && !kind && !tag) {
       statusEl.textContent = 'Type to search, or pick a kind or tag.';
@@ -145,15 +168,14 @@ export function mountSearch(
     const response = await pf.debouncedSearch(query || null, { filters }, query ? 120 : 0);
     if (!response || id !== run) return;
 
-    docs = await Promise.all(response.results.slice(0, 50).map((r) => r.data()));
-    if (id !== run) return;
-
     const total = response.results.length;
+    results = response.results;
     statusEl.textContent =
       total === 0
         ? `No results${query ? ` for “${query}”` : ''}. Try fewer or different words.`
         : `${total} ${total === 1 ? 'result' : 'results'}${query ? ` for “${query}”` : ''}`;
-    renderMore();
+    moreBtn.hidden = results.length <= PAGE_SIZE;
+    await renderMore();
   };
 
   input.addEventListener('input', () => {
@@ -218,7 +240,7 @@ export function mountSearch(
     void search();
   });
 
-  moreBtn.addEventListener('click', renderMore);
+  moreBtn.addEventListener('click', () => void renderMore());
 
   // Warm up the index as soon as the UI exists, so the first keystroke is fast.
   void loadPagefind().then((pf) => pf && buildChips(pf)).then(() => search());

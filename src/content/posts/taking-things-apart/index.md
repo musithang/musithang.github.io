@@ -15,7 +15,9 @@ When I was a kid, my toys rarely stayed intact for very long.
 
 I didn't want to break them; I simply wanted to know what lived inside them. How did they work? What made them do what they did? The easiest way to find out, as far as I was concerned, was to take them apart.
 
-Putting them back together was a different matter.
+Putting them back together took longer, and I enjoyed that part too. When a toy worked again, it felt like something I had earned.
+
+Later, that made me the person in the family, and among my friends, who gets handed the laptop, the phone, or whatever gadget has stopped working.
 
 That curiosity never really went away. It just found bigger things to take apart.
 
@@ -51,15 +53,15 @@ I wanted a practical tool for exploring radio signals and measurements directly 
 
 So I started writing one.
 
-It has grown into a terminal-based SDR bench tool with spectrum and waterfall displays, hardware backends, IQ inspection, RF measurements, timing analysis, and a set of demodulators. The terminal isn't a limitation I try to overcome; it is part of the design. I like tools that expose their state, respond predictably, and stay useful on a machine with more in common with a field laptop than a workstation.
+It has grown into a terminal-based SDR bench tool with spectrum and waterfall displays, hardware backends, IQ inspection, RF measurements, timing analysis, and a set of demodulators. The terminal isn't a limitation I try to overcome; it is home territory. I have used keyboard-driven desktops for years, i3 and Hyprland among them, and most of the tools I reach for are terminal applications. I like tools that expose their state, respond predictably, and stay useful on a machine with more in common with a field laptop than a workstation.
 
 The project has also become a way for me to investigate protocols and physical layers rather than treating them as black boxes.
 
 An FM broadcast is not one signal but a stack. There is the carrier, the deviation around it, the stereo pilot buried in the baseband, the multiplexed audio channels, and the RDS subcarrier with its own checksum, riding underneath all of it. The interesting part is never the box that prints a station name on the screen. It is the path from raw samples to that text, and what happens to that path when the signal is weak, the clock drifts, or a bit arrives wrong.
 
-Bluetooth is the same problem in a different disguise. A BLE advertisement is a sequence of parts — channel, access code, sync word, header, payload, and a checksum over the whole thing — and a connection is a run of events, each one depending on the last. Reading the packet is the easy half. Knowing whether the packet you decoded is the packet that was actually sent is the other half.
+Bluetooth is the same problem in a different disguise. A BLE advertisement is a sequence of parts: channel, access code, sync word, header, payload, and a checksum over the whole thing. A connection is a run of events, each one depending on the last. Reading the packet is the easy half. Knowing whether the packet you decoded is the packet that was actually sent is the other half.
 
-Both cases end the same way: every stage between the antenna and the text on the screen has to be understood, tested, and — wherever a specification exists — checked against what it says should happen.
+Both cases end the same way: every stage between the antenna and the text on the screen has to be understood and tested. Wherever a specification exists, the result also has to be checked against what it says should happen.
 
 **I want to understand the process, not just obtain the result.**
 
@@ -67,25 +69,23 @@ The code is public and the project is evolving. You can read all of it on [GitHu
 
 ## An instrument, not a black box
 
-My approach to software is shaped by a decade of industrial work.
-
-I've dealt with specifications, quality measurements, process documentation, supplier problems, delivery schedules, and the consequences of information being wrong or incomplete. Those years taught me to pay attention to the difference between what a system claims and what is actually happening.
-
-That mindset carries over into measurement software.
-
-A displayed number should mean something. A missing measurement shouldn't quietly become zero. A stale value shouldn't look like a live one. A hardware backend shouldn't be described as tested simply because it compiles.
-
-The support list moves at the speed of my hobby budget.
-
 It is also, I suspect, the least obvious reason this project exists at all. Software development wasn't my original profession.
 
-My working life began in industrial quality assurance and later expanded into automotive logistics, procurement, technical sales, and operations, with automotive components for manufacturers including Porsche, Bentley, Audi, Lamborghini, and Rolls-Royce. That is not the usual background for someone building signal-processing tools in Rust.
+My working life began in industrial quality assurance and later expanded into automotive logistics, procurement, technical sales, and operations, with automotive components for manufacturers including Porsche, Bentley, Audi, Lamborghini, and Rolls-Royce. Specifications, quality measurements, process documentation, supplier problems, delivery schedules: none of it is the usual background for someone building signal-processing tools in Rust.
 
-In other words, I seem to have exchanged industrial paperwork for signal-processing code. The paperwork was probably easier to print.
+Most of it was process improvement, not just paperwork: automotive lean, the standards that come with the industry, and, in logistics as well, the work of finding where a process fails and then making it work.
+
+In other words, I seem to have exchanged industrial processes for signal-processing code. The processes were probably easier to draw.
 
 But I don't think the two worlds are as distant as they might seem. Both involve incomplete information, complicated dependencies, and unexpected failures. A measurement has to be defensible, whether it is a factory tolerance or a decoded packet.
 
 The terminology changes. The underlying discipline doesn't.
+
+Those years also taught me to pay attention to the difference between what a system claims and what is actually happening. That mindset carries over into measurement software.
+
+A displayed number should mean something. A missing measurement shouldn't quietly become zero. A stale value shouldn't look like a live one. A hardware backend shouldn't be described as tested simply because it compiles.
+
+The support list moves at the speed of my hobby budget.
 
 I use synthetic signals and automated tests because they make experiments repeatable, and I test against real hardware because real receivers introduce constraints that a synthetic test cannot reproduce. Neither replaces the other.
 
@@ -103,7 +103,7 @@ I don't use Rust because I think every problem needs to be solved in Rust. I use
 
 A fair share of my evenings ends with a compile and no result yet. That is not a failure, that is just Rust, and I have made my peace with it.
 
-I'm still learning, and I expect to be for a long time. There is always another protocol to understand, another performance bottleneck to find, or another assumption hiding somewhere in the code — and that is part of what keeps the work interesting.
+I'm still learning, and I expect to be for a long time. There is always another protocol to understand, another performance bottleneck to find, or another assumption hiding somewhere in the code, and that is part of what keeps the work interesting.
 
 ## Outside the terminal
 

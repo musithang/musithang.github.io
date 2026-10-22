@@ -36,7 +36,8 @@ const cover = post.data.cover;
   {
     cover && (
       <a class="thumb" href={`/posts/${post.id}/`} aria-hidden="true" tabindex="-1">
-        <Image src={cover} alt="" width={320} height={240} fit="cover" position="center" loading="lazy" />
+        <Image src={cover} alt="" width={640} height={426} fit="cover" position="center" loading="lazy" />
+        <span class="thumb-title">{post.data.title}</span>
       </a>
     )
   }
@@ -51,41 +52,69 @@ const cover = post.data.cover;
     border-top: 1px solid var(--border);
   }
   .row.has-cover {
-    grid-template-columns: 5.5rem 1fr 8rem;
+    grid-template-columns: 5.5rem minmax(0, 1fr) 12rem;
   }
   .date {
     padding-top: 0.55em;
     white-space: nowrap;
   }
   .thumb {
+    position: relative;
     display: block;
     align-self: start;
-    width: 8rem;
-    aspect-ratio: 4 / 3;
+    width: 12rem;
+    aspect-ratio: 3 / 2;
+    isolation: isolate;
     overflow: hidden;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 0.8rem;
-    box-shadow: 0 4px 14px rgb(15 19 24 / 0.12);
+    background: #20252d;
+    border: 1px solid rgb(255 255 255 / 0.12);
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgb(15 19 24 / 0.16);
     transition:
       border-color 0.2s ease,
-      box-shadow 0.2s ease,
-      transform 0.2s ease;
+      box-shadow 0.2s ease;
   }
   .thumb img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.35s ease;
+    object-position: center 42%;
   }
-  .row:has(.thumb):hover .thumb {
-    border-color: var(--accent);
-    box-shadow: 0 8px 22px rgb(15 19 24 / 0.18);
-    transform: translateY(-2px);
+  .thumb::after {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgb(8 12 18 / 0.02) 20%,
+      rgb(8 12 18 / 0.18) 48%,
+      rgb(8 12 18 / 0.84) 100%
+    );
+    content: '';
   }
-  .row:has(.thumb):hover .thumb img {
-    transform: scale(1.06);
+  .thumb-title {
+    position: absolute;
+    z-index: 1;
+    display: -webkit-box;
+    right: 0.9rem;
+    bottom: 0.85rem;
+    left: 0.9rem;
+    overflow: hidden;
+    color: #fff;
+    font-family: var(--font-serif);
+    font-size: var(--step-1);
+    font-weight: 650;
+    letter-spacing: -0.025em;
+    line-height: 1.12;
+    text-wrap: balance;
+    text-shadow: 0 1px 8px rgb(0 0 0 / 0.2);
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .thumb:hover {
+    border-color: rgb(255 255 255 / 0.5);
+    box-shadow: 0 12px 30px rgb(15 19 24 / 0.24);
   }
   .row:has(.title a:focus-visible) .thumb {
     outline: 2px solid var(--focus);
@@ -126,7 +155,7 @@ const cover = post.data.cover;
       gap: var(--space-1);
     }
     .row.has-cover {
-      grid-template-columns: 1fr 5.25rem;
+      grid-template-columns: minmax(0, 1fr) 7rem;
       gap: var(--space-2) var(--space-3);
     }
     .row.has-cover .date {
@@ -138,7 +167,14 @@ const cover = post.data.cover;
     .row.has-cover .thumb {
       grid-column: 2;
       grid-row: 2;
-      width: 5.25rem;
+      width: 7rem;
+      aspect-ratio: 3 / 2;
+    }
+    .row.has-cover .thumb-title {
+      right: 0.5rem;
+      bottom: 0.55rem;
+      left: 0.5rem;
+      font-size: var(--step--2);
     }
     .date {
       padding-top: 0;
@@ -146,8 +182,7 @@ const cover = post.data.cover;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .thumb,
-    .thumb img {
+    .thumb {
       transition: none;
     }
   }

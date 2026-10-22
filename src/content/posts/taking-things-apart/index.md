@@ -13,7 +13,7 @@ draft: false
 
 When I was a kid, my toys rarely stayed intact for very long.
 
-I wanted to know what was inside them. How did they work? What made them do what they did? The easiest way to find out, as far as I was concerned, was to take them apart.
+I didn't want to break them; I simply wanted to know what lived inside them. How did they work? What made them do what they did? The easiest way to find out, as far as I was concerned, was to take them apart.
 
 Putting them back together was a different matter.
 
@@ -21,7 +21,7 @@ That curiosity never really went away. It just found bigger things to take apart
 
 I'd always been drawn to the parts of physics I couldn't see.
 
-Years later, I found myself reading about software-defined radio. The more I learned, the more fascinating it became. There was an entire world of signals travelling through the space around me, carrying information I couldn't see, hear, or even begin to understand without the right tools.
+Years later, I found myself reading about software-defined radio. The more I learned, the more fascinating it became. The room was silent, and it was full of signals: an entire world of information travelling through the space around me, waiting for a receiver to reveal it.
 
 Eventually, I bought a HackRF One.
 
@@ -83,7 +83,7 @@ My working life began in industrial quality assurance and later expanded into au
 
 In other words, I seem to have exchanged industrial paperwork for signal-processing code. The paperwork was probably easier to print.
 
-But I don't think the two worlds are as distant as they might seem. Both involve incomplete information, complicated dependencies, and unexpected failures. In quality assurance, a measurement has to be defensible. In signal processing, a decoded result should be defensible too.
+But I don't think the two worlds are as distant as they might seem. Both involve incomplete information, complicated dependencies, and unexpected failures. A measurement has to be defensible, whether it is a factory tolerance or a decoded packet.
 
 The terminology changes. The underlying discipline doesn't.
 

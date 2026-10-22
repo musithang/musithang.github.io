@@ -1,7 +1,7 @@
 ---
 import { render } from 'astro:content';
 import { Image } from 'astro:assets';
-import { day, type Post } from '../lib/posts';
+import { day, KIND_LABELS, type Post } from '../lib/posts';
 import KindBadge from './KindBadge.astro';
 import TagList from './TagList.astro';
 
@@ -21,24 +21,48 @@ const cover = post.data.cover;
 ---
 
 <li class="row" data-kind={post.data.kind} class:list={[{ 'has-cover': Boolean(cover) }]}>
-  <time class="mono-label date" datetime={iso}>{fullDate ? iso : iso.slice(5)}</time>
-  <div class="body">
-    <Title class="title"><a href={`/posts/${post.id}/`}>{post.data.title}</a></Title>
-    <p class="desc">{post.data.description}</p>
-    <p class="mono-label meta">
-      <KindBadge kind={post.data.kind} />
-      <span aria-hidden="true">·</span>
-      <span>{meta.readingMinutes} min</span>
-      {post.data.draft && <span class="draft">[DRAFT]</span>}
-    </p>
-    <TagList tags={post.data.tags} />
-  </div>
   {
     cover && (
-      <a class="thumb" href={`/posts/${post.id}/`} aria-hidden="true" tabindex="-1">
-        <Image src={cover} alt="" width={640} height={426} fit="cover" position="center" loading="lazy" />
-        <span class="thumb-title">{post.data.title}</span>
-      </a>
+      <div class="cover-card">
+        <a class="thumb" href={`/posts/${post.id}/`}>
+          <Image src={cover} alt="" width={1200} height={600} fit="cover" position="center" loading="lazy" />
+          <span class="thumb-shade" aria-hidden="true"></span>
+          <span class="thumb-top">
+            <span class="thumb-kind">{KIND_LABELS[post.data.kind]}</span>
+            <span class="thumb-reading">{meta.readingMinutes} min read</span>
+          </span>
+          <span class="thumb-bottom">
+            <Title class="thumb-title">{post.data.title}</Title>
+            <span class="thumb-arrow" aria-hidden="true">↗</span>
+          </span>
+        </a>
+        <div class="cover-content">
+          <p class="desc">{post.data.description}</p>
+          <p class="cover-date mono-label">
+            <time datetime={iso}>{fullDate ? iso : iso.slice(5)}</time>
+            {post.data.draft && <span class="draft">[DRAFT]</span>}
+          </p>
+          <TagList tags={post.data.tags} />
+        </div>
+      </div>
+    )
+  }
+  {
+    !cover && (
+      <>
+        <time class="mono-label date" datetime={iso}>{fullDate ? iso : iso.slice(5)}</time>
+        <div class="body">
+          <Title class="title"><a href={`/posts/${post.id}/`}>{post.data.title}</a></Title>
+          <p class="desc">{post.data.description}</p>
+          <p class="mono-label meta">
+            <KindBadge kind={post.data.kind} />
+            <span aria-hidden="true">·</span>
+            <span>{meta.readingMinutes} min</span>
+            {post.data.draft && <span class="draft">[DRAFT]</span>}
+          </p>
+          <TagList tags={post.data.tags} />
+        </div>
+      </>
     )
   }
 </li>
@@ -52,73 +76,140 @@ const cover = post.data.cover;
     border-top: 1px solid var(--border);
   }
   .row.has-cover {
-    grid-template-columns: 5.5rem minmax(0, 1fr) 12rem;
+    display: block;
+    padding-block: var(--space-5);
   }
   .date {
     padding-top: 0.55em;
     white-space: nowrap;
   }
-  .thumb {
-    position: relative;
-    display: block;
-    align-self: start;
-    width: 12rem;
-    aspect-ratio: 3 / 2;
-    isolation: isolate;
+  .cover-card {
+    width: 100%;
     overflow: hidden;
-    background: #20252d;
-    border: 1px solid rgb(255 255 255 / 0.12);
-    border-radius: 1rem;
-    box-shadow: 0 8px 24px rgb(15 19 24 / 0.16);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1.2rem;
+    box-shadow:
+      0 2px 5px rgb(15 19 24 / 0.07),
+      0 16px 36px rgb(15 19 24 / 0.1);
     transition:
       border-color 0.2s ease,
       box-shadow 0.2s ease;
+  }
+  .thumb {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 2.2 / 1;
+    isolation: isolate;
+    overflow: hidden;
+    background: #151a20;
   }
   .thumb img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 42%;
+    object-position: center 40%;
   }
-  .thumb::after {
+  .thumb-shade {
     position: absolute;
     z-index: 0;
     inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgb(8 12 18 / 0.02) 20%,
-      rgb(8 12 18 / 0.18) 48%,
-      rgb(8 12 18 / 0.84) 100%
-    );
-    content: '';
+    background:
+      linear-gradient(180deg, rgb(8 12 18 / 0.56), transparent 38%),
+      linear-gradient(0deg, rgb(8 12 18 / 0.88), rgb(8 12 18 / 0.12) 74%);
+    transition: opacity 0.2s ease;
   }
-  .thumb-title {
+  .thumb-top,
+  .thumb-bottom {
     position: absolute;
     z-index: 1;
+    right: 1rem;
+    left: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .thumb-top {
+    top: 0.9rem;
+    gap: var(--space-2);
+  }
+  .thumb-kind {
+    padding: 0.3rem 0.55rem;
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    text-transform: uppercase;
+    background: rgb(15 19 24 / 0.46);
+    border: 1px solid rgb(255 255 255 / 0.42);
+    border-radius: 999px;
+    backdrop-filter: blur(10px);
+  }
+  .thumb-reading {
+    color: rgb(255 255 255 / 0.9);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-shadow: 0 1px 8px rgb(0 0 0 / 0.6);
+  }
+  .thumb-bottom {
+    bottom: 0.95rem;
+    gap: var(--space-3);
+  }
+  .thumb-title {
     display: -webkit-box;
-    right: 0.9rem;
-    bottom: 0.85rem;
-    left: 0.9rem;
+    margin: 0;
     overflow: hidden;
     color: #fff;
     font-family: var(--font-serif);
-    font-size: var(--step-1);
-    font-weight: 650;
-    letter-spacing: -0.025em;
-    line-height: 1.12;
+    font-size: clamp(var(--step-2), 3.8vw, var(--step-3));
+    font-weight: 680;
+    letter-spacing: -0.035em;
+    line-height: 1.04;
     text-wrap: balance;
     text-shadow: 0 1px 8px rgb(0 0 0 / 0.2);
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
   }
-  .thumb:hover {
-    border-color: rgb(255 255 255 / 0.5);
-    box-shadow: 0 12px 30px rgb(15 19 24 / 0.24);
+  .thumb-arrow {
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: none;
+    place-items: center;
+    color: #fff;
+    font-size: 1.1rem;
+    background: rgb(255 255 255 / 0.16);
+    border: 1px solid rgb(255 255 255 / 0.55);
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease;
   }
-  .row:has(.title a:focus-visible) .thumb {
+  .cover-card:has(.thumb:hover) {
+    border-color: var(--accent);
+    box-shadow:
+      0 2px 5px rgb(15 19 24 / 0.07),
+      0 20px 42px rgb(15 19 24 / 0.16);
+  }
+  .thumb:hover .thumb-shade {
+    opacity: 0.82;
+  }
+  .thumb:hover .thumb-arrow {
+    color: var(--text);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .cover-card:has(.thumb:focus-visible) {
     outline: 2px solid var(--focus);
-    outline-offset: 3px;
+    outline-offset: 4px;
   }
   .title {
     font-size: var(--step-1);
@@ -138,6 +229,22 @@ const cover = post.data.cover;
     margin: var(--space-1) 0 var(--space-2);
     color: var(--muted);
   }
+  .cover-content {
+    padding: clamp(0.85rem, 2.5vw, 1.2rem);
+  }
+  .cover-content .desc {
+    max-width: 60ch;
+    margin: 0;
+    color: var(--text);
+    font-size: var(--step-0);
+    line-height: 1.5;
+  }
+  .cover-date {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: var(--space-2) 0 var(--space-3);
+  }
   .meta {
     display: flex;
     flex-wrap: wrap;
@@ -149,32 +256,28 @@ const cover = post.data.cover;
     color: var(--accent);
     font-weight: 700;
   }
-  @media (max-width: 34rem) {
+  @media (max-width: 40rem) {
     .row {
       grid-template-columns: 1fr;
       gap: var(--space-1);
     }
     .row.has-cover {
-      grid-template-columns: minmax(0, 1fr) 7rem;
-      gap: var(--space-2) var(--space-3);
-    }
-    .row.has-cover .date {
-      grid-column: 1 / -1;
-    }
-    .row.has-cover .body {
-      grid-column: 1;
+      display: block;
     }
     .row.has-cover .thumb {
-      grid-column: 2;
-      grid-row: 2;
-      width: 7rem;
-      aspect-ratio: 3 / 2;
+      aspect-ratio: 2 / 1;
+    }
+    .row.has-cover .thumb-top,
+    .row.has-cover .thumb-bottom {
+      right: 0.8rem;
+      left: 0.8rem;
     }
     .row.has-cover .thumb-title {
-      right: 0.5rem;
-      bottom: 0.55rem;
-      left: 0.5rem;
-      font-size: var(--step--2);
+      font-size: var(--step-1);
+    }
+    .row.has-cover .thumb-arrow {
+      width: 2rem;
+      height: 2rem;
     }
     .date {
       padding-top: 0;

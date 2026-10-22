@@ -36,7 +36,7 @@ const cover = post.data.cover;
   {
     cover && (
       <a class="thumb" href={`/posts/${post.id}/`} aria-hidden="true" tabindex="-1">
-        <Image src={cover} alt="" width={160} height={160} fit="cover" position="center" loading="lazy" />
+        <Image src={cover} alt="" width={320} height={240} fit="cover" position="center" loading="lazy" />
       </a>
     )
   }
@@ -51,7 +51,7 @@ const cover = post.data.cover;
     border-top: 1px solid var(--border);
   }
   .row.has-cover {
-    grid-template-columns: 5.5rem 1fr 5.5rem;
+    grid-template-columns: 5.5rem 1fr 8rem;
   }
   .date {
     padding-top: 0.55em;
@@ -60,21 +60,36 @@ const cover = post.data.cover;
   .thumb {
     display: block;
     align-self: start;
-    width: 5.5rem;
-    aspect-ratio: 1;
+    width: 8rem;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
+    background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: 0.8rem;
+    box-shadow: 0 4px 14px rgb(15 19 24 / 0.12);
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
   }
   .thumb img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.25s ease;
+    transition: transform 0.35s ease;
   }
-  .thumb:hover img {
-    transform: scale(1.04);
+  .row:has(.thumb):hover .thumb {
+    border-color: var(--accent);
+    box-shadow: 0 8px 22px rgb(15 19 24 / 0.18);
+    transform: translateY(-2px);
+  }
+  .row:has(.thumb):hover .thumb img {
+    transform: scale(1.06);
+  }
+  .row:has(.title a:focus-visible) .thumb {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
   }
   .title {
     font-size: var(--step-1);
@@ -111,7 +126,7 @@ const cover = post.data.cover;
       gap: var(--space-1);
     }
     .row.has-cover {
-      grid-template-columns: 1fr 4.5rem;
+      grid-template-columns: 1fr 5.25rem;
       gap: var(--space-2) var(--space-3);
     }
     .row.has-cover .date {
@@ -123,10 +138,17 @@ const cover = post.data.cover;
     .row.has-cover .thumb {
       grid-column: 2;
       grid-row: 2;
-      width: 4.5rem;
+      width: 5.25rem;
     }
     .date {
       padding-top: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .thumb,
+    .thumb img {
+      transition: none;
     }
   }
 </style>

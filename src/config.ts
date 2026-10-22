@@ -9,6 +9,8 @@ export const SITE = {
   links: {
     github: 'https://github.com/musithang',
     sdrtop: 'https://github.com/musithang/sdrtop',
+    x: 'https://x.com/lszlvctr',
+    linkedin: 'https://www.linkedin.com/in/viktorlaszlo/',
   },
   /** Posts older than this get a [STALE] banner unless `evergreen: true`. */
   staleAfterMonths: 18,

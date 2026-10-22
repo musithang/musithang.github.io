@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import { SITE } from '../config';
 import { absoluteUrl } from '../lib/site';
+import SocialLinks from '../components/SocialLinks.astro';
 ---
 
 <Base
@@ -15,7 +16,7 @@ import { absoluteUrl } from '../lib/site';
     givenName: 'Viktor',
     familyName: 'László',
     url: absoluteUrl('/about/'),
-    sameAs: [SITE.links.github],
+    sameAs: [SITE.links.github, SITE.links.x, SITE.links.linkedin],
   }}
 >
   <PageHead
@@ -70,8 +71,8 @@ import { absoluteUrl } from '../lib/site';
     </p>
 
     <h2>Say hi</h2>
+    <SocialLinks />
     <ul>
-      <li><a class="external" href={SITE.links.github}>GitHub: {SITE.handle}</a></li>
       <li><a href="mailto:viktor.laszlo92@protonmail.com">viktor.laszlo92@protonmail.com</a></li>
       <li><a href="/rss.xml">RSS feed</a>, if you like new posts to come to you</li>
     </ul>

@@ -1,0 +1,84 @@
+---
+import { SITE } from '../config';
+---
+
+<nav class="social-links" aria-label="Social links">
+  <a class="social-link" href={SITE.links.github}>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.1c-3.1.68-3.76-1.32-3.76-1.32-.5-1.3-1.24-1.65-1.24-1.65-1.02-.7.08-.69.08-.69 1.12.08 1.71 1.15 1.71 1.15 1 1.7 2.61 1.2 3.25.92.1-.73.4-1.2.71-1.48-2.47-.28-5.07-1.24-5.07-5.5 0-1.21.43-2.2 1.15-2.97-.12-.28-.5-1.41.11-2.94 0 0 .94-.3 3.06 1.14a10.65 10.65 0 0 1 5.57 0c2.12-1.44 3.05-1.14 3.05-1.14.61 1.53.23 2.66.12 2.94.71.77 1.14 1.76 1.14 2.97 0 4.27-2.6 5.21-5.08 5.49.4.35.76 1.02.76 2.06v3.12c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"
+      />
+    </svg>
+    <span>GitHub</span>
+  </a>
+  <a class="social-link" href={SITE.links.x}>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M18.9 2H22l-6.78 7.75L23.2 22h-6.25l-4.9-7.42L5.56 22H2.42l7.25-8.29L1.8 2h6.41l4.43 6.77L18.9 2Zm-1.1 18h1.73L7.28 3.88H5.42L17.8 20Z"
+      />
+    </svg>
+    <span>MusiThang (@lszlvctr) / X</span>
+  </a>
+  <a class="social-link" href={SITE.links.linkedin}>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.93 18.9H4.98V9.4h2.95v9.5ZM6.46 8.1a1.71 1.71 0 1 1 .02-3.42 1.71 1.71 0 0 1-.02 3.42Zm12.45 10.8h-2.94v-4.62c0-1.1-.02-2.52-1.54-2.52-1.55 0-1.79 1.2-1.79 2.44v4.7H9.7V9.4h2.82v1.3h.04c.4-.75 1.35-1.54 2.78-1.54 2.97 0 3.52 1.95 3.52 4.48v5.26Z"
+      />
+    </svg>
+    <span>Laszlo Viktor | LinkedIn</span>
+  </a>
+</nav>
+
+<style>
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 2.75rem;
+    padding: 0.55rem 0.9rem;
+    color: var(--text);
+    font-size: var(--step--1);
+    font-weight: 600;
+    text-decoration: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    transition:
+      color 0.18s ease,
+      background-color 0.18s ease,
+      border-color 0.18s ease,
+      transform 0.18s ease;
+  }
+
+  .social-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .social-link:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  .social-link svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .social-link {
+      transition: none;
+    }
+  }
+</style>

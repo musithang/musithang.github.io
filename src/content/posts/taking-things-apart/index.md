@@ -7,7 +7,7 @@ tags: [about, rust, sdr, dsp, personal]
 project: sdrtop
 evergreen: true
 cover: ./image/cover.jpg
-coverAlt: "Cover illustration for Taking Things Apart"
+coverAlt: "Illustration of a child exploring radios and electronics at a workbench"
 draft: false
 ---
 

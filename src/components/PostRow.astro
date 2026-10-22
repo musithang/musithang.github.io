@@ -1,5 +1,6 @@
 ---
 import { render } from 'astro:content';
+import { Image } from 'astro:assets';
 import { day, type Post } from '../lib/posts';
 import KindBadge from './KindBadge.astro';
 import TagList from './TagList.astro';
@@ -16,9 +17,10 @@ const { post, fullDate = false, level = 3 } = Astro.props;
 const Title = `h${level}` as 'h2' | 'h3';
 const { remarkPluginFrontmatter: meta } = await render(post);
 const iso = day(post.data.date);
+const cover = post.data.cover;
 ---
 
-<li class="row" data-kind={post.data.kind}>
+<li class="row" data-kind={post.data.kind} class:list={[{ 'has-cover': Boolean(cover) }]}>
   <time class="mono-label date" datetime={iso}>{fullDate ? iso : iso.slice(5)}</time>
   <div class="body">
     <Title class="title"><a href={`/posts/${post.id}/`}>{post.data.title}</a></Title>
@@ -31,6 +33,13 @@ const iso = day(post.data.date);
     </p>
     <TagList tags={post.data.tags} />
   </div>
+  {
+    cover && (
+      <a class="thumb" href={`/posts/${post.id}/`} aria-hidden="true" tabindex="-1">
+        <Image src={cover} alt="" width={160} height={160} fit="cover" position="center" loading="lazy" />
+      </a>
+    )
+  }
 </li>
 
 <style>
@@ -41,9 +50,31 @@ const iso = day(post.data.date);
     padding-block: var(--space-4);
     border-top: 1px solid var(--border);
   }
+  .row.has-cover {
+    grid-template-columns: 5.5rem 1fr 5.5rem;
+  }
   .date {
     padding-top: 0.55em;
     white-space: nowrap;
+  }
+  .thumb {
+    display: block;
+    align-self: start;
+    width: 5.5rem;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.25s ease;
+  }
+  .thumb:hover img {
+    transform: scale(1.04);
   }
   .title {
     font-size: var(--step-1);
@@ -78,6 +109,21 @@ const iso = day(post.data.date);
     .row {
       grid-template-columns: 1fr;
       gap: var(--space-1);
+    }
+    .row.has-cover {
+      grid-template-columns: 1fr 4.5rem;
+      gap: var(--space-2) var(--space-3);
+    }
+    .row.has-cover .date {
+      grid-column: 1 / -1;
+    }
+    .row.has-cover .body {
+      grid-column: 1;
+    }
+    .row.has-cover .thumb {
+      grid-column: 2;
+      grid-row: 2;
+      width: 4.5rem;
     }
     .date {
       padding-top: 0;
